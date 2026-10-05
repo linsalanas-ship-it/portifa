@@ -328,7 +328,11 @@ p { margin: 0; }
 .projeto__navegacao a { text-decoration: none; }
 .projeto__navegacao a:hover { text-decoration: underline; text-underline-offset: 0.2em; }
 
-/* ===================== Abertura (headers 1 e 2) ===================== */
+/* ===================== Abertura (headers 1, 2 e 3) =====================
+   Cada tela entra em etapas: primeiro a cor, depois o conteúdo.
+   O main.js vai acrescentando as classes na ordem:
+   intro--cor-1 → intro--conteudo-1 → intro--cor-2 → intro--conteudo-2 →
+   intro--fim (revela o header 3) → hero-visivel → menu-visivel           */
 .intro { display: none; }
 .com-intro body { overflow: hidden; }
 .com-intro .intro {
@@ -337,6 +341,7 @@ p { margin: 0; }
   inset: 0;
   z-index: 20;
   cursor: pointer;
+  background: var(--rosa);
   transition: opacity 0.7s ease;
 }
 .intro__tela {
@@ -346,12 +351,46 @@ p { margin: 0; }
   justify-content: center;
   align-items: center;
   padding: 0 var(--lateral);
+  opacity: 0;
   transition: opacity 0.7s ease;
 }
-.intro__tela--2 { opacity: 0; }
+.intro__tela > * {
+  opacity: 0;
+  transform: translateY(0.6rem);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
 .intro__tela--1 .titulo { line-height: 1.08; }
-.intro--passo-2 .intro__tela--2 { opacity: 1; }
+
+.intro--cor-1 .intro__tela--1,
+.intro--cor-2 .intro__tela--2 { opacity: 1; }
+.intro--conteudo-1 .intro__tela--1 > *,
+.intro--conteudo-2 .intro__tela--2 > * { opacity: 1; transform: none; }
 .intro--fim { opacity: 0; pointer-events: none; }
+
+/* Rostinho: balança a cabeça e o traço "treme" como desenho à mão */
+.rosto-animado {
+  display: block;
+  filter: url(#rabisco);
+}
+.rosto-animado .rosto {
+  transform-origin: 50% 85%;
+  animation: balanca 1.6s ease-in-out infinite;
+}
+@keyframes balanca {
+  0%, 100% { transform: rotate(-7deg); }
+  50% { transform: rotate(7deg) translateX(0.25rem); }
+}
+
+/* Header 3: o título e depois o menu aparecem quando a abertura termina */
+.com-intro .hero > *,
+.com-intro .menu {
+  opacity: 0;
+  transform: translateY(0.6rem);
+  transition: opacity 0.8s ease, transform 0.8s ease, background-color 0.3s, color 0.3s;
+}
+.com-intro .hero .subtitulo { transition-delay: 0.25s; }
+.com-intro.hero-visivel .hero > *,
+.com-intro.menu-visivel .menu { opacity: 1; transform: none; }
 
 /* ===================== Responsivo ===================== */
 @media (max-width: 900px) {
@@ -383,4 +422,6 @@ p { margin: 0; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { transition-duration: 0.01ms !important; }
+  .rosto-animado { filter: none; }
+  .rosto-animado .rosto { animation: none; }
 }

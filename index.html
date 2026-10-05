@@ -25,9 +25,19 @@
       <p class="titulo" data-campo="abertura.frase"></p>
     </div>
     <div class="intro__tela intro__tela--2 tema-rosa">
-      <span class="rosto"></span>
+      <span class="rosto-animado"><span class="rosto"></span></span>
     </div>
   </div>
+
+  <!-- Filtro que faz o traço do rosto "tremer" como desenho à mão -->
+  <svg class="sr" aria-hidden="true" focusable="false">
+    <filter id="rabisco" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="1">
+        <animate attributeName="seed" values="1;4;7;10" dur="0.5s" calcMode="discrete" repeatCount="indefinite"/>
+      </feTurbulence>
+      <feDisplacementMap in="SourceGraphic" scale="5" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </svg>
 
   <nav class="menu" id="menu" aria-label="Principal">
     <a href="#projetos">projetos</a>

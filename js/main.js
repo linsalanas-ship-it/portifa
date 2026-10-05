@@ -153,26 +153,43 @@
     }
     var timers = [];
     var encerrada = false;
+    var eventos = ["click", "keydown", "wheel", "touchstart"];
 
-    function encerrar() {
+    function depois(ms, fn) {
+      timers.push(setTimeout(fn, ms));
+    }
+    function etapa(classe) {
+      return function () { intro.classList.add(classe); };
+    }
+
+    // Termina a abertura: revela o header 3, depois o título, depois o menu.
+    // "pulou" = a pessoa clicou/rolou, então tudo acontece mais rápido.
+    function encerrar(pulou) {
       if (encerrada) return;
       encerrada = true;
       timers.forEach(clearTimeout);
-      intro.classList.add("intro--fim");
+      eventos.forEach(function (ev) { window.removeEventListener(ev, pular); });
       try { sessionStorage.setItem("introVista", "1"); } catch (e) {}
-      setTimeout(function () {
-        raiz.classList.remove("com-intro");
-        intro.remove();
-      }, 700);
-      ["click", "keydown", "wheel", "touchstart"].forEach(function (ev) {
-        window.removeEventListener(ev, encerrar);
-      });
-    }
 
-    timers.push(setTimeout(function () { intro.classList.add("intro--passo-2"); }, 2400));
-    timers.push(setTimeout(encerrar, 4800));
-    ["click", "keydown", "wheel", "touchstart"].forEach(function (ev) {
-      window.addEventListener(ev, encerrar, { passive: true });
+      intro.classList.add("intro--fim");
+      var t = pulou ? 300 : 700;
+      setTimeout(function () { raiz.classList.add("hero-visivel"); }, t);
+      setTimeout(function () { raiz.classList.add("menu-visivel"); }, t + (pulou ? 200 : 700));
+      setTimeout(function () {
+        raiz.classList.remove("com-intro", "hero-visivel", "menu-visivel");
+        intro.remove();
+      }, t + 1700);
+    }
+    function pular() { encerrar(true); }
+
+    // Header 1: cor → frase. Header 2: cor → rostinho. Depois, header 3.
+    depois(60, etapa("intro--cor-1"));
+    depois(900, etapa("intro--conteudo-1"));
+    depois(3100, etapa("intro--cor-2"));
+    depois(3900, etapa("intro--conteudo-2"));
+    depois(7000, function () { encerrar(false); });
+    eventos.forEach(function (ev) {
+      window.addEventListener(ev, pular, { passive: true });
     });
   }
 
