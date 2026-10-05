@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Alana Lins — jornalista, estrategista e redatora</title>
+  <meta name="description" content="Alana Lins: jornalista, estrategista e redatora. Estratégia de marca, identidade verbal, conteúdo e copywriting.">
+  <meta name="theme-color" content="#0000EC">
+  <link rel="preload" href="assets/fonts/Switzer-Regular.otf" as="font" type="font/otf" crossorigin>
+  <link rel="preload" href="assets/fonts/Retrogression-Regular.otf" as="font" type="font/otf" crossorigin>
+  <link rel="stylesheet" href="css/style.css">
+  <script>
+    // Decide antes de pintar a página se a abertura (headers 1 e 2) deve rodar.
+    try {
+      if (!location.hash && !sessionStorage.getItem("introVista")) {
+        document.documentElement.classList.add("com-intro");
+      }
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <!-- Headers 1 e 2: abertura em sequência -->
+  <div class="intro" id="intro" aria-hidden="true">
+    <div class="intro__tela intro__tela--1 tema-azul">
+      <p class="titulo" data-campo="abertura.frase"></p>
+    </div>
+    <div class="intro__tela intro__tela--2 tema-rosa">
+      <span class="rosto"></span>
+    </div>
+  </div>
+
+  <nav class="menu" id="menu" aria-label="Principal">
+    <a href="#projetos">projetos</a>
+    <a href="#sobre">sobre</a>
+    <a href="#contato">contato</a>
+    <a href="#" data-loja target="_blank" rel="noopener">loja</a>
+  </nav>
+
+  <main>
+    <!-- Header 3 -->
+    <header class="secao hero tema-azul" id="inicio">
+      <h1 class="titulo" data-campo="abertura.nome"></h1>
+      <p class="subtitulo" data-campo="abertura.descricao"></p>
+    </header>
+
+    <section class="secao projetos tema-rosa" id="projetos">
+      <h2 class="titulo" data-campo="secaoProjetos.titulo"></h2>
+      <p class="subtitulo" data-campo="secaoProjetos.descricao"></p>
+      <ul class="grade" id="grade-projetos"></ul>
+    </section>
+
+    <section class="secao sobre tema-rosa" id="sobre">
+      <span class="rosto rosto--sobre" aria-hidden="true"></span>
+      <h2 class="titulo" data-campo="sobre.titulo"></h2>
+      <div class="texto" id="sobre-texto"></div>
+    </section>
+
+    <section class="secao servicos tema-azul" id="servicos">
+      <h2 class="titulo" data-campo="servicos.titulo"></h2>
+      <ul class="lista" id="lista-servicos"></ul>
+    </section>
+
+    <section class="secao contato tema-azul" id="contato">
+      <h2 class="titulo" data-campo="contato.titulo"></h2>
+      <form class="form" id="form-contato">
+        <label class="campo">
+          <span class="sr">nome</span>
+          <input type="text" name="nome" placeholder="nome" autocomplete="name" required>
+        </label>
+        <label class="campo">
+          <span class="sr">e-mail</span>
+          <input type="email" name="email" placeholder="e-mail" autocomplete="email" required>
+        </label>
+        <label class="campo campo--largo">
+          <span class="sr">mensagem</span>
+          <textarea name="mensagem" placeholder="mensagem" rows="6" required></textarea>
+        </label>
+        <div class="form__rodape">
+          <p class="form__status" id="form-status" role="status"></p>
+          <button type="submit" class="botao">enviar</button>
+        </div>
+      </form>
+      <p class="contato__links" id="contato-links"></p>
+    </section>
+  </main>
+
+  <script src="js/conteudo.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
