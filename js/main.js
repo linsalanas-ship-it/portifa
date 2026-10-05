@@ -86,6 +86,8 @@
     }).join("");
 
     $("sobre-texto").innerHTML = paragrafos(SITE.sobre.texto);
+    if (SITE.sobre.foto) $("sobre-foto").src = SITE.sobre.foto;
+    else $("sobre-foto").remove();
 
     $("lista-servicos").innerHTML = SITE.servicos.lista.map(function (s) {
       return "<li>" + formatar(s) + "</li>";

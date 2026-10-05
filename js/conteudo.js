@@ -34,7 +34,7 @@ const SITE = {
       id: "cieli",
       titulo: "CIELI",
       resumo: "copywriting e redação criativa para agência de viagens de luxo",
-      capa: "assets/img/placeholder-capa.jpg", // imagem vertical (grade de projetos)
+      capa: "assets/img/placeholder-capa.png", // imagem vertical (grade de projetos)
       banner: "assets/img/placeholder-banner.jpg", // imagem larga (topo da página do projeto)
       texto: [
         "Lorem ipsum dolor sit amet consectetur. Interdum tincidunt elit ut non phasellus. Consequat est diam fermentum aliquam amet nibh. Maecenas porttitor morbi nunc sit risus. Morbi id morbi leo urna id pharetra. Blandit ut est non cras lectus viverra tellus elementum. Mauris nunc bibendum senectus blandit eu lorem. Molestie tortor dui at nisl malesuada commodo viverra. Lacus ornare dictum faucibus sed sit vitae in.",
@@ -47,7 +47,7 @@ const SITE = {
       id: "j-simoes",
       titulo: "J. SIMÕES",
       resumo: "produção de conteúdo para lançamento comercial",
-      capa: "assets/img/placeholder-capa.jpg",
+      capa: "assets/img/placeholder-capa.png",
       banner: "assets/img/placeholder-banner.jpg",
       texto: [
         "Lorem ipsum dolor sit amet consectetur. Interdum tincidunt elit ut non phasellus. Consequat est diam fermentum aliquam amet nibh. Maecenas porttitor morbi nunc sit risus. Morbi id morbi leo urna id pharetra. Blandit ut est non cras lectus viverra tellus elementum. Mauris nunc bibendum senectus blandit eu lorem.",
@@ -60,10 +60,11 @@ const SITE = {
 
   /* ---------- Seção Sobre mim ---------- */
   sobre: {
-    titulo: "[A]LANA, [L]ANA, [L]ANINHA",
+    titulo: "ALANA, LANA, LANINHA",
+    foto: "assets/img/placeholder-sobre.jpg", // imagem vertical ao lado do texto
     texto: [
-      "Lorem ipsum dolor sit amet consectetur. Interdum tincidunt elit ut non phasellus. Consequat est diam fermentum aliquam amet nibh. Maecenas porttitor morbi nunc sit risus. Morbi id morbi leo urna id pharetra.",
-      "Blandit ut est non cras lectus viverra tellus elementum. Mauris nunc bibendum senectus blandit eu lorem. Molestie tortor dui at nisl malesuada commodo viverra.",
+      "Lorem ipsum dolor sit amet consectetur. Interdum tincidunt elit ut non phasellus. Consequat est diam fermentum aliquam amet nibh. Maecenas porttitor morbi nunc sit risus. Morbi id morbi leo urna id pharetra. Blandit ut est non cras lectus viverra tellus elementum. Mauris nunc bibendum senectus blandit eu lorem. Molestie tortor dui at nisl malesuada commodo viverra. Lacus ornare dictum faucibus sed sit vitae in.",
+      "Quis ultricies et mi diam ac. Odio tellus pulvinar neque bibendum senectus pellentesque nisl proin. Ullamcorper laoreet tincidunt vel urna sit diam nibh vitae. Ut tristique nisi orci adipiscing dictumst faucibus elementum. Posuere potenti id curabitur sem. Neque augue non non aenean euismod adipiscing mollis.",
     ],
   },
 

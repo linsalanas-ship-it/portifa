@@ -183,18 +183,31 @@ p { margin: 0; }
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: calc(var(--menu-h) + 4rem);
-  padding-bottom: 7rem;
+  padding-top: calc(var(--menu-h) + 5.5rem);
+  padding-bottom: 8rem;
+}
+.sobre__conteudo {
+  width: 100%;
+  max-width: 66.375rem; /* ~1062px */
+  margin-top: clamp(2.5rem, 6vw, 6.25rem);
+  display: grid;
+  grid-template-columns: 41.8% 1fr;
+  column-gap: clamp(1.5rem, 3vw, 2.4rem);
+  align-items: start;
+}
+.sobre__foto {
+  width: 100%;
+  aspect-ratio: 444 / 555;
+  object-fit: cover;
 }
 .sobre .texto {
-  max-width: 40rem;
-  margin-top: 2.25rem;
+  padding-top: clamp(0rem, 4vw, 3rem);
   font-size: var(--t-sub);
-  line-height: 1.3;
-  text-align: center;
+  line-height: 1.04;
 }
+.sobre .texto p + p { margin-top: 0.85em; }
 
-/* Rosto (headers 2 e Sobre). Usa a imagem como máscara para herdar a cor do tema. */
+/* Rosto (header 2). Usa a imagem como máscara para herdar a cor do tema. */
 .rosto {
   display: block;
   width: clamp(8.5rem, 12vw, 9.5rem);
@@ -202,10 +215,6 @@ p { margin: 0; }
   background-color: currentColor;
   -webkit-mask: url("../assets/img/rosto.png") center / contain no-repeat;
   mask: url("../assets/img/rosto.png") center / contain no-repeat;
-}
-.rosto--sobre {
-  width: clamp(7rem, 10vw, 8.5rem);
-  margin-bottom: 2.5rem;
 }
 
 /* O que eu faço */
@@ -350,6 +359,10 @@ p { margin: 0; }
   .card img { width: 100%; }
   .card__info { max-width: none; gap: 0.5em; }
   .card:nth-child(even) { margin-top: 5rem; }
+
+  .sobre__conteudo { grid-template-columns: 1fr; row-gap: 2rem; max-width: 34rem; }
+  .sobre__foto { width: 75%; max-width: 22rem; margin: 0 auto; }
+  .sobre .texto { padding-top: 0; line-height: 1.2; }
 }
 
 @media (max-width: 600px) {
