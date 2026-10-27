@@ -277,7 +277,6 @@ p { margin: 0; }
   background: var(--rosa);
   border: 2px solid var(--rosa);
   border-radius: 0;
-  cursor: pointer;
   transition: background-color 0.2s, color 0.2s;
 }
 .botao:hover { background: transparent; color: var(--rosa); }
@@ -340,7 +339,6 @@ p { margin: 0; }
   position: fixed;
   inset: 0;
   z-index: 20;
-  cursor: pointer;
   background: var(--rosa);
   transition: opacity 0.7s ease;
 }
@@ -391,6 +389,25 @@ p { margin: 0; }
 .com-intro .hero .subtitulo { transition-delay: 0.25s; }
 .com-intro.hero-visivel .hero > *,
 .com-intro.menu-visivel .menu { opacity: 1; transform: none; }
+
+/* ===================== Lápis ===================== */
+/* Cursor em forma de lápis; a ponta (canto inferior esquerdo) é o ponto do clique */
+html {
+  --lapis: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><g stroke='%230000EC' stroke-width='1.5' stroke-linejoin='round'><path d='M3 29 5.6 21.4 22 5 27 10 10.6 26.4Z' fill='%23FAE7EC'/><path d='M22 5 24.6 2.4Q25.5 1.5 26.4 2.4L29.6 5.6Q30.5 6.5 29.6 7.4L27 10Z' fill='%23FAE7EC'/><path d='M20.4 6.6 25.4 11.6' fill='none'/><path d='M5.6 21.4 10.6 26.4' fill='none'/><path d='M3 29 4.1 25.6 6.4 27.9Z' fill='%230000EC'/></g></svg>") 3 29;
+  cursor: var(--lapis), auto;
+}
+a, button, label, .intro, .card a { cursor: var(--lapis), pointer; }
+input, textarea { cursor: var(--lapis), text; }
+
+/* Rastro de escrita (desenhado pelo js/lapis.js) */
+.rastro {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 30;
+  pointer-events: none;
+}
 
 /* ===================== Responsivo ===================== */
 @media (max-width: 900px) {
