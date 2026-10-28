@@ -294,7 +294,7 @@ const SITE = {
 
   /* ---------- Seção Sobre mim ---------- */
   sobre: {
-    titulo: "ALANA, LA[N]A, LANINHA",
+    titulo: "ALANA, LANA, LANIN[H]A",
     foto: "assets/img/placeholder-sobre.jpg", // imagem vertical ao lado do texto
     texto: [
       "Lorem ipsum dolor sit amet consectetur. Interdum tincidunt elit ut non phasellus. Consequat est diam fermentum aliquam amet nibh. Maecenas porttitor morbi nunc sit risus. Morbi id morbi leo urna id pharetra. Blandit ut est non cras lectus viverra tellus elementum. Mauris nunc bibendum senectus blandit eu lorem. Molestie tortor dui at nisl malesuada commodo viverra. Lacus ornare dictum faucibus sed sit vitae in.",
@@ -317,7 +317,7 @@ const SITE = {
 
   /* ---------- Seção Contato ---------- */
   contato: {
-    titulo: "VAMOS CO[L]ABORAR?",
+    titulo: "VAMOS COLAB[O]RAR?",
     email: "seuemail@exemplo.com", // troque pelo seu e-mail — as mensagens do formulário vão para este e-mail
     // Opcional: para o formulário enviar sem abrir o programa de e-mail,
     // crie um formulário grátis em https://formspree.io e cole o link aqui
