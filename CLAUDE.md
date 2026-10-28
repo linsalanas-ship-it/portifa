@@ -36,7 +36,8 @@ Princípios que valem para todo projeto:
    **Capitular só em parágrafo com 3 linhas ou mais** — automático (`ajustarCapitulares` em
    `main.js` mede o primeiro parágrafo de cada bloco e recalcula quando a tela muda de tamanho).
    Subseções paralelas (ex.: Manifesto, Tagline, Chamadas…) vão juntas num `itens` em duas
-   colunas; as imagens dessas subseções vêm depois, uma após a outra.
+   colunas; as imagens dessas subseções vêm depois, uma após a outra, todas com a mesma largura
+   (`wide`). Imagens em sequência ficam mais próximas (espaço `--entre-imagens` no CSS).
 4. **Fotos sempre inteiras**: nunca cortar nem esticar; `foto` respeita a proporção e cabe na tela.
    Fotos horizontais boas → `foto` ou `foto-texto`; pares de detalhes → `fotos`; uma foto pequena
    para quebrar o ritmo → `foto-solta` (alternar `lado`); peças verticais (posts, e-mails) →
