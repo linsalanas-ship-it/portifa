@@ -412,7 +412,8 @@ body { overflow-x: clip; } /* fotos de ponta a ponta não criam rolagem lateral 
 }
 /* foto sempre inteira: ocupa a largura toda, mas nunca passa da altura da tela
    (nesse caso fica centralizada, sem cortar nem distorcer) */
-.bloco--foto img {
+.bloco--foto img,
+.bloco--foto video {
   width: auto;
   max-width: 100%;
   height: auto;
@@ -424,7 +425,9 @@ body { overflow-x: clip; } /* fotos de ponta a ponta não criam rolagem lateral 
 /* "wide": ocupa a largura do conteúdo, sem ir de ponta a ponta da tela */
 .bloco--foto.bloco--wide { width: 100%; margin-left: 0; }
 /* a foto wide ocupa exatamente a largura do texto, para as bordas baterem */
-.bloco--foto.bloco--wide img { width: 100%; max-height: none; }
+.bloco--foto.bloco--wide img,
+.bloco--foto.bloco--wide video { width: 100%; max-height: none; }
+.bloco--foto video { display: block; }
 .bloco--foto.bloco--wide figcaption { padding: 0; }
 
 /* duas fotos lado a lado */

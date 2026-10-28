@@ -65,6 +65,8 @@ Variações bem-vindas conforme o material: começar por `foto-texto` em vez de 
 
 - Ficam em `assets/img/<id-do-projeto>/`. Converter para JPG (qualidade ~88) com ImageMagick.
 - A `capa` da grade é vertical (~3:4): recortar do material, sem bordas de fundo.
+- GIFs: converter para .mp4 sem som (ffmpeg, H.264, ~1920px, crf ~23, `-movflags +faststart`) e também .webm com o mesmo nome (VP9, crf ~36); usar
+  `animacao` no bloco `foto`, com um .jpg do primeiro quadro em `src`.
 - Avisar a Alana quando a foto for pequena (< ~1400px de largura) e pedir o original.
 
 ## Ao mudar CSS ou JS

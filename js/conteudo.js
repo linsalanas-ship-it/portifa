@@ -27,6 +27,9 @@
          duas colunas (uma no celular), com capitular — só para listas
      { tipo: "foto", src: "assets/img/...", legenda: "opcional" }
          foto de ponta a ponta da tela (sempre inteira, sem cortar)
+     { tipo: "foto", src: "assets/img/....jpg", animacao: "assets/img/....mp4" }
+         foto animada (como um gif): o vídeo .mp4 toca sozinho, sem som e em
+         repetição; a foto .jpg aparece enquanto ele carrega
      { tipo: "foto", largura: "wide", src: "assets/img/..." }
          foto na largura do texto da página, sem ir até as bordas da tela
      { tipo: "fotos", src: ["assets/img/a.jpg", "assets/img/b.jpg"] }
@@ -81,7 +84,7 @@ const SITE = {
       capa: "assets/img/purpose-paper/capa-grade.jpg",
       subtitulo: "estratégia de marca e identidade verbal",
       blocos: [
-        { tipo: "foto", src: "assets/img/purpose-paper/abertura.jpg" },
+        { tipo: "foto", src: "assets/img/purpose-paper/abertura.jpg", animacao: "assets/img/purpose-paper/abertura.mp4" },
         {
           tipo: "lide",
           texto: [

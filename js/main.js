@@ -2,6 +2,8 @@
 (function () {
   "use strict";
 
+  var menosMovimento = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
   // ---------- utilidades ----------
   function escapar(texto) {
     return String(texto)
@@ -200,8 +202,18 @@
         return '<div class="bloco bloco--texto' + variacao + '">' +
           paragrafos(b.texto) + "</div>";
       case "foto":
+        // com "animacao", a foto vira um vídeo curto que toca sozinho, sem som e em repetição
+        // (como um gif); a foto aparece enquanto ele carrega e para quem prefere menos movimento
+        var conteudo = b.animacao && !menosMovimento
+          ? '<figure><video poster="' + escapar(b.src) + '"' +
+            ' autoplay muted loop playsinline preload="auto" aria-label="' + escapar(b.legenda || "") + '">' +
+            // uma versão .webm com o mesmo nome, se existir, é usada pelos navegadores que preferem esse formato
+            '<source src="' + escapar(b.animacao.replace(/\.mp4$/i, ".webm")) + '" type="video/webm">' +
+            '<source src="' + escapar(b.animacao) + '" type="video/mp4"></video>' +
+            (b.legenda ? "<figcaption>" + formatar(b.legenda) + "</figcaption>" : "") + "</figure>"
+          : figura(b.src, b.legenda);
         return '<div class="bloco bloco--foto' + (b.largura === "wide" ? " bloco--wide" : "") + '">' +
-          figura(b.src, b.legenda) + "</div>";
+          conteudo + "</div>";
       case "fotos":
         return '<div class="bloco bloco--fotos">' + [].concat(b.src).map(function (src, i) {
           return figura(src, b.legendas && b.legendas[i]);
