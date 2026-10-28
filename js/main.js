@@ -335,6 +335,9 @@
       };
     });
     var escolhida = null;
+    // o balão da descrição também é um obstáculo: as outras palavras desviam dele
+    var balao = { fixa: true, ativo: false, x: 0, y: 0, w: 0, h: 0 };
+    function parada(l) { return l === escolhida || l.fixa; }
 
     function medir() {
       var W = area.clientWidth, H = area.clientHeight;
@@ -353,7 +356,7 @@
 
     function pintar(t) {
       letras.forEach(function (l) {
-        var giro = menosMovimento ? 0 : Math.sin(t / 1400 + l.fase) * 4;
+        var giro = menosMovimento || l === escolhida ? 0 : Math.sin(t / 1400 + l.fase) * 4;
         l.el.style.transform = "translate(" + l.x.toFixed(1) + "px," + l.y.toFixed(1) + "px) rotate(" + giro.toFixed(2) + "deg)";
       });
     }
@@ -374,9 +377,10 @@
         if (l.y > H - l.h) { l.y = Math.max(H - l.h, 0); l.vy = -Math.abs(l.vy); }
       });
       // palavras que se encostam se afastam devagar, como letrinhas no caldo
-      for (var i = 0; i < letras.length; i++) {
-        for (var j = i + 1; j < letras.length; j++) {
-          var a = letras[i], b = letras[j];
+      var corpos = balao.ativo ? letras.concat([balao]) : letras;
+      for (var i = 0; i < corpos.length; i++) {
+        for (var j = i + 1; j < corpos.length; j++) {
+          var a = corpos[i], b = corpos[j];
           var sx = Math.min(a.x + a.w, b.x + b.w) - Math.max(a.x, b.x);
           var sy = Math.min(a.y + a.h, b.y + b.h) - Math.max(a.y, b.y);
           if (sx > 0 && sy > 0) {
@@ -384,12 +388,12 @@
             var dir;
             if (empurra) {
               dir = a.y < b.y ? -1 : 1;
-              if (a !== escolhida) { a.vy = dir * Math.abs(a.vy); a.y += dir * sy / 2; }
-              if (b !== escolhida) { b.vy = -dir * Math.abs(b.vy); b.y -= dir * sy / 2; }
+              if (!parada(a)) { a.vy = dir * Math.abs(a.vy); a.y += dir * sy / 2; }
+              if (!parada(b)) { b.vy = -dir * Math.abs(b.vy); b.y -= dir * sy / 2; }
             } else {
               dir = a.x < b.x ? -1 : 1;
-              if (a !== escolhida) { a.vx = dir * Math.abs(a.vx); a.x += dir * sx / 2; }
-              if (b !== escolhida) { b.vx = -dir * Math.abs(b.vx); b.x -= dir * sx / 2; }
+              if (!parada(a)) { a.vx = dir * Math.abs(a.vx); a.x += dir * sx / 2; }
+              if (!parada(b)) { b.vx = -dir * Math.abs(b.vx); b.x -= dir * sx / 2; }
             }
           }
         }
@@ -411,23 +415,42 @@
       }
       if (!l || l === escolhida) {
         escolhida = null;
+        balao.ativo = false;
         legenda.classList.remove("sopa__descricao--visivel");
         return;
       }
       escolhida = l;
       l.el.classList.add("sopa__letra--ativa");
       l.el.setAttribute("aria-pressed", "true");
-      legenda.innerHTML = '<span class="sopa__nome">' + formatar(l.item.nome) + "</span>" + formatar(l.item.descricao || "");
+      legenda.innerHTML = formatar(l.item.descricao || "");
+      pintar(performance.now());
+      posicionarBalao();
       legenda.classList.add("sopa__descricao--visivel");
+      balao.ativo = true;
+    }
+
+    // balão logo abaixo da palavra; se não couber embaixo, vai para cima
+    function posicionarBalao() {
+      if (!escolhida) return;
+      var l = escolhida, W = area.clientWidth, H = area.clientHeight, folga = 6;
+      legenda.style.maxWidth = Math.min(W, 352) + "px";
+      var w = legenda.offsetWidth, h = legenda.offsetHeight;
+      var x = Math.min(Math.max(l.x + l.w / 2 - w / 2, 0), Math.max(W - w, 0));
+      var y = l.y + l.h + folga;
+      var acima = false;
+      if (y + h > H) { y = Math.max(l.y - h - folga, 0); acima = true; }
+      legenda.style.transform = "translate(" + x.toFixed(1) + "px," + y.toFixed(1) + "px)";
+      legenda.classList.toggle("sopa__descricao--acima", acima);
+      balao.x = x; balao.y = y; balao.w = w; balao.h = h;
     }
     letras.forEach(function (l) {
       l.el.addEventListener("click", function (e) { e.stopPropagation(); escolher(l); });
     });
-    area.addEventListener("click", function () { escolher(null); });
+    area.addEventListener("click", function (e) { if (!legenda.contains(e.target)) escolher(null); });
 
     medir();
     pintar(0);
-    window.addEventListener("resize", function () { medir(); pintar(performance.now()); });
+    window.addEventListener("resize", function () { medir(); pintar(performance.now()); posicionarBalao(); });
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { medir(); pintar(0); });
     // só anima quando a seção está na tela
     if ("IntersectionObserver" in window) {

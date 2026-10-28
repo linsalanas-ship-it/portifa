@@ -252,19 +252,27 @@ p { margin: 0; }
   text-decoration-thickness: 1px;
 }
 .sopa__letra.sopa__letra--ativa { color: var(--azul); background: var(--rosa); text-decoration: none; }
+/* balão com a descrição, logo abaixo (ou acima) da palavra clicada */
 .sopa__descricao {
-  max-width: 38rem;
-  min-height: 4.5em;
-  margin-top: 1.5rem;
-  font-size: var(--t-texto);
-  line-height: 1.4;
-  text-align: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  width: max-content;
+  margin: 0;
+  padding: 0.7em 0.9em;
+  font-size: var(--t-card);
+  line-height: 1.35;
+  text-align: left;
+  color: var(--azul);
+  background: var(--rosa);
   opacity: 0;
-  transform: translateY(0.4rem);
-  transition: opacity 0.35s, transform 0.35s;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.3s, visibility 0.3s;
 }
-.sopa__descricao--visivel { opacity: 1; transform: none; }
-.sopa__nome { display: block; margin-bottom: 0.3em; font-size: var(--t-sub); }
+.sopa__descricao--visivel { opacity: 1; visibility: visible; pointer-events: auto; }
+.sopa__letra { z-index: 1; }
 
 /* Contato */
 .contato .titulo { margin-bottom: 2.25rem; }
