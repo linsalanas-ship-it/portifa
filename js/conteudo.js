@@ -40,6 +40,9 @@
          texto são todos opcionais. Os itens de "itens" aceitam os mesmos campos
      { tipo: "video", url: "https://youtu.be/..." }
          vídeo do YouTube, com link para assistir lá
+     { tipo: "galeria", titulo: "opcional", src: ["a.jpg", "b.jpg", "c.jpg"] }
+         várias imagens verticais lado a lado (até 3 por linha); no celular
+         viram um carrossel com rolagem para o lado
      { tipo: "destaque", texto: "frase em destaque" }
          citação grande, como olho de revista
      { tipo: "botao", texto: "ler o livro", url: "https://..." }
@@ -186,6 +189,16 @@ const SITE = {
           ],
         },
         { tipo: "fotos", src: ["assets/img/purpose-paper/campanha-habitos.jpg", "assets/img/purpose-paper/campanha-rotina.jpg"] },
+        {
+          tipo: "galeria",
+          titulo: "Carrosséis para redes sociais",
+          src: ["assets/img/purpose-paper/carrossel-colecao.jpg", "assets/img/purpose-paper/carrossel-refil.jpg", "assets/img/purpose-paper/carrossel-cards.jpg"],
+        },
+        {
+          tipo: "galeria",
+          titulo: "E-mail marketing",
+          src: ["assets/img/purpose-paper/email-black.jpg", "assets/img/purpose-paper/email-compre-ganhe.jpg"],
+        },
         {
           tipo: "topico",
           titulo: "Palavras sagradas",

@@ -433,6 +433,17 @@ body { overflow-x: clip; } /* fotos de ponta a ponta não criam rolagem lateral 
 .bloco--foto-solta.bloco--direita { margin-left: auto; margin-right: 5%; }
 .bloco--foto-solta.bloco--esquerda { width: 36%; margin-left: 11%; }
 
+/* galeria de peças verticais (carrosséis, e-mails...) */
+.galeria__titulo { text-align: center; margin-bottom: 1.25rem; }
+.galeria__itens {
+  display: grid;
+  grid-template-columns: repeat(var(--n, 3), minmax(0, 1fr));
+  gap: clamp(1rem, 2.5vw, 2rem);
+  align-items: start;
+  max-width: calc(var(--n, 3) * 22rem);
+  margin: 0 auto;
+}
+
 /* foto numa coluna, texto na outra */
 /* mesma grade das duas colunas de texto, para tudo alinhar */
 .bloco--foto-texto {
@@ -656,6 +667,16 @@ input, textarea { cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/
   .projeto__texto { margin-top: 2.5rem; padding: 0; line-height: 1.25; }
   .projeto__navegacao { padding: 0; flex-direction: column; }
   .bloco--fotos { grid-template-columns: 1fr; }
+  /* no celular a galeria vira um carrossel com rolagem lateral */
+  .galeria__itens {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 0.75rem;
+    margin: 0 calc(-1 * var(--lateral));
+    padding: 0 var(--lateral) 0.5rem;
+  }
+  .galeria__itens figure { flex: 0 0 78%; scroll-snap-align: center; }
   .bloco--foto-solta,
   .bloco--foto-solta.bloco--esquerda { width: 82%; }
   .bloco--foto-solta.bloco--direita { margin-right: 0; }

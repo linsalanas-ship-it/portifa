@@ -31,7 +31,8 @@ Princípios que valem para todo projeto:
    capitular — usar no parágrafo final.
 4. **Fotos sempre inteiras**: nunca cortar nem esticar; `foto` respeita a proporção e cabe na tela.
    Fotos horizontais boas → `foto` ou `foto-texto`; pares de detalhes → `fotos`; uma foto pequena
-   para quebrar o ritmo → `foto-solta` (alternar `lado`).
+   para quebrar o ritmo → `foto-solta` (alternar `lado`); peças verticais (posts, e-mails) →
+   `galeria` com `titulo`.
 5. **Projetos de estratégia/branding** (ex.: Purpose Paper) costumam ter etapas: usar `intertitulo`
    para cada etapa (com letra pixelada), `itens` para listas de achados, pilares, princípios etc.,
    e `topico` para subtópicos (com `frases` grandes ou `palavras` em linha). Vídeos: bloco `video`.

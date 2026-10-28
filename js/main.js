@@ -188,6 +188,13 @@
       case "foto-solta":
         return '<div class="bloco bloco--foto-solta bloco--' + (b.lado === "esquerda" ? "esquerda" : "direita") + '">' +
           figura(b.src, b.legenda) + "</div>";
+      case "galeria":
+        var lista = [].concat(b.src || []);
+        return '<div class="bloco bloco--galeria">' +
+          (b.titulo ? '<h4 class="item__titulo galeria__titulo">' + formatar(b.titulo) + "</h4>" : "") +
+          '<div class="galeria__itens" style="--n:' + Math.min(lista.length, 3) + '">' +
+          lista.map(function (src, i) { return figura(src, b.legendas && b.legendas[i]); }).join("") +
+          "</div></div>";
       case "foto-texto":
         return '<div class="bloco bloco--foto-texto' + (b.lado === "direita" ? " bloco--foto-direita" : "") + '">' +
           figura(b.src, b.legenda) + '<div class="bloco__texto">' + paragrafos(b.texto) + "</div></div>";
