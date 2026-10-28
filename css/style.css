@@ -358,9 +358,10 @@ body { overflow-x: clip; } /* fotos de ponta a ponta não criam rolagem lateral 
 .bloco--lide p + p { margin-top: 1em; }
 
 /* texto corrido em duas colunas, com fio separando */
+.blocos { --entre-colunas: clamp(2rem, 5vw, 4rem); }
 .bloco--texto {
   column-count: 2;
-  column-gap: clamp(2rem, 5vw, 4rem);
+  column-gap: var(--entre-colunas);
   column-rule: 1px solid rgba(0, 0, 236, 0.25);
 }
 .bloco--uma-coluna { column-count: 1; max-width: 40rem; }
@@ -398,18 +399,18 @@ body { overflow-x: clip; } /* fotos de ponta a ponta não criam rolagem lateral 
 .bloco--fotos {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: clamp(1rem, 2.5vw, 2rem);
+  gap: var(--entre-colunas);
 }
 .bloco--fotos img { aspect-ratio: 3 / 2; object-fit: cover; }
 
 /* foto numa coluna, texto na outra */
+/* mesma grade das duas colunas de texto, para tudo alinhar */
 .bloco--foto-texto {
   display: grid;
-  grid-template-columns: 1.2fr 1fr;
-  gap: clamp(2rem, 5vw, 4rem);
-  align-items: center;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--entre-colunas);
+  align-items: start;
 }
-.bloco--foto-direita { grid-template-columns: 1fr 1.2fr; }
 .bloco--foto-direita figure { order: 2; }
 
 /* olho de revista */
