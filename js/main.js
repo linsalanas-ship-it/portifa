@@ -177,7 +177,8 @@
       case "lide":
         return '<div class="bloco bloco--lide">' + paragrafos(b.texto) + "</div>";
       case "texto":
-        return '<div class="bloco bloco--texto' + (b.colunas === 1 ? " bloco--uma-coluna" : "") + '">' +
+        var variacao = b.colunas === 2 ? " bloco--duas-colunas" : b.alinhamento === "centro" ? " bloco--centro" : "";
+        return '<div class="bloco bloco--texto' + variacao + '">' +
           paragrafos(b.texto) + "</div>";
       case "foto":
         return '<div class="bloco bloco--foto' + (b.largura === "wide" ? " bloco--wide" : "") + '">' +

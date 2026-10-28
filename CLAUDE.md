@@ -8,8 +8,10 @@ Escreva para a Alana em português do Brasil, em linguagem simples.
 
 - Cores: azul `#0000EC` e rosa `#FAE7EC`. Texto rosa sobre azul, azul sobre rosa. Nada além disso
   (fotos à parte).
-- Fontes: Switzer (todo o texto) e Retrogression (pixelada) só como capitular/letra de destaque,
-  marcada em `conteudo.js` com colchetes: `"[A]LANA"`.
+- Fontes: Switzer (todo o texto) e Retrogression (pixelada). Na página inicial, a pixelada marca
+  letras de destaque nos títulos, com colchetes em `conteudo.js` (`"[A]LANA"`). **Nas páginas de
+  projeto, a Retrogression aparece só como capitular** (primeira letra dos blocos de texto) — nada
+  de colchetes em títulos, intertítulos ou itens de projeto.
 - Títulos em caixa alta; menus, subtítulos e textos em caixa baixa.
 - Páginas de projeto: fundo rosa, sem rastro de lápis (o cursor de lápis continua).
 
@@ -26,18 +28,21 @@ Princípios que valem para todo projeto:
    em poucas linhas, e o `botao` para o trabalho original quando existir.
 2. **Alternar texto e imagem**: nunca duas imagens (ou blocos de imagem) seguidas; sempre texto
    entre elas. Espalhar as fotos ao longo da página em vez de agrupá-las.
-3. **Texto corrido** em `texto` de duas colunas, com capitular pixelada. Quebrar textos longos em
-   vários blocos para intercalar com imagens. Uma coluna (`colunas: 1`) é centralizada e sem
-   capitular — usar no parágrafo final.
+3. **Texto corrido em uma coluna** por padrão (`texto`, alinhado à esquerda, com capitular).
+   **Alternar** entre alinhado à esquerda, centralizado (`alinhamento: "centro"`, sem capitular) e
+   duas colunas (`colunas: 2`, com capitular) — duas colunas só quando ajudar a leitura. Listas
+   paralelas (achados, pilares) vão em `itens`, que é em duas colunas. Quebrar textos longos em
+   vários blocos para intercalar com imagens. Parágrafo final: centralizado.
 4. **Fotos sempre inteiras**: nunca cortar nem esticar; `foto` respeita a proporção e cabe na tela.
    Fotos horizontais boas → `foto` ou `foto-texto`; pares de detalhes → `fotos`; uma foto pequena
    para quebrar o ritmo → `foto-solta` (alternar `lado`); peças verticais (posts, e-mails) →
    `galeria` com `titulo`.
 5. **Projetos de estratégia/branding** (ex.: Purpose Paper) costumam ter etapas: usar `intertitulo`
-   para cada etapa (com letra pixelada), `itens` para listas de achados, pilares, princípios etc.,
+   para cada etapa (sem letra pixelada), `itens` para listas de achados, pilares, princípios etc.,
    e `topico` para subtópicos (com `frases` grandes ou `palavras` em linha). Vídeos: bloco `video`.
    Projetos editoriais/narrativos (ex.: Oito vidas) funcionam melhor como texto corrido.
-6. **Alinhamento**: `foto-texto` e `fotos` seguem as mesmas duas colunas do texto corrido.
+6. **Alinhamento**: `foto-texto` e `fotos` seguem a mesma grade de duas colunas de `itens` e
+   `colunas: 2`.
 7. **Destaque**: no máximo um `destaque` (olho) por página, com uma frase forte tirada do próprio
    texto, perto do fim.
 8. **Fechamento**: último parágrafo em uma coluna, centralizado, e o `botao` repetido se houver link.

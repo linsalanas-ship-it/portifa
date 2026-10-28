@@ -18,10 +18,13 @@
      { tipo: "lide", texto: ["..."] }
          abertura em letra maior, uma coluna
      { tipo: "texto", texto: ["...", "..."] }
-         texto corrido em duas colunas (uma no celular); a 1ª letra do
-         bloco vira capitular pixelada
-     { tipo: "texto", colunas: 1, texto: ["..."] }
-         o mesmo, em uma coluna só
+         texto corrido em uma coluna, alinhado à esquerda, com capitular
+         pixelada na primeira letra
+     { tipo: "texto", alinhamento: "centro", texto: ["..."] }
+         uma coluna centralizada, sem capitular
+     { tipo: "texto", colunas: 2, texto: ["..."] }
+         duas colunas (uma no celular), com capitular — use quando ajudar,
+         por exemplo em listas ou textos longos
      { tipo: "foto", src: "assets/img/...", legenda: "opcional" }
          foto de ponta a ponta da tela (sempre inteira, sem cortar)
      { tipo: "foto", largura: "wide", src: "assets/img/..." }
@@ -33,8 +36,8 @@
          alternando os lados, as fotos ficam desencontradas pela página
      { tipo: "foto-texto", src: "assets/img/...", texto: ["..."], lado: "direita" }
          foto numa coluna e texto na outra (lado = onde fica a foto)
-     { tipo: "intertitulo", texto: "[E]SCUTA & DIAGNÓSTICO" }
-         título de seção dentro da página (aceita letra pixelada)
+     { tipo: "intertitulo", texto: "ESCUTA & DIAGNÓSTICO" }
+         título de seção dentro da página
      { tipo: "itens", titulo: "opcional", itens: [{ titulo: "...", texto: "..." }] }
          lista em grade de duas colunas, cada item com título e texto
      { tipo: "topico", titulo: "...", frases: ["..."], palavras: ["..."], texto: ["..."] }
@@ -85,7 +88,7 @@ const SITE = {
             "A Purpose Paper é uma papelaria e editora brasileira que ajuda mulheres a cultivar bons hábitos. Seus produtos — planners, journals, livros, cadernos e acessórios — são ferramentas úteis e belas que simplificam práticas essenciais para uma vida significativa integralmente, considerando relacionamentos, família, espiritualidade, vocação, trabalho e outras esferas.",
           ],
         },
-        { tipo: "intertitulo", texto: "[E]SCUTA & DIAGNÓSTICO" },
+        { tipo: "intertitulo", texto: "ESCUTA & DIAGNÓSTICO" },
         {
           tipo: "texto",
           texto: [
@@ -104,9 +107,10 @@ const SITE = {
             { titulo: "Barreiras de uso e percepção de valor", texto: "Muitas clientes tinham “pena” de usar os produtos por serem bonitos demais. A nova identidade verbal precisava incentivar o uso intencional e cotidiano, mostrando que papel bonito também é ferramenta — e que papel guardado não transforma hábitos." },
           ],
         },
-        { tipo: "intertitulo", texto: "[N]ARRATIVA DA MARCA" },
+        { tipo: "intertitulo", texto: "NARRATIVA DA MARCA" },
         {
           tipo: "texto",
+          colunas: 2,
           texto: [
             "Ao mergulhar na essência da Purpose Paper, entendemos que sua origem era mais do que uma história para a aba “Quem somos” — era o coração da marca.",
             "Maeli, fundadora da empresa, criou a empresa antes de casar. O que começou como uma forma de financiar essa nova etapa da vida acabou se tornando um negócio: uma marca que ajudaria outras mulheres a também realizarem seus objetivos.",
@@ -115,14 +119,14 @@ const SITE = {
         },
         {
           tipo: "texto",
-          colunas: 1,
+          alinhamento: "centro",
           texto: [
             "A força dessa percepção orientou também os ajustes no logo (e nas demais expressões visuais). A estrela, que antes representava o Propósito, passou a simbolizar também uma folha de papel. O encontro entre ferramenta e Propósito, presente e futuro.",
           ],
         },
         { tipo: "foto", largura: "wide", src: "assets/img/purpose-paper/simbolo.jpg" },
         { tipo: "destaque", texto: "É com papel (e no papel) que essas mulheres constroem a própria vida, página a página." },
-        { tipo: "intertitulo", texto: "[E]STRATÉGIA DE VOZ" },
+        { tipo: "intertitulo", texto: "ESTRATÉGIA DE VOZ" },
         {
           tipo: "texto",
           texto: [
@@ -142,10 +146,10 @@ const SITE = {
           ],
         },
         { tipo: "foto", largura: "wide", src: "assets/img/purpose-paper/tom-de-voz.jpg" },
-        { tipo: "intertitulo", texto: "[T]OM DE VOZ NA PRÁTICA" },
+        { tipo: "intertitulo", texto: "TOM DE VOZ NA PRÁTICA" },
         {
           tipo: "texto",
-          colunas: 1,
+          alinhamento: "centro",
           texto: [
             "Esses pilares se desdobram em diferentes tipos de linguagem prática, moldando a presença da marca nos pontos de contato.",
           ],
@@ -203,7 +207,7 @@ const SITE = {
         { tipo: "foto", largura: "wide", src: "assets/img/purpose-paper/loja-planners.jpg" },
         {
           tipo: "texto",
-          colunas: 1,
+          alinhamento: "centro",
           texto: [
             "O projeto foi concluído com a entrega de um brandbook detalhado e treinamentos práticos de expressão verbal e visual para o time interno. O objetivo era mais do que apresentar diretrizes: era garantir que cada pessoa envolvida com a Purpose Paper se sentisse parte da nova fase e soubesse como dar voz e forma ao Propósito da marca.",
           ],
@@ -252,6 +256,7 @@ const SITE = {
         },
         {
           tipo: "texto",
+          colunas: 2,
           texto: [
             "Isa, Eliane, Marcelo, Maurília, Gorete, Larissa e Ruth dão vida a sete dos oito capítulos. São eles: A alma; O corpo; A trama; O molde; A costura; O adeus e O depois.",
             "Eles não se conhecem na vida real, mas dentro da narrativa se tornam parte de um mesmo fio. O vestido que acompanhamos não é nenhum específico, por isso pode ser qualquer um — o meu, o seu, o de alguém que você conhece.",
@@ -262,7 +267,7 @@ const SITE = {
         { tipo: "foto", src: "assets/img/oito-vidas/miolo-gorete.jpg" },
         {
           tipo: "texto",
-          colunas: 1,
+          alinhamento: "centro",
           texto: [
             "Além da narração das histórias, há um segundo tipo de texto, destinado a compartilhar com o leitor as pesquisas simultâneas à escrita do livro. Eles tratam de temas como agrotóxicos, design, transparência na moda, trabalho infantil, poluição por tecidos sintéticos, entre outros assuntos, com entrevistas e opiniões de especialistas, aprofundando a reflexão.",
           ],

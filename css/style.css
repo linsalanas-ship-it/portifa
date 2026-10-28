@@ -357,33 +357,26 @@ body { overflow-x: clip; } /* fotos de ponta a ponta não criam rolagem lateral 
 .bloco__texto p + p,
 .bloco--lide p + p { margin-top: 1em; }
 
-/* texto corrido em duas colunas, com fio separando */
+/* texto corrido: por padrão uma coluna alinhada à esquerda, com capitular pixelada.
+   Variações: centralizado (sem capitular) e duas colunas com fio separando. */
 .blocos { --entre-colunas: clamp(2rem, 5vw, 4rem); }
-.bloco--texto {
-  column-count: 2;
-  column-gap: var(--entre-colunas);
-  column-rule: 1px solid rgba(0, 0, 236, 0.25);
-}
-/* uma coluna: centralizado, sem capitular */
-.bloco--uma-coluna {
-  column-count: 1;
-  max-width: 44rem;
+.bloco--texto { max-width: 44rem; }
+.bloco--centro {
   margin: 0 auto;
   text-align: center;
   text-wrap: pretty;
   hyphens: manual;
   -webkit-hyphens: manual;
 }
-.bloco--texto.bloco--uma-coluna > p:first-child::first-letter {
-  float: none;
-  font-family: inherit;
-  font-size: inherit;
-  line-height: inherit;
-  margin: 0;
+.bloco--duas-colunas {
+  max-width: none;
+  column-count: 2;
+  column-gap: var(--entre-colunas);
+  column-rule: 1px solid rgba(0, 0, 236, 0.25);
 }
 
-/* capitular pixelada na primeira letra de cada bloco de texto */
-.bloco--texto > p:first-child::first-letter {
+/* capitular pixelada (a única letra pixelada nas páginas de projeto) */
+.bloco--texto:not(.bloco--centro) > p:first-child::first-letter {
   float: left;
   font-family: var(--fonte-cap);
   font-size: 4.6em;
@@ -649,7 +642,7 @@ input, textarea { cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/
   .sobre__foto { width: 75%; max-width: 22rem; margin: 0 auto; }
   .sobre .texto { padding-top: 0; line-height: 1.2; }
 
-  .bloco--texto { column-count: 1; }
+  .bloco--duas-colunas { column-count: 1; }
   .itens__lista { grid-template-columns: 1fr; }
   .bloco--foto-texto,
   .bloco--foto-direita { grid-template-columns: 1fr; }
