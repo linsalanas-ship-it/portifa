@@ -41,6 +41,16 @@ pixelada), `foto` (de ponta a ponta), `fotos` (duas lado a lado), `foto-solta` (
 `destaque` (frase grande, como olho de revista) e `botao` (link). Os exemplos de cada
 tipo estão no topo de `js/conteudo.js`, e o projeto "Oito vidas de um vestido" usa todos.
 
+### Dicas para montar a página de um projeto
+
+O "Oito vidas de um vestido" serve de modelo de ritmo, mas cada projeto pode ter a sua ordem:
+
+- abra com a imagem mais forte (inteira), um texto curto centralizado e o botão para o trabalho original;
+- alterne texto e imagem: evite duas imagens seguidas e espalhe as fotos pela página;
+- quebre textos longos em vários blocos `texto` para intercalar com as fotos;
+- use no máximo um `destaque`, com uma frase forte do próprio texto;
+- feche com um parágrafo de uma coluna (centralizado) e repita o botão, se houver.
+
 ### Formulário de contato
 
 Sem configuração, o botão “enviar” abre o programa de e-mail da pessoa com a mensagem

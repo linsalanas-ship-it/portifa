@@ -89,7 +89,7 @@ const SITE = {
         },
         {
           tipo: "foto-texto",
-          src: "assets/img/oito-vidas/miolo-gorete.jpg",
+          src: "assets/img/oito-vidas/miolo-costura.jpg",
           lado: "esquerda",
           texto: [
             "Entre os personagens principais estão pessoas que conheço desde a infância, amigas de amigas e, ainda, gratas surpresas que a apuração me trouxe.",
@@ -106,7 +106,7 @@ const SITE = {
           ],
         },
         { tipo: "destaque", texto: "Ao fim de tudo, a peça que se constrói são as palavras." },
-        { tipo: "foto", src: "assets/img/oito-vidas/miolo-costura.jpg" },
+        { tipo: "foto", src: "assets/img/oito-vidas/miolo-gorete.jpg" },
         {
           tipo: "texto",
           colunas: 1,
