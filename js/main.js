@@ -119,7 +119,27 @@
     var p = SITE.projetos[indice];
     document.title = textoPuro(p.titulo) + " — Alana Lins";
     $("projeto-titulo").innerHTML = formatar(p.titulo);
-    $("projeto-resumo").innerHTML = formatar(p.resumo);
+    $("projeto-resumo").innerHTML = formatar(p.subtitulo || p.resumo);
+    if (p.blocos) {
+      // diagramação de revista, montada bloco a bloco
+      $("projeto").classList.add("projeto--revista");
+      ["projeto-banner", "projeto-texto", "projeto-galeria"].forEach(function (el) { $(el).remove(); });
+      $("projeto-blocos").innerHTML = p.blocos.map(bloco).join("");
+    } else {
+      $("projeto-blocos").remove();
+      paginaSimples(p);
+    }
+
+    var nav = '<a href="index.html#projetos">← todos os projetos</a>';
+    if (SITE.projetos.length > 1) {
+      var proximo = SITE.projetos[(indice + 1) % SITE.projetos.length];
+      nav += '<a href="projeto.html?p=' + encodeURIComponent(proximo.id) + '">' +
+        "próximo: " + escapar(textoPuro(proximo.titulo)) + " →</a>";
+    }
+    $("projeto-navegacao").innerHTML = nav;
+  }
+
+  function paginaSimples(p) {
     var banner = $("projeto-banner");
     if (p.banner) {
       banner.src = p.banner;
@@ -131,14 +151,37 @@
     $("projeto-galeria").innerHTML = (p.galeria || []).map(function (src) {
       return '<img src="' + escapar(src) + '" alt="" loading="lazy">';
     }).join("");
+  }
 
-    var nav = '<a href="index.html#projetos">← todos os projetos</a>';
-    if (SITE.projetos.length > 1) {
-      var proximo = SITE.projetos[(indice + 1) % SITE.projetos.length];
-      nav += '<a href="projeto.html?p=' + encodeURIComponent(proximo.id) + '">' +
-        "próximo: " + escapar(textoPuro(proximo.titulo)) + " →</a>";
+  // Um bloco da página de projeto (tipos explicados no topo do conteudo.js)
+  function figura(src, legenda) {
+    return '<figure><img src="' + escapar(src) + '" alt="' + escapar(legenda || "") + '" loading="lazy">' +
+      (legenda ? "<figcaption>" + formatar(legenda) + "</figcaption>" : "") + "</figure>";
+  }
+  function bloco(b) {
+    switch (b.tipo) {
+      case "lide":
+        return '<div class="bloco bloco--lide">' + paragrafos(b.texto) + "</div>";
+      case "texto":
+        return '<div class="bloco bloco--texto' + (b.colunas === 1 ? " bloco--uma-coluna" : "") + '">' +
+          paragrafos(b.texto) + "</div>";
+      case "foto":
+        return '<div class="bloco bloco--foto">' + figura(b.src, b.legenda) + "</div>";
+      case "fotos":
+        return '<div class="bloco bloco--fotos">' + [].concat(b.src).map(function (src, i) {
+          return figura(src, b.legendas && b.legendas[i]);
+        }).join("") + "</div>";
+      case "foto-texto":
+        return '<div class="bloco bloco--foto-texto' + (b.lado === "direita" ? " bloco--foto-direita" : "") + '">' +
+          figura(b.src, b.legenda) + '<div class="bloco__texto">' + paragrafos(b.texto) + "</div></div>";
+      case "destaque":
+        return '<blockquote class="bloco bloco--destaque"><p>' + formatar(b.texto) + "</p></blockquote>";
+      case "botao":
+        return '<p class="bloco bloco--botao"><a class="botao" href="' + escapar(b.url) +
+          '" target="_blank" rel="noopener">' + formatar(b.texto) + " ↗</a></p>";
+      default:
+        return "";
     }
-    $("projeto-navegacao").innerHTML = nav;
   }
 
   atualizarMenu();

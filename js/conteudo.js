@@ -10,6 +10,30 @@
      id "cieli"  →  projeto.html?p=cieli  (use só letras minúsculas,
      números e hífens, sem acento nem espaço).
    • A ordem da lista é a ordem em que os projetos aparecem no site.
+
+   PÁGINA DO PROJETO EM BLOCOS (diagramação de revista)
+   Cada projeto pode ter uma lista "blocos", montada na ordem que você
+   quiser. Tipos de bloco:
+
+     { tipo: "lide", texto: ["..."] }
+         abertura em letra maior, uma coluna
+     { tipo: "texto", texto: ["...", "..."] }
+         texto corrido em duas colunas (uma no celular); a 1ª letra do
+         bloco vira capitular pixelada
+     { tipo: "texto", colunas: 1, texto: ["..."] }
+         o mesmo, em uma coluna só
+     { tipo: "foto", src: "assets/img/...", legenda: "opcional" }
+         foto de ponta a ponta da tela
+     { tipo: "fotos", src: ["assets/img/a.jpg", "assets/img/b.jpg"] }
+         duas fotos lado a lado
+     { tipo: "foto-texto", src: "assets/img/...", texto: ["..."], lado: "direita" }
+         foto numa coluna e texto na outra (lado = onde fica a foto)
+     { tipo: "destaque", texto: "frase em destaque" }
+         citação grande, como olho de revista
+     { tipo: "botao", texto: "ler o livro", url: "https://..." }
+         botão com link (abre em outra aba)
+
+   Projetos sem "blocos" usam o modelo simples: banner + "texto".
    ===================================================================== */
 
 const SITE = {
@@ -30,6 +54,66 @@ const SITE = {
   },
 
   projetos: [
+    {
+      id: "oito-vidas-de-um-vestido",
+      titulo: "OITO VIDAS DE UM VESTIDO",
+      resumo: "livro-reportagem sobre a história de uma peça de roupa",
+      capa: "assets/img/oito-vidas/capa-grade.jpg",
+      subtitulo: "livro-reportagem · trabalho de conclusão de curso em Jornalismo, UFC",
+      blocos: [
+        { tipo: "foto", src: "assets/img/oito-vidas/capa-livro.jpg" },
+        {
+          tipo: "lide",
+          texto: [
+            "O livro-reportagem Oito vidas de um vestido acompanha a história de uma peça de roupa desde a ideia, passando pelo nascimento da matéria-prima até o uso do vestido em que ela se torna.",
+            "Nesse equilíbrio entre a literatura e o texto jornalístico, a própria peça de roupa é narradora das histórias de personagens que fazem parte da indústria da moda no Ceará. Este é um livro sobre trabalho, moda, sustentabilidade, criatividade e, sobretudo, pessoas.",
+          ],
+        },
+        { tipo: "botao", texto: "folhear o livro", url: "https://online.fliphtml5.com/ejvpj/rebh/index.html" },
+        {
+          tipo: "texto",
+          texto: [
+            "Em 2017, no último período da graduação em Jornalismo na Universidade Federal do Ceará, eu tinha certeza de que queria escrever um livro como trabalho de conclusão de curso. Saber se minha escrita teria fôlego para sustentar um longo texto era um desafio pessoal que eu gostaria de enfrentar.",
+            "Na época, eu estava bastante apaixonada por livros, conteúdos e movimentos que tratavam sobre moda, criatividade e sustentabilidade. A ideia de escrever a história de uma peça de roupa surgiu durante uma das aulas de Projeto de TCC.",
+            "A partir dessa ideia, precisei tomar decisões práticas para que o projeto acontecesse, pois eu seria responsável por toda a produção, sem equipe ou qualquer tipo de financiamento.",
+            "Decidi abordar a pauta pela voz de profissionais que representassem etapas da cadeia produtiva da moda — como design, cultivo de matéria-prima, modelagem, costura, etc.",
+            "Fiz toda a pesquisa, produção de pauta, roteiro para entrevistas, convites, entrevistas propriamente ditas, decupagem, escrita e direcionamento do projeto gráfico.",
+          ],
+        },
+        {
+          tipo: "foto-texto",
+          src: "assets/img/oito-vidas/miolo-gorete.jpg",
+          lado: "esquerda",
+          texto: [
+            "Entre os personagens principais estão pessoas que conheço desde a infância, amigas de amigas e, ainda, gratas surpresas que a apuração me trouxe.",
+            "Conversei a respeito do trabalho, dos hábitos e das memórias de cada pessoa em seu ambiente próprio. Nas entrevistas (que duravam aproximadamente duas horas e 30 minutos), enfrentei o desafio de ser três em uma: entrevistadora, fotógrafa e, quando o tempo ajudava, cinegrafista.",
+            "A produção de todo o projeto levou aproximadamente 6 meses. O livro foi aprovado com nota máxima pela banca avaliadora.",
+          ],
+        },
+        {
+          tipo: "fotos",
+          src: ["assets/img/oito-vidas/abertura-capitulo.jpg", "assets/img/oito-vidas/detalhe-agulha.jpg"],
+        },
+        {
+          tipo: "texto",
+          texto: [
+            "Isa, Eliane, Marcelo, Maurília, Gorete, Larissa e Ruth dão vida a sete dos oito capítulos. São eles: A alma; O corpo; A trama; O molde; A costura; O adeus e O depois.",
+            "Eles não se conhecem na vida real, mas dentro da narrativa se tornam parte de um mesmo fio. O vestido que acompanhamos não é nenhum específico, por isso pode ser qualquer um — o meu, o seu, o de alguém que você conhece.",
+            "De certo modo, o vestido também sou eu. Ouvindo a fala dos entrevistados, conhecendo suas rotinas, me apegando a suas particularidades e transformando essa experiência em escrita. Ao fim de tudo, a peça que se constrói são as palavras.",
+          ],
+        },
+        { tipo: "destaque", texto: "Ao fim de tudo, a peça que se constrói são as palavras." },
+        { tipo: "foto", src: "assets/img/oito-vidas/miolo-costura.jpg" },
+        {
+          tipo: "texto",
+          colunas: 1,
+          texto: [
+            "Além da narração das histórias, há um segundo tipo de texto, destinado a compartilhar com o leitor as pesquisas simultâneas à escrita do livro. Eles tratam de temas como agrotóxicos, design, transparência na moda, trabalho infantil, poluição por tecidos sintéticos, entre outros assuntos, com entrevistas e opiniões de especialistas, aprofundando a reflexão.",
+          ],
+        },
+        { tipo: "botao", texto: "folhear o livro", url: "https://online.fliphtml5.com/ejvpj/rebh/index.html" },
+      ],
+    },
     {
       id: "cieli",
       titulo: "CIELI",

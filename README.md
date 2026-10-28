@@ -33,6 +33,14 @@ Abra no editor do GitHub (ícone de lápis), altere e salve (“Commit changes�
 3. Pronto: o projeto aparece na grade e ganha a própria página automaticamente.
    Para mudar a ordem, mude a ordem dos blocos.
 
+### Página do projeto com diagramação de revista
+
+Em vez de `banner` + `texto`, um projeto pode ter uma lista `blocos`, montada na ordem
+que você quiser: `lide` (abertura em letra maior), `texto` (duas colunas, com capitular
+pixelada), `foto` (de ponta a ponta), `fotos` (duas lado a lado), `foto-texto`,
+`destaque` (frase grande, como olho de revista) e `botao` (link). Os exemplos de cada
+tipo estão no topo de `js/conteudo.js`, e o projeto "Oito vidas de um vestido" usa todos.
+
 ### Formulário de contato
 
 Sem configuração, o botão “enviar” abre o programa de e-mail da pessoa com a mensagem
