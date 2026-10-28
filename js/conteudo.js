@@ -268,7 +268,7 @@ const SITE = {
       id: "cieli",
       titulo: "CIELI",
       resumo: "copywriting e redação criativa para agência de viagens de luxo",
-      capa: "assets/img/placeholder-capa.png", // imagem vertical (grade de projetos)
+      capa: "assets/img/placeholder-capa-horizontal.jpg", // imagem horizontal, 3:2 (grade de projetos)
       banner: "assets/img/placeholder-banner.jpg", // imagem larga (topo da página do projeto)
       texto: [
         "Lorem ipsum dolor sit amet consectetur. Interdum tincidunt elit ut non phasellus. Consequat est diam fermentum aliquam amet nibh. Maecenas porttitor morbi nunc sit risus. Morbi id morbi leo urna id pharetra. Blandit ut est non cras lectus viverra tellus elementum. Mauris nunc bibendum senectus blandit eu lorem. Molestie tortor dui at nisl malesuada commodo viverra. Lacus ornare dictum faucibus sed sit vitae in.",
@@ -281,7 +281,7 @@ const SITE = {
       id: "j-simoes",
       titulo: "J. SIMÕES",
       resumo: "produção de conteúdo para lançamento comercial",
-      capa: "assets/img/placeholder-capa.png",
+      capa: "assets/img/placeholder-capa-horizontal.jpg",
       banner: "assets/img/placeholder-banner.jpg",
       texto: [
         "Lorem ipsum dolor sit amet consectetur. Interdum tincidunt elit ut non phasellus. Consequat est diam fermentum aliquam amet nibh. Maecenas porttitor morbi nunc sit risus. Morbi id morbi leo urna id pharetra. Blandit ut est non cras lectus viverra tellus elementum. Mauris nunc bibendum senectus blandit eu lorem.",
