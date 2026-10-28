@@ -32,11 +32,14 @@ Princípios que valem para todo projeto:
 4. **Fotos sempre inteiras**: nunca cortar nem esticar; `foto` respeita a proporção e cabe na tela.
    Fotos horizontais boas → `foto` ou `foto-texto`; pares de detalhes → `fotos`; uma foto pequena
    para quebrar o ritmo → `foto-solta` (alternar `lado`).
-5. **Alinhamento**: `foto-texto` e `fotos` seguem as mesmas duas colunas do texto corrido.
-6. **Destaque**: no máximo um `destaque` (olho) por página, com uma frase forte tirada do próprio
+5. **Projetos de estratégia/branding** (ex.: Purpose Paper) costumam ter etapas: usar `intertitulo`
+   para cada etapa (com letra pixelada) e `itens` para listas de achados, pilares, princípios etc.
+   Projetos editoriais/narrativos (ex.: Oito vidas) funcionam melhor como texto corrido.
+6. **Alinhamento**: `foto-texto` e `fotos` seguem as mesmas duas colunas do texto corrido.
+7. **Destaque**: no máximo um `destaque` (olho) por página, com uma frase forte tirada do próprio
    texto, perto do fim.
-7. **Fechamento**: último parágrafo em uma coluna, centralizado, e o `botao` repetido se houver link.
-8. **Texto da Alana**: não reescrever o conteúdo dela. Só corrigir erros evidentes e avisar. Textos
+8. **Fechamento**: último parágrafo em uma coluna, centralizado, e o `botao` repetido se houver link.
+9. **Texto da Alana**: não reescrever o conteúdo dela. Só corrigir erros evidentes e avisar. Textos
    que não vieram dela (resumo da grade, texto do botão) devem ser apontados para ela revisar.
 
 Variações bem-vindas conforme o material: começar por `foto-texto` em vez de `foto`, usar

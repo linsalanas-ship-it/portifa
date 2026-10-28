@@ -38,8 +38,8 @@ Abra no editor do GitHub (ícone de lápis), altere e salve (“Commit changes�
 Em vez de `banner` + `texto`, um projeto pode ter uma lista `blocos`, montada na ordem
 que você quiser: `lide` (abertura em letra maior), `texto` (duas colunas, com capitular
 pixelada), `foto` (de ponta a ponta), `fotos` (duas lado a lado), `foto-solta` (menor, deslocada para um lado), `foto-texto`,
-`destaque` (frase grande, como olho de revista) e `botao` (link). Os exemplos de cada
-tipo estão no topo de `js/conteudo.js`, e o projeto "Oito vidas de um vestido" usa todos.
+`destaque` (frase grande, como olho de revista), `intertitulo` (título de seção), `itens` (lista em grade com título e texto) e `botao` (link). Os exemplos de cada
+tipo estão no topo de `js/conteudo.js`, e os projetos "Oito vidas de um vestido" e "Purpose Paper" servem de exemplo.
 
 ### Dicas para montar a página de um projeto
 
@@ -59,7 +59,7 @@ crie um formulário grátis em [formspree.io](https://formspree.io) e cole o lin
 
 ## Depois de mudar CSS ou JavaScript
 
-Os arquivos são carregados com um número de versão (`style.css?v=2026102807`) em
+Os arquivos são carregados com um número de versão (`style.css?v=2026102808`) em
 `index.html` e `projeto.html`. Ao alterar `css/` ou `js/`, troque esse número nos dois
 arquivos (por exemplo, pela data do dia) para os visitantes não verem a versão antiga
 guardada no navegador. Para editar só o `conteudo.js` não é preciso.

@@ -177,6 +177,14 @@
       case "foto-texto":
         return '<div class="bloco bloco--foto-texto' + (b.lado === "direita" ? " bloco--foto-direita" : "") + '">' +
           figura(b.src, b.legenda) + '<div class="bloco__texto">' + paragrafos(b.texto) + "</div></div>";
+      case "intertitulo":
+        return '<h2 class="bloco bloco--intertitulo">' + formatar(b.texto) + "</h2>";
+      case "itens":
+        return '<div class="bloco bloco--itens">' +
+          (b.titulo ? '<h3 class="itens__titulo">' + formatar(b.titulo) + "</h3>" : "") +
+          '<ul class="itens__lista">' + (b.itens || []).map(function (it) {
+            return '<li><h4 class="item__titulo">' + formatar(it.titulo) + "</h4><p>" + formatar(it.texto) + "</p></li>";
+          }).join("") + "</ul></div>";
       case "destaque":
         return '<blockquote class="bloco bloco--destaque"><p>' + formatar(b.texto) + "</p></blockquote>";
       case "botao":

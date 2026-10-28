@@ -31,6 +31,10 @@
          alternando os lados, as fotos ficam desencontradas pela página
      { tipo: "foto-texto", src: "assets/img/...", texto: ["..."], lado: "direita" }
          foto numa coluna e texto na outra (lado = onde fica a foto)
+     { tipo: "intertitulo", texto: "[E]SCUTA & DIAGNÓSTICO" }
+         título de seção dentro da página (aceita letra pixelada)
+     { tipo: "itens", titulo: "opcional", itens: [{ titulo: "...", texto: "..." }] }
+         lista em grade de duas colunas, cada item com título e texto
      { tipo: "destaque", texto: "frase em destaque" }
          citação grande, como olho de revista
      { tipo: "botao", texto: "ler o livro", url: "https://..." }
@@ -57,6 +61,80 @@ const SITE = {
   },
 
   projetos: [
+    {
+      id: "purpose-paper",
+      titulo: "PURPOSE PAPER",
+      resumo: "estratégia de marca e identidade verbal para papelaria e editora",
+      capa: "assets/img/purpose-paper/capa-grade.jpg",
+      subtitulo: "estratégia de marca e identidade verbal",
+      blocos: [
+        { tipo: "foto", src: "assets/img/purpose-paper/abertura.jpg" },
+        {
+          tipo: "lide",
+          texto: [
+            "A Purpose Paper é uma papelaria e editora brasileira que ajuda mulheres a cultivar bons hábitos. Seus produtos — planners, journals, livros, cadernos e acessórios — são ferramentas úteis e belas que simplificam práticas essenciais para uma vida significativa integralmente, considerando relacionamentos, família, espiritualidade, vocação, trabalho e outras esferas.",
+          ],
+        },
+        { tipo: "intertitulo", texto: "[E]SCUTA & DIAGNÓSTICO" },
+        {
+          tipo: "texto",
+          texto: [
+            "A primeira etapa foi de escuta ativa: conversas com a fundadora, equipe e clientes revelaram percepções, desejos e contradições sobre a marca. Essas trocas ajudaram a enriquecer o briefing e a delimitar o escopo real da entrega.",
+            "A Purpose Paper vivia um momento de crescimento — de catálogo, presença digital, parcerias e equipe. A comunicação, no entanto, ainda refletia o estágio inicial da marca. Era hora de evoluir: deixar de parecer uma “lojinha fofa” e assumir sua posição como uma editora sólida, com autoridade e autenticidade.",
+          ],
+        },
+        { tipo: "foto", src: "assets/img/purpose-paper/diagnostico.jpg" },
+        {
+          tipo: "itens",
+          titulo: "Principais achados desse momento",
+          itens: [
+            { titulo: "Inconsistência de discurso", texto: "Embora existisse uma narrativa-base, ela se perdia nas comunicações do dia a dia. A marca se posicionava de formas diferentes a cada campanha, dificultando o reconhecimento e a construção de confiança." },
+            { titulo: "Personalidade verbal em construção", texto: "Foi nesse momento que definimos, junto à cliente, qual seria o tom ideal — mantendo a delicadeza da marca, mas com mais clareza, maturidade e firmeza." },
+            { titulo: "Mapeamento competitivo e diferencial", texto: "Identificamos concorrentes diretos e mapeamos como a Purpose Paper poderia ocupar um espaço próprio, valorizando seu caráter discipulador e seu cuidado estético." },
+            { titulo: "Barreiras de uso e percepção de valor", texto: "Muitas clientes tinham “pena” de usar os produtos por serem bonitos demais. A nova identidade verbal precisava incentivar o uso intencional e cotidiano, mostrando que papel bonito também é ferramenta — e que papel guardado não transforma hábitos." },
+          ],
+        },
+        { tipo: "intertitulo", texto: "[N]ARRATIVA DA MARCA" },
+        {
+          tipo: "texto",
+          texto: [
+            "Ao mergulhar na essência da Purpose Paper, entendemos que sua origem era mais do que uma história para a aba “Quem somos” — era o coração da marca.",
+            "Maeli, fundadora da empresa, criou a empresa antes de casar. O que começou como uma forma de financiar essa nova etapa da vida acabou se tornando um negócio: uma marca que ajudaria outras mulheres a também realizarem seus objetivos.",
+            "Escolhemos trazer isso para o centro da marca: não apenas sonhar, desejar ou planejar, mas ir até o fim, realizar. O lugar onde isso acontece é o papel. É com papel (e no papel) que essas mulheres constroem a própria vida, página a página.",
+          ],
+        },
+        {
+          tipo: "foto-texto",
+          src: "assets/img/purpose-paper/simbolo.jpg",
+          lado: "direita",
+          texto: [
+            "A força dessa percepção orientou também os ajustes no logo (e nas demais expressões visuais). A estrela, que antes representava o Propósito, passou a simbolizar também uma folha de papel. O encontro entre ferramenta e Propósito, presente e futuro.",
+          ],
+        },
+        { tipo: "destaque", texto: "É com papel (e no papel) que essas mulheres constroem a própria vida, página a página." },
+        { tipo: "intertitulo", texto: "[E]STRATÉGIA DE VOZ" },
+        {
+          tipo: "foto-texto",
+          src: "assets/img/purpose-paper/personalidade.jpg",
+          lado: "esquerda",
+          texto: [
+            "A Purpose Paper já era percebida como uma marca amiga: próxima, acolhedora e empática. Nosso trabalho foi aproveitar uma oportunidade na paisagem competitiva e reposicioná-la como uma amiga conselheira: alguém que dialoga com leveza, mas que também tem autoridade no assunto. Esse ajuste trouxe mais firmeza à comunicação, alinhando-se à história de pioneirismo e à robustez das entregas da marca.",
+            "A nova identidade verbal oficializa essa postura já intuitiva: a de uma marca que orienta sem impor, que ensina com beleza e que inspira ação prática no dia a dia.",
+          ],
+        },
+        {
+          tipo: "itens",
+          titulo: "Pilares do tom de voz",
+          itens: [
+            { titulo: "Feminino", texto: "Nossa voz fala de mulher para mulher, no feminino. Valorizamos a escuta, o cuidado nos detalhes e a conexão que nasce da empatia." },
+            { titulo: "Gentil", texto: "Escolhemos palavras que acolhem. Mesmo ao ensinar ou corrigir, nossa fala é respeitosa e amável — como quem fala com uma amiga querida." },
+            { titulo: "Maduro", texto: "Não falamos por impulso. Trazemos reflexões bem pensadas, conselhos sábios e uma fé que é provada no cotidiano. Nossa maturidade dá firmeza à nossa voz." },
+            { titulo: "Prático", texto: "Nos comprometemos a traduzir a teoria para a prática. Por isso, nossa comunicação é fácil de entender, aplicável e voltada para a vida real." },
+          ],
+        },
+        { tipo: "foto", src: "assets/img/purpose-paper/cartazes.jpg" },
+      ],
+    },
     {
       id: "oito-vidas-de-um-vestido",
       titulo: "OITO VIDAS DE UM VESTIDO",
