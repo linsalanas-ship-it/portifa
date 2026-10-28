@@ -142,7 +142,7 @@ p { margin: 0; }
 
 .grade {
   list-style: none;
-  margin: 1.75rem auto 0;
+  margin: clamp(2.5rem, 5vw, 4rem) auto 0;
   padding: 0;
   max-width: var(--largura);
   display: grid;
