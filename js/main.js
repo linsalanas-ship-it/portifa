@@ -2,6 +2,8 @@
 (function () {
   "use strict";
 
+  var menosMovimento = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
   // ---------- utilidades ----------
   function escapar(texto) {
     return String(texto)
@@ -119,7 +121,35 @@
     var p = SITE.projetos[indice];
     document.title = textoPuro(p.titulo) + " — Alana Lins";
     $("projeto-titulo").innerHTML = formatar(p.titulo);
-    $("projeto-resumo").innerHTML = formatar(p.resumo);
+    $("projeto-resumo").innerHTML = formatar(p.subtitulo || p.resumo);
+    if (p.blocos) {
+      // diagramação de revista, montada bloco a bloco
+      $("projeto").classList.add("projeto--revista");
+      ["projeto-banner", "projeto-texto", "projeto-galeria"].forEach(function (el) { $(el).remove(); });
+      $("projeto-blocos").innerHTML = p.blocos.map(bloco).join("");
+      ajustarCapitulares();
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(ajustarCapitulares);
+      var aguardando = false;
+      window.addEventListener("resize", function () {
+        if (aguardando) return;
+        aguardando = true;
+        requestAnimationFrame(function () { aguardando = false; ajustarCapitulares(); });
+      });
+    } else {
+      $("projeto-blocos").remove();
+      paginaSimples(p);
+    }
+
+    var nav = '<a href="index.html#projetos">← todos os projetos</a>';
+    if (SITE.projetos.length > 1) {
+      var proximo = SITE.projetos[(indice + 1) % SITE.projetos.length];
+      nav += '<a href="projeto.html?p=' + encodeURIComponent(proximo.id) + '">' +
+        "próximo: " + escapar(textoPuro(proximo.titulo)) + " →</a>";
+    }
+    $("projeto-navegacao").innerHTML = nav;
+  }
+
+  function paginaSimples(p) {
     var banner = $("projeto-banner");
     if (p.banner) {
       banner.src = p.banner;
@@ -131,14 +161,105 @@
     $("projeto-galeria").innerHTML = (p.galeria || []).map(function (src) {
       return '<img src="' + escapar(src) + '" alt="" loading="lazy">';
     }).join("");
+  }
 
-    var nav = '<a href="index.html#projetos">← todos os projetos</a>';
-    if (SITE.projetos.length > 1) {
-      var proximo = SITE.projetos[(indice + 1) % SITE.projetos.length];
-      nav += '<a href="projeto.html?p=' + encodeURIComponent(proximo.id) + '">' +
-        "próximo: " + escapar(textoPuro(proximo.titulo)) + " →</a>";
+  // Capitular só quando o primeiro parágrafo do bloco tem 3 linhas ou mais
+  // (medido sem a capitular, e de novo quando a largura da tela muda)
+  function ajustarCapitulares() {
+    document.querySelectorAll(".bloco--texto > p:first-child").forEach(function (p) {
+      p.classList.add("sem-capitular");
+      var altura = parseFloat(getComputedStyle(p).lineHeight) || 1;
+      var linhas = Math.round(p.getBoundingClientRect().height / altura);
+      if (linhas >= 3) p.classList.remove("sem-capitular");
+    });
+  }
+
+  // Um bloco da página de projeto (tipos explicados no topo do conteudo.js)
+  function figura(src, legenda) {
+    return '<figure><img src="' + escapar(src) + '" alt="' + escapar(legenda || "") + '" loading="lazy">' +
+      (legenda ? "<figcaption>" + formatar(legenda) + "</figcaption>" : "") + "</figure>";
+  }
+  // título + frases + palavras + texto (todos opcionais), usado por "topico" e "itens"
+  function topico(t) {
+    var texto = [].concat(t.texto || []);
+    return (t.titulo ? '<h4 class="item__titulo">' + formatar(t.titulo) + "</h4>" : "") +
+      (t.frases ? '<div class="topico__frases">' + paragrafos(t.frases) + "</div>" : "") +
+      (t.palavras ? '<ul class="topico__palavras">' + t.palavras.map(function (w) {
+        return "<li>" + formatar(w) + "</li>";
+      }).join("") + "</ul>" : "") +
+      paragrafos(texto);
+  }
+  function idYoutube(url) {
+    var m = String(url || "").match(/(?:youtu\.be\/|v=|embed\/|shorts\/)([\w-]{11})/);
+    return m ? m[1] : null;
+  }
+  function bloco(b) {
+    switch (b.tipo) {
+      case "lide":
+        return '<div class="bloco bloco--lide">' + paragrafos(b.texto) + "</div>";
+      case "texto":
+        var variacao = b.colunas === 2 ? " bloco--duas-colunas" : b.alinhamento === "centro" ? " bloco--centro" : "";
+        return '<div class="bloco bloco--texto' + variacao + '">' +
+          paragrafos(b.texto) + "</div>";
+      case "foto":
+        // com "animacao", a foto vira um vídeo curto que toca sozinho, sem som e em repetição
+        // (como um gif); a foto aparece enquanto ele carrega e para quem prefere menos movimento
+        var conteudo = b.animacao && !menosMovimento
+          ? '<figure><video poster="' + escapar(b.src) + '"' +
+            ' autoplay muted loop playsinline preload="auto" aria-label="' + escapar(b.legenda || "") + '">' +
+            // uma versão .webm com o mesmo nome, se existir, é usada pelos navegadores que preferem esse formato
+            '<source src="' + escapar(b.animacao.replace(/\.mp4$/i, ".webm")) + '" type="video/webm">' +
+            '<source src="' + escapar(b.animacao) + '" type="video/mp4"></video>' +
+            (b.legenda ? "<figcaption>" + formatar(b.legenda) + "</figcaption>" : "") + "</figure>"
+          : figura(b.src, b.legenda);
+        return '<div class="bloco bloco--foto' + (b.largura === "wide" ? " bloco--wide" : "") + '">' +
+          conteudo + "</div>";
+      case "fotos":
+        return '<div class="bloco bloco--fotos">' + [].concat(b.src).map(function (src, i) {
+          return figura(src, b.legendas && b.legendas[i]);
+        }).join("") + "</div>";
+      case "foto-solta":
+        return '<div class="bloco bloco--foto-solta bloco--' + (b.lado === "esquerda" ? "esquerda" : "direita") + '">' +
+          figura(b.src, b.legenda) + "</div>";
+      case "galeria":
+        var lista = [].concat(b.src || []);
+        return '<div class="bloco bloco--galeria">' +
+          (b.titulo ? '<h4 class="item__titulo galeria__titulo">' + formatar(b.titulo) + "</h4>" : "") +
+          '<div class="galeria__itens" style="--n:' + Math.min(lista.length, 3) + '">' +
+          lista.map(function (src, i) { return figura(src, b.legendas && b.legendas[i]); }).join("") +
+          "</div></div>";
+      case "foto-texto":
+        return '<div class="bloco bloco--foto-texto' + (b.lado === "direita" ? " bloco--foto-direita" : "") + '">' +
+          figura(b.src, b.legenda) + '<div class="bloco__texto">' + paragrafos(b.texto) + "</div></div>";
+      case "intertitulo":
+        return '<h2 class="bloco bloco--intertitulo">' + formatar(b.texto) + "</h2>";
+      case "itens":
+        return '<div class="bloco bloco--itens">' +
+          (b.titulo ? '<h3 class="itens__titulo">' + formatar(b.titulo) + "</h3>" : "") +
+          '<ul class="itens__lista">' + (b.itens || []).map(function (it) {
+            return "<li>" + topico(it) + "</li>";
+          }).join("") + "</ul></div>";
+      case "topico":
+        return '<div class="bloco bloco--topico">' + topico(b) + "</div>";
+      case "video":
+        var vid = idYoutube(b.url);
+        if (!vid) return "";
+        // o link de trás aparece só se o vídeo não puder carregar (ex.: prévia sem acesso ao YouTube)
+        return '<div class="bloco bloco--video"><div class="video__quadro">' +
+          '<a class="video__reserva" href="https://www.youtube.com/watch?v=' + vid + '" target="_blank" rel="noopener">▶ assistir ao vídeo no YouTube</a>' +
+          '<iframe src="https://www.youtube.com/embed/' + vid + '" title="' + escapar(b.titulo || "Vídeo") + '"' +
+          ' loading="lazy" referrerpolicy="strict-origin-when-cross-origin"' +
+          ' allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"' +
+          ' allowfullscreen></iframe></div>' +
+          '<p class="video__link"><a href="https://www.youtube.com/watch?v=' + vid + '" target="_blank" rel="noopener">assistir no YouTube ↗</a></p></div>';
+      case "destaque":
+        return '<blockquote class="bloco bloco--destaque"><p>' + formatar(b.texto) + "</p></blockquote>";
+      case "botao":
+        return '<p class="bloco bloco--botao"><a class="botao" href="' + escapar(b.url) +
+          '" target="_blank" rel="noopener">' + formatar(b.texto) + " ↗</a></p>";
+      default:
+        return "";
     }
-    $("projeto-navegacao").innerHTML = nav;
   }
 
   atualizarMenu();
