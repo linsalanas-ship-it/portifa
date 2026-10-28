@@ -185,7 +185,7 @@ const SITE = {
           ],
         },
         { tipo: "foto", largura: "wide", src: "assets/img/purpose-paper/manifesto.jpg" },
-        { tipo: "video", url: "https://youtu.be/Mf1qoBb2ISo" },
+        { tipo: "video", url: "https://youtu.be/Rbkx2lQS_wI" },
         { tipo: "foto", largura: "wide", src: "assets/img/purpose-paper/frase-guia.jpg" },
         { tipo: "foto", largura: "wide", src: "assets/img/purpose-paper/outdoor.jpg" },
         { tipo: "foto", largura: "wide", src: "assets/img/purpose-paper/cartao.jpg" },

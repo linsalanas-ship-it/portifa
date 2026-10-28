@@ -232,9 +232,12 @@
       case "video":
         var vid = idYoutube(b.url);
         if (!vid) return "";
+        // o link de trás aparece só se o vídeo não puder carregar (ex.: prévia sem acesso ao YouTube)
         return '<div class="bloco bloco--video"><div class="video__quadro">' +
-          '<iframe src="https://www.youtube-nocookie.com/embed/' + vid + '" title="' + escapar(b.titulo || "Vídeo") + '"' +
-          ' loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"' +
+          '<a class="video__reserva" href="https://www.youtube.com/watch?v=' + vid + '" target="_blank" rel="noopener">▶ assistir ao vídeo no YouTube</a>' +
+          '<iframe src="https://www.youtube.com/embed/' + vid + '" title="' + escapar(b.titulo || "Vídeo") + '"' +
+          ' loading="lazy" referrerpolicy="strict-origin-when-cross-origin"' +
+          ' allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"' +
           ' allowfullscreen></iframe></div>' +
           '<p class="video__link"><a href="https://www.youtube.com/watch?v=' + vid + '" target="_blank" rel="noopener">assistir no YouTube ↗</a></p></div>';
       case "destaque":
