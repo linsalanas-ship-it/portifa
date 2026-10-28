@@ -408,7 +408,16 @@ body { overflow-x: clip; } /* fotos de ponta a ponta não criam rolagem lateral 
   width: 100vw;
   margin-left: calc(50% - 50vw);
 }
-.bloco--foto img { max-height: 88vh; object-fit: cover; }
+/* foto sempre inteira: ocupa a largura toda, mas nunca passa da altura da tela
+   (nesse caso fica centralizada, sem cortar nem distorcer) */
+.bloco--foto img {
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: 88vh;
+  max-height: 88svh;
+  margin: 0 auto;
+}
 .bloco--foto figcaption { padding: 0 var(--lateral); }
 
 /* duas fotos lado a lado */
