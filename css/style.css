@@ -219,17 +219,12 @@ p { margin: 0; }
 }
 
 /* Sopa de letrinhas: serviços flutuando */
-.sopa__dica {
-  margin-top: 0.9em;
-  font-size: var(--t-card);
-  opacity: 0.7;
-}
 .sopa {
   position: relative;
   width: 100%;
   max-width: var(--largura);
   height: clamp(18rem, 48vh, 30rem);
-  margin-top: 1.5rem;
+  margin-top: 2rem;
 }
 .sopa__letra {
   position: absolute;

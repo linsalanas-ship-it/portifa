@@ -307,7 +307,6 @@ const SITE = {
      Os nomes flutuam pela tela; ao clicar, aparece a descrição. */
   servicos: {
     titulo: "SOPA DE L[E]TRINHAS",
-    dica: "clique em uma letrinha",
     lista: [
       {
         nome: "estratégia de marca",
