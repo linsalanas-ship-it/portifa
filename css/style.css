@@ -377,8 +377,13 @@ body { overflow-x: clip; } /* fotos de ponta a ponta não criam rolagem lateral 
 /* lide: abertura em letra maior */
 .bloco--lide {
   max-width: 48rem;
+  margin: 0 auto;
   font-size: var(--t-sub);
   line-height: 1.3;
+  text-align: center;
+  text-wrap: pretty;
+  hyphens: manual;
+  -webkit-hyphens: manual;
 }
 
 /* foto de ponta a ponta */
