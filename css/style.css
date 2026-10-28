@@ -403,6 +403,11 @@ body { overflow-x: clip; } /* fotos de ponta a ponta não criam rolagem lateral 
 }
 .bloco--fotos img { aspect-ratio: 3 / 2; object-fit: cover; }
 
+/* foto solta: menor e deslocada, como a grade de projetos */
+.bloco--foto-solta { width: 42%; }
+.bloco--foto-solta.bloco--direita { margin-left: auto; margin-right: 5%; }
+.bloco--foto-solta.bloco--esquerda { width: 36%; margin-left: 11%; }
+
 /* foto numa coluna, texto na outra */
 /* mesma grade das duas colunas de texto, para tudo alinhar */
 .bloco--foto-texto {
@@ -550,6 +555,10 @@ input, textarea { cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/
   .projeto__texto { margin-top: 2.5rem; padding: 0; line-height: 1.25; }
   .projeto__navegacao { padding: 0; flex-direction: column; }
   .bloco--fotos { grid-template-columns: 1fr; }
+  .bloco--foto-solta,
+  .bloco--foto-solta.bloco--esquerda { width: 82%; }
+  .bloco--foto-solta.bloco--direita { margin-right: 0; }
+  .bloco--foto-solta.bloco--esquerda { margin-left: 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {

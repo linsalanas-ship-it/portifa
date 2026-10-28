@@ -26,6 +26,9 @@
          foto de ponta a ponta da tela
      { tipo: "fotos", src: ["assets/img/a.jpg", "assets/img/b.jpg"] }
          duas fotos lado a lado
+     { tipo: "foto-solta", src: "assets/img/...", lado: "direita" }
+         foto menor, deslocada para um lado (lado = "esquerda" ou "direita");
+         alternando os lados, as fotos ficam desencontradas pela página
      { tipo: "foto-texto", src: "assets/img/...", texto: ["..."], lado: "direita" }
          foto numa coluna e texto na outra (lado = onde fica a foto)
      { tipo: "destaque", texto: "frase em destaque" }
@@ -90,10 +93,7 @@ const SITE = {
             "A produção de todo o projeto levou aproximadamente 6 meses. O livro foi aprovado com nota máxima pela banca avaliadora.",
           ],
         },
-        {
-          tipo: "fotos",
-          src: ["assets/img/oito-vidas/abertura-capitulo.jpg", "assets/img/oito-vidas/detalhe-agulha.jpg"],
-        },
+        { tipo: "foto-solta", src: "assets/img/oito-vidas/abertura-capitulo.jpg", lado: "direita" },
         {
           tipo: "texto",
           texto: [
@@ -102,6 +102,7 @@ const SITE = {
             "De certo modo, o vestido também sou eu. Ouvindo a fala dos entrevistados, conhecendo suas rotinas, me apegando a suas particularidades e transformando essa experiência em escrita. Ao fim de tudo, a peça que se constrói são as palavras.",
           ],
         },
+        { tipo: "foto-solta", src: "assets/img/oito-vidas/detalhe-agulha.jpg", lado: "esquerda" },
         { tipo: "destaque", texto: "Ao fim de tudo, a peça que se constrói são as palavras." },
         { tipo: "foto", src: "assets/img/oito-vidas/miolo-costura.jpg" },
         {

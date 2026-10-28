@@ -171,6 +171,9 @@
         return '<div class="bloco bloco--fotos">' + [].concat(b.src).map(function (src, i) {
           return figura(src, b.legendas && b.legendas[i]);
         }).join("") + "</div>";
+      case "foto-solta":
+        return '<div class="bloco bloco--foto-solta bloco--' + (b.lado === "esquerda" ? "esquerda" : "direita") + '">' +
+          figura(b.src, b.legenda) + "</div>";
       case "foto-texto":
         return '<div class="bloco bloco--foto-texto' + (b.lado === "direita" ? " bloco--foto-direita" : "") + '">' +
           figura(b.src, b.legenda) + '<div class="bloco__texto">' + paragrafos(b.texto) + "</div></div>";
