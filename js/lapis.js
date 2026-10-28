@@ -15,6 +15,9 @@
   var canvas = document.createElement("canvas");
   canvas.className = "rastro";
   canvas.setAttribute("aria-hidden", "true");
+  // estilo aplicado aqui mesmo, para funcionar ainda que o CSS esteja em cache
+  canvas.style.cssText =
+    "position:fixed;top:0;left:0;width:100%;height:100%;z-index:30;pointer-events:none";
   document.body.appendChild(canvas);
   var ctx = canvas.getContext("2d");
   var dpr = 1;
