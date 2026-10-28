@@ -206,6 +206,60 @@ const SITE = {
       ],
     },
     {
+      id: "fifi",
+      titulo: "FIFI",
+      resumo: "naming e identidade verbal para marca de underwear",
+      capa: "assets/img/fifi/capa-grade.jpg",
+      subtitulo: "naming e identidade verbal",
+      blocos: [
+        { tipo: "foto", src: "assets/img/fifi/logo.jpg" },
+        {
+          tipo: "lide",
+          texto: ["Fifi é uma marca de underwear básico pensada para o dia a dia real das mulheres."],
+        },
+        { tipo: "intertitulo", texto: "DESAFIO" },
+        {
+          tipo: "texto",
+          texto: [
+            "Criar naming e identidade verbal que fugissem do clichê da lingerie sensual e performática, ou da beleza associada ao bem-estar. A ideia era abrir espaço para falar da relação das mulheres com suas roupas íntimas, sobretudo as que realmente acompanham o dia a dia, sem olhares externos ou pressões estéticas.",
+          ],
+        },
+        { tipo: "intertitulo", texto: "ESTRATÉGIA" },
+        {
+          tipo: "texto",
+          texto: [
+            "O ponto de partida foi pensar quais caminhos se abrem quando pensamos intimidade a partir do olhar feminino. A sensualidade ainda existe, mas não é a única associação possível.",
+            "É preciso concordar que não é a lingerie sexy que acompanha as mulheres nos melhores e piores momentos, enquanto crescem e amadurecem no decorrer dos anos. Que tipo de intimidade se revela nessa peça de roupa que está com a gente quase o tempo todo de nossas vidas?",
+            "Essa intimidade tem nome: amizade — mais especificamente, amizade feminina.",
+            "Rir de si mesmas e dos perrengues. Ver um filme largadas no sofá. Acompanhar numa consulta. Ouvir as reclamações durante a TPM. Fazer nada juntas. Essas são as melhores amizades, as que não precisam ser impressionadas para permanecerem.",
+            "E se tem uma peça de roupa com alma e jeito de melhor amiga, é a calcinha.",
+          ],
+        },
+        { tipo: "foto", largura: "wide", src: "assets/img/fifi/territorios.jpg" },
+        { tipo: "intertitulo", texto: "NAMING" },
+        {
+          tipo: "texto",
+          texto: [
+            "Fifi é curto, memorável e carrega camadas de sentido. A repetição traz um quê de familiaridade, intimidade, carinho — poderia facilmente ser o apelido de uma amiga querida.",
+            "Em alguns contextos, fifi também é um sinônimo para aquela fofoca despretensiosa e sem maldade que acontece em todo grupo de amigas(os) fiéis, onde se compartilha segredos e não é preciso fingir.",
+            "Com essa escolha, a marca se torna próxima, quase personificada. Fifi é a amiga confiável, divertida e de boas que toda mulher precisa ter.",
+          ],
+        },
+        { tipo: "foto", largura: "wide", src: "assets/img/fifi/sem-cerimonia.jpg" },
+        { tipo: "foto", largura: "wide", src: "assets/img/fifi/confiavel.jpg" },
+        { tipo: "intertitulo", texto: "IDENTIDADE VERBAL" },
+        {
+          tipo: "texto",
+          texto: [
+            "Se Fifi é como uma melhor amiga, ela precisa soar como uma. Por isso, ela escreve em minúsculas e usa emojis (coisas de quem é íntima) e até resgata certa nostalgia da forma como nos comunicávamos “no início da internet” — em comunidades, blogs, depoimentos e apps de mensagens.",
+            "Seu tom de voz é um equilíbrio entre o carinho e a irreverência. Uma voz direto ao ponto sem ser seca, divertida sem forçar a barra. Fifi acolhe, encoraja e faz rir com sua acidez na medida.",
+            "Nada de floreios, eufemismos ou palavras “fantasiadas”. Aqui, calcinha é calcinha. E às vezes é tudo que a gente precisa.",
+          ],
+        },
+        { tipo: "foto", largura: "wide", src: "assets/img/fifi/melhor-amiga.jpg" },
+      ],
+    },
+    {
       id: "oito-vidas-de-um-vestido",
       titulo: "OITO VIDAS DE UM VESTIDO",
       resumo: "livro-reportagem sobre a história de uma peça de roupa",
