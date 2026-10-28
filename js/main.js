@@ -125,14 +125,6 @@
       $("projeto").classList.add("projeto--revista");
       ["projeto-banner", "projeto-texto", "projeto-galeria"].forEach(function (el) { $(el).remove(); });
       $("projeto-blocos").innerHTML = p.blocos.map(bloco).join("");
-      ajustarCapitulares();
-      if (document.fonts && document.fonts.ready) document.fonts.ready.then(ajustarCapitulares);
-      var aguardando = false;
-      window.addEventListener("resize", function () {
-        if (aguardando) return;
-        aguardando = true;
-        requestAnimationFrame(function () { aguardando = false; ajustarCapitulares(); });
-      });
     } else {
       $("projeto-blocos").remove();
       paginaSimples(p);
@@ -159,17 +151,6 @@
     $("projeto-galeria").innerHTML = (p.galeria || []).map(function (src) {
       return '<img src="' + escapar(src) + '" alt="" loading="lazy">';
     }).join("");
-  }
-
-  // Capitular só quando o primeiro parágrafo do bloco tem 3 linhas ou mais
-  // (medido sem a capitular, e de novo quando a largura da tela muda)
-  function ajustarCapitulares() {
-    document.querySelectorAll(".bloco--texto > p:first-child").forEach(function (p) {
-      p.classList.add("sem-capitular");
-      var altura = parseFloat(getComputedStyle(p).lineHeight) || 1;
-      var linhas = Math.round(p.getBoundingClientRect().height / altura);
-      if (linhas >= 3) p.classList.remove("sem-capitular");
-    });
   }
 
   // Um bloco da página de projeto (tipos explicados no topo do conteudo.js)

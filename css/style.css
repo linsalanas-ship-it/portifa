@@ -402,7 +402,7 @@ body { overflow-x: clip; } /* fotos de ponta a ponta não criam rolagem lateral 
 .bloco--lide p + p { margin-top: 1em; }
 
 /* texto corrido: uma coluna alinhada à esquerda, na largura toda do conteúdo (mesmas
-   bordas das fotos "wide" e das colunas), com capitular pixelada.
+   bordas das fotos "wide" e das colunas), sem capitular.
    Variações (para listas etc.): centralizado e duas colunas com fio separando. */
 .blocos { --entre-colunas: clamp(2rem, 5vw, 4rem); }
 .bloco--texto { max-width: none; }
@@ -421,16 +421,6 @@ body { overflow-x: clip; } /* fotos de ponta a ponta não criam rolagem lateral 
   column-rule: 1px solid rgba(0, 0, 236, 0.25);
 }
 
-/* capitular pixelada (a única letra pixelada nas páginas de projeto);
-   o primeiro parágrafo contém a capitular, para ela não invadir o seguinte */
-.bloco--texto:not(.bloco--centro) > p:first-child:not(.sem-capitular) { display: flow-root; }
-.bloco--texto:not(.bloco--centro) > p:first-child:not(.sem-capitular)::first-letter {
-  float: left;
-  font-family: var(--fonte-cap);
-  font-size: 4.6em;
-  line-height: 0.82;
-  margin: 0.06em 0.1em 0 0;
-}
 
 /* lide: abertura em letra maior, alinhada à esquerda na largura toda */
 .bloco--lide {

@@ -37,7 +37,7 @@ Abra no editor do GitHub (ícone de lápis), altere e salve (“Commit changes�
 
 Em vez de `banner` + `texto`, um projeto pode ter uma lista `blocos`, montada na ordem
 que você quiser: `lide` (abertura em letra maior), `texto` (uma coluna alinhada à esquerda,
-na largura toda, com capitular pixelada; `colunas: 2` só para listas), `foto` (de ponta a ponta, ou na largura do texto com `largura: "wide"`; com `animacao: "....mp4"` vira um "gif" em vídeo, bem mais leve que um .gif), `fotos` (duas lado a lado), `foto-solta` (menor, deslocada para um lado), `foto-texto`,
+na largura toda; `colunas: 2` só para listas), `foto` (de ponta a ponta, ou na largura do texto com `largura: "wide"`; com `animacao: "....mp4"` vira um "gif" em vídeo, bem mais leve que um .gif), `fotos` (duas lado a lado), `foto-solta` (menor, deslocada para um lado), `foto-texto`,
 `destaque` (frase grande, como olho de revista), `intertitulo` (título de seção), `itens` (lista em grade com título e texto), `topico` (subtópico com frases ou palavras em destaque), `video` (YouTube), `galeria` (peças verticais lado a lado, carrossel no celular) e `botao` (link). Os exemplos de cada
 tipo estão no topo de `js/conteudo.js`, e os projetos "Oito vidas de um vestido" e "Purpose Paper" servem de exemplo.
 
@@ -48,9 +48,8 @@ O "Oito vidas de um vestido" serve de modelo de ritmo, mas cada projeto pode ter
 - abra com a imagem mais forte (inteira), um texto curto e o botão para o trabalho original;
 - alterne texto e imagem: evite duas imagens seguidas e espalhe as fotos pela página;
 - texto corrido sempre em uma coluna, alinhado à esquerda; duas colunas só para listas;
-- a capitular pixelada aparece sozinha quando o primeiro parágrafo do bloco tem 3 linhas ou mais;
 - quebre textos longos em vários blocos `texto` para intercalar com as fotos;
-- nas páginas de projeto, a letra pixelada aparece só como capitular (não use colchetes nos títulos);
+- nas páginas de projeto não se usa a letra pixelada (não use colchetes nos títulos);
 - use no máximo um `destaque`, com uma frase forte do próprio texto;
 - feche com um parágrafo de texto e repita o botão, se houver.
 
@@ -67,7 +66,7 @@ crie um formulário grátis em [formspree.io](https://formspree.io) e cole o lin
 
 ## Depois de mudar CSS ou JavaScript
 
-Os arquivos são carregados com um número de versão (`style.css?v=2026102824`) em
+Os arquivos são carregados com um número de versão (`style.css?v=2026102825`) em
 `index.html` e `projeto.html`. Ao alterar `css/` ou `js/`, troque esse número nos dois
 arquivos (por exemplo, pela data do dia) para os visitantes não verem a versão antiga
 guardada no navegador. Para editar só o `conteudo.js` não é preciso.

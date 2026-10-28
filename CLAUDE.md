@@ -10,8 +10,7 @@ Escreva para a Alana em português do Brasil, em linguagem simples.
   (fotos à parte).
 - Fontes: Switzer (todo o texto) e Retrogression (pixelada). Na página inicial, a pixelada marca
   letras de destaque nos títulos, com colchetes em `conteudo.js` (`"AL[A]NA LINS"`). **Nas páginas de
-  projeto, a Retrogression aparece só como capitular** (primeira letra dos blocos de texto) — nada
-  de colchetes em títulos, intertítulos ou itens de projeto.
+  projeto não há Retrogression** (sem capitulares, sem colchetes em títulos, intertítulos ou itens).
 - Títulos em caixa alta; menus, subtítulos e textos em caixa baixa.
 - Páginas de projeto: fundo rosa, sem rastro de lápis (o cursor de lápis continua).
 - Rastro de lápis (`js/lapis.js`): no computador segue o mouse (pontos na página); no celular segue
@@ -30,13 +29,11 @@ Princípios que valem para todo projeto:
    em poucas linhas, e o `botao` para o trabalho original quando existir.
 2. **Alternar texto e imagem**: nunca duas imagens (ou blocos de imagem) seguidas; sempre texto
    entre elas. Espalhar as fotos ao longo da página em vez de agrupá-las.
-3. **Texto corrido sempre em uma coluna, alinhado à esquerda** (`texto`, com capitular), ocupando
+3. **Texto corrido sempre em uma coluna, alinhado à esquerda** (`texto`, sem capitular), ocupando
    a largura toda do conteúdo — as mesmas bordas das fotos `wide`, de `itens` e das colunas. Isso
    vale também para o `lide` e o parágrafo final. Duas colunas (`colunas: 2` ou `itens`) **só para
    listas**, bullet points, achados, pilares etc. Quebrar textos longos em vários blocos para
    intercalar com imagens.
-   **Capitular só em parágrafo com 3 linhas ou mais** — automático (`ajustarCapitulares` em
-   `main.js` mede o primeiro parágrafo de cada bloco e recalcula quando a tela muda de tamanho).
    Subseções paralelas (ex.: Manifesto, Tagline, Chamadas…) vão juntas num `itens` em duas
    colunas; as imagens dessas subseções vêm depois, uma após a outra, todas com a mesma largura
    (`wide`). Imagens em sequência ficam mais próximas (espaço `--entre-imagens` no CSS).

@@ -18,13 +18,12 @@
      { tipo: "lide", texto: ["..."] }
          abertura em letra maior, uma coluna
      { tipo: "texto", texto: ["...", "..."] }
-         texto corrido em uma coluna, alinhado à esquerda na largura toda,
-         com capitular pixelada na primeira letra (use sempre para texto corrido;
-         a capitular só aparece se o primeiro parágrafo tiver 3 linhas ou mais)
+         texto corrido em uma coluna, alinhado à esquerda na largura toda
+         (use sempre para texto corrido)
      { tipo: "texto", alinhamento: "centro", texto: ["..."] }
          uma coluna centralizada, sem capitular
      { tipo: "texto", colunas: 2, texto: ["..."] }
-         duas colunas (uma no celular), com capitular — só para listas
+         duas colunas (uma no celular) — só para listas
      { tipo: "foto", src: "assets/img/...", legenda: "opcional" }
          foto de ponta a ponta da tela (sempre inteira, sem cortar)
      { tipo: "foto", src: "assets/img/....jpg", animacao: "assets/img/....mp4" }
