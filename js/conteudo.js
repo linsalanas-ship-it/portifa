@@ -303,17 +303,35 @@ const SITE = {
   },
 
   /* ---------- Seção O que eu faço ---------- */
+  /* ---------- Seção Sopa de letrinhas (o que eu faço) ----------
+     Os nomes flutuam pela tela; ao clicar, aparece a descrição. */
   servicos: {
     titulo: "SOPA DE L[E]TRINHAS",
+    dica: "clique em uma letrinha",
     lista: [
-      "estratégia de marca",
-      "identidade verbal",
-      "planejamento de conteúdo",
-      "redação criativa",
-      "copywriting",
-      "sopa de letrinhas",
+      {
+        nome: "estratégia de marca",
+        descricao: "Lorem ipsum dolor sit amet consectetur. Interdum tincidunt elit ut non phasellus, consequat est diam fermentum aliquam.",
+      },
+      {
+        nome: "identidade verbal",
+        descricao: "Maecenas porttitor morbi nunc sit risus. Morbi id morbi leo urna id pharetra, blandit ut est non cras lectus viverra.",
+      },
+      {
+        nome: "planejamento de conteúdo",
+        descricao: "Mauris nunc bibendum senectus blandit eu lorem. Molestie tortor dui at nisl malesuada commodo viverra.",
+      },
+      {
+        nome: "redação criativa",
+        descricao: "Quis ultricies et mi diam ac. Odio tellus pulvinar neque bibendum senectus pellentesque nisl proin.",
+      },
+      {
+        nome: "copywriting",
+        descricao: "Ullamcorper laoreet tincidunt vel urna sit diam nibh vitae. Ut tristique nisi orci adipiscing dictumst faucibus.",
+      },
     ],
   },
+
 
   /* ---------- Seção Contato ---------- */
   contato: {
