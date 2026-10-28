@@ -397,6 +397,9 @@ body { overflow-x: clip; } /* fotos de ponta a ponta não criam rolagem lateral 
   text-wrap: pretty;
 }
 
+/* blocos de texto seguidos ficam com o mesmo espaço de um parágrafo para o outro */
+.bloco--texto + .bloco--texto { margin-top: calc(1em - var(--entre-blocos)); }
+
 /* imagens em sequência (foto, vídeo, pares) ficam mais próximas umas das outras */
 :is(.bloco--foto, .bloco--video, .bloco--fotos) + :is(.bloco--foto, .bloco--video, .bloco--fotos) {
   margin-top: calc(var(--entre-imagens) - var(--entre-blocos));
