@@ -180,7 +180,8 @@
         return '<div class="bloco bloco--texto' + (b.colunas === 1 ? " bloco--uma-coluna" : "") + '">' +
           paragrafos(b.texto) + "</div>";
       case "foto":
-        return '<div class="bloco bloco--foto">' + figura(b.src, b.legenda) + "</div>";
+        return '<div class="bloco bloco--foto' + (b.largura === "wide" ? " bloco--wide" : "") + '">' +
+          figura(b.src, b.legenda) + "</div>";
       case "fotos":
         return '<div class="bloco bloco--fotos">' + [].concat(b.src).map(function (src, i) {
           return figura(src, b.legendas && b.legendas[i]);

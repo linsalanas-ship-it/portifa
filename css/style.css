@@ -419,6 +419,9 @@ body { overflow-x: clip; } /* fotos de ponta a ponta não criam rolagem lateral 
   margin: 0 auto;
 }
 .bloco--foto figcaption { padding: 0 var(--lateral); }
+/* "wide": ocupa a largura do conteúdo, sem ir de ponta a ponta da tela */
+.bloco--foto.bloco--wide { width: 100%; margin-left: 0; }
+.bloco--foto.bloco--wide figcaption { padding: 0; }
 
 /* duas fotos lado a lado */
 .bloco--fotos {

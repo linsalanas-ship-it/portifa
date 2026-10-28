@@ -23,7 +23,9 @@
      { tipo: "texto", colunas: 1, texto: ["..."] }
          o mesmo, em uma coluna só
      { tipo: "foto", src: "assets/img/...", legenda: "opcional" }
-         foto de ponta a ponta da tela
+         foto de ponta a ponta da tela (sempre inteira, sem cortar)
+     { tipo: "foto", largura: "wide", src: "assets/img/..." }
+         foto na largura do texto da página, sem ir até as bordas da tela
      { tipo: "fotos", src: ["assets/img/a.jpg", "assets/img/b.jpg"] }
          duas fotos lado a lado
      { tipo: "foto-solta", src: "assets/img/...", lado: "direita" }
@@ -91,7 +93,7 @@ const SITE = {
             "A Purpose Paper vivia um momento de crescimento — de catálogo, presença digital, parcerias e equipe. A comunicação, no entanto, ainda refletia o estágio inicial da marca. Era hora de evoluir: deixar de parecer uma “lojinha fofa” e assumir sua posição como uma editora sólida, com autoridade e autenticidade.",
           ],
         },
-        { tipo: "foto", src: "assets/img/purpose-paper/diagnostico.jpg" },
+        { tipo: "foto", largura: "wide", src: "assets/img/purpose-paper/diagnostico.jpg" },
         {
           tipo: "itens",
           titulo: "Principais achados desse momento",
@@ -112,24 +114,23 @@ const SITE = {
           ],
         },
         {
-          tipo: "foto-texto",
-          src: "assets/img/purpose-paper/simbolo.jpg",
-          lado: "direita",
+          tipo: "texto",
+          colunas: 1,
           texto: [
             "A força dessa percepção orientou também os ajustes no logo (e nas demais expressões visuais). A estrela, que antes representava o Propósito, passou a simbolizar também uma folha de papel. O encontro entre ferramenta e Propósito, presente e futuro.",
           ],
         },
+        { tipo: "foto", largura: "wide", src: "assets/img/purpose-paper/simbolo.jpg" },
         { tipo: "destaque", texto: "É com papel (e no papel) que essas mulheres constroem a própria vida, página a página." },
         { tipo: "intertitulo", texto: "[E]STRATÉGIA DE VOZ" },
         {
-          tipo: "foto-texto",
-          src: "assets/img/purpose-paper/personalidade.jpg",
-          lado: "esquerda",
+          tipo: "texto",
           texto: [
             "A Purpose Paper já era percebida como uma marca amiga: próxima, acolhedora e empática. Nosso trabalho foi aproveitar uma oportunidade na paisagem competitiva e reposicioná-la como uma amiga conselheira: alguém que dialoga com leveza, mas que também tem autoridade no assunto. Esse ajuste trouxe mais firmeza à comunicação, alinhando-se à história de pioneirismo e à robustez das entregas da marca.",
             "A nova identidade verbal oficializa essa postura já intuitiva: a de uma marca que orienta sem impor, que ensina com beleza e que inspira ação prática no dia a dia.",
           ],
         },
+        { tipo: "foto", largura: "wide", src: "assets/img/purpose-paper/personalidade.jpg" },
         {
           tipo: "itens",
           titulo: "Pilares do tom de voz",
@@ -140,7 +141,7 @@ const SITE = {
             { titulo: "Prático", texto: "Nos comprometemos a traduzir a teoria para a prática. Por isso, nossa comunicação é fácil de entender, aplicável e voltada para a vida real." },
           ],
         },
-        { tipo: "foto", src: "assets/img/purpose-paper/tom-de-voz.jpg" },
+        { tipo: "foto", largura: "wide", src: "assets/img/purpose-paper/tom-de-voz.jpg" },
         { tipo: "intertitulo", texto: "[T]OM DE VOZ NA PRÁTICA" },
         {
           tipo: "texto",
@@ -165,14 +166,16 @@ const SITE = {
             "Criados para materiais impressos e páginas institucionais do site, reforçando o posicionamento com mais objetividade.",
           ],
         },
-        { tipo: "fotos", src: ["assets/img/purpose-paper/cartao.jpg", "assets/img/purpose-paper/site.jpg"] },
+        { tipo: "foto", largura: "wide", src: "assets/img/purpose-paper/cartao.jpg" },
+        { tipo: "foto", largura: "wide", src: "assets/img/purpose-paper/site.jpg" },
         {
           tipo: "topico",
           titulo: "Tagline principal",
           frases: ["Habitar no Propósito & Realizar com papel."],
           texto: ["A síntese da marca. Presente em embalagens, redes sociais, site e abertura de produtos."],
         },
-        { tipo: "fotos", src: ["assets/img/purpose-paper/frase-guia.jpg", "assets/img/purpose-paper/outdoor.jpg"] },
+        { tipo: "foto", src: "assets/img/purpose-paper/frase-guia.jpg" },
+        { tipo: "foto", largura: "wide", src: "assets/img/purpose-paper/outdoor.jpg" },
         {
           tipo: "itens",
           itens: [
@@ -188,7 +191,8 @@ const SITE = {
             },
           ],
         },
-        { tipo: "fotos", src: ["assets/img/purpose-paper/campanha-habitos.jpg", "assets/img/purpose-paper/campanha-rotina.jpg"] },
+        { tipo: "foto", largura: "wide", src: "assets/img/purpose-paper/campanha-habitos.jpg" },
+        { tipo: "foto", largura: "wide", src: "assets/img/purpose-paper/campanha-rotina.jpg" },
         {
           tipo: "galeria",
           titulo: "Carrosséis para redes sociais",
@@ -205,7 +209,8 @@ const SITE = {
           palavras: ["Propósito", "Papel", "Ferramentas", "Hábitos", "Rotina", "Praticar", "Realizar"],
           texto: ["Entre outras, essas são palavras que representam a essência da marca e são repetidas intencionalmente para reforçar posicionamento."],
         },
-        { tipo: "fotos", src: ["assets/img/purpose-paper/cartazes.jpg", "assets/img/purpose-paper/loja-planners.jpg"] },
+        { tipo: "foto", largura: "wide", src: "assets/img/purpose-paper/cartazes.jpg" },
+        { tipo: "foto", largura: "wide", src: "assets/img/purpose-paper/loja-planners.jpg" },
         {
           tipo: "texto",
           colunas: 1,

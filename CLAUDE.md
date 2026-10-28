@@ -44,6 +44,10 @@ Princípios que valem para todo projeto:
 9. **Texto da Alana**: não reescrever o conteúdo dela. Só corrigir erros evidentes e avisar. Textos
    que não vieram dela (resumo da grade, texto do botão) devem ser apontados para ela revisar.
 
+Preferências já dadas pela Alana por projeto:
+- **Purpose Paper**: nenhuma imagem dentro de colunas (sem `foto-texto`/`fotos`); todas em `foto`
+  (full) ou `foto` com `largura: "wide"`. Peças verticais seguem em `galeria`.
+
 Variações bem-vindas conforme o material: começar por `foto-texto` em vez de `foto`, usar
 `foto-solta` em vez de pares, omitir o `destaque`, inverter o `lado`, etc.
 
