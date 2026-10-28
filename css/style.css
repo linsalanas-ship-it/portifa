@@ -364,7 +364,23 @@ body { overflow-x: clip; } /* fotos de ponta a ponta não criam rolagem lateral 
   column-gap: var(--entre-colunas);
   column-rule: 1px solid rgba(0, 0, 236, 0.25);
 }
-.bloco--uma-coluna { column-count: 1; max-width: 40rem; }
+/* uma coluna: centralizado, sem capitular */
+.bloco--uma-coluna {
+  column-count: 1;
+  max-width: 44rem;
+  margin: 0 auto;
+  text-align: center;
+  text-wrap: pretty;
+  hyphens: manual;
+  -webkit-hyphens: manual;
+}
+.bloco--texto.bloco--uma-coluna > p:first-child::first-letter {
+  float: none;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  margin: 0;
+}
 
 /* capitular pixelada na primeira letra de cada bloco de texto */
 .bloco--texto > p:first-child::first-letter {

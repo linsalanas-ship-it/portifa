@@ -74,6 +74,10 @@ const SITE = {
         },
         { tipo: "botao", texto: "folhear o livro", url: "https://online.fliphtml5.com/ejvpj/rebh/index.html" },
         {
+          tipo: "fotos",
+          src: ["assets/img/oito-vidas/abertura-capitulo.jpg", "assets/img/oito-vidas/detalhe-agulha.jpg"],
+        },
+        {
           tipo: "texto",
           texto: [
             "Em 2017, no último período da graduação em Jornalismo na Universidade Federal do Ceará, eu tinha certeza de que queria escrever um livro como trabalho de conclusão de curso. Saber se minha escrita teria fôlego para sustentar um longo texto era um desafio pessoal que eu gostaria de enfrentar.",
@@ -93,7 +97,6 @@ const SITE = {
             "A produção de todo o projeto levou aproximadamente 6 meses. O livro foi aprovado com nota máxima pela banca avaliadora.",
           ],
         },
-        { tipo: "foto-solta", src: "assets/img/oito-vidas/abertura-capitulo.jpg", lado: "direita" },
         {
           tipo: "texto",
           texto: [
@@ -102,7 +105,6 @@ const SITE = {
             "De certo modo, o vestido também sou eu. Ouvindo a fala dos entrevistados, conhecendo suas rotinas, me apegando a suas particularidades e transformando essa experiência em escrita. Ao fim de tudo, a peça que se constrói são as palavras.",
           ],
         },
-        { tipo: "foto-solta", src: "assets/img/oito-vidas/detalhe-agulha.jpg", lado: "esquerda" },
         { tipo: "destaque", texto: "Ao fim de tudo, a peça que se constrói são as palavras." },
         { tipo: "foto", src: "assets/img/oito-vidas/miolo-costura.jpg" },
         {
