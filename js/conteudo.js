@@ -257,6 +257,15 @@ const SITE = {
           ],
         },
         { tipo: "foto", largura: "wide", src: "assets/img/fifi/melhor-amiga.jpg" },
+        { tipo: "foto", largura: "wide", src: "assets/img/fifi/suporte-emocional.jpg" },
+        { tipo: "foto", largura: "wide", src: "assets/img/fifi/so-vou-se-voce-for.jpg" },
+        { tipo: "foto", largura: "wide", src: "assets/img/fifi/female-gaze.jpg" },
+        { tipo: "foto", largura: "wide", src: "assets/img/fifi/lingerie-nao.jpg" },
+        { tipo: "foto", largura: "wide", src: "assets/img/fifi/ninguem-tirar.jpg" },
+        {
+          tipo: "texto",
+          texto: ["Exercício de identidade verbal realizado no curso Desenhando com Palavras, ministrado por Fernando Andreazi, na Aprender Design."],
+        },
       ],
     },
     {
