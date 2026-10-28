@@ -1,6 +1,7 @@
 /* Rastro de lápis: por onde o mouse passa fica um traço que some em alguns
    segundos. Branco (rosa-claro) sobre o azul, azul sobre o rosa.
-   Desligado em telas de toque e para quem pede menos movimento. */
+   No celular/tablet, o traço segue o dedo na tela (inclusive enquanto rola).
+   Desligado para quem pede menos movimento. */
 (function () {
   "use strict";
 
@@ -8,9 +9,10 @@
   var ESPESSURA = 3; // px (espessura média; varia com a velocidade)
   var COR = { azul: "#FAE7EC", rosa: "#0000EC" }; // cor do traço sobre cada fundo
 
-  var semMouse = !window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  var temMouse = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  var temToque = "ontouchstart" in window || navigator.maxTouchPoints > 0;
   var menosMovimento = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (semMouse || menosMovimento) return;
+  if ((!temMouse && !temToque) || menosMovimento) return;
 
   var canvas = document.createElement("canvas");
   canvas.className = "rastro";
@@ -72,31 +74,38 @@
   }
   var TINTA = { azul: grafite(COR.azul), rosa: grafite(COR.rosa) };
 
-  document.addEventListener("mousemove", function (e) {
+  // Registra um ponto do traço. Mouse: pontos na página (o traço rola junto).
+  // Toque: pontos na tela, porque ao arrastar o dedo a página rola junto com ele
+  // e, na página, o traço viraria um ponto só.
+  function registrar(clientX, clientY, naTela) {
+    var ox = naTela ? 0 : scrollX;
+    var oy = naTela ? 0 : scrollY;
     var agora = performance.now();
     var anterior = atual && atual.pontos[atual.pontos.length - 1];
     // "pressão": devagar o traço fica mais grosso, rápido fica mais fino
     var largura = ESPESSURA;
     if (anterior) {
       var dt = Math.max(agora - anterior.t, 1);
-      var vel = Math.hypot(e.clientX + scrollX - anterior.x, e.clientY + scrollY - anterior.y) / dt;
+      var vel = Math.hypot(clientX + ox - anterior.x, clientY + oy - anterior.y) / dt;
       var alvo = ESPESSURA * Math.min(Math.max(1.3 - vel * 0.3, 0.5), 1.3);
       largura = anterior.w * 0.6 + alvo * 0.4;
     }
     var ponto = {
-      x: e.clientX + scrollX,
-      y: e.clientY + scrollY,
+      x: clientX + ox,
+      y: clientY + oy,
       t: agora,
       w: largura,
       // afastamento dos fios finos que acompanham o traço, fixo por ponto
       f1: 0.35 + Math.random() * 0.35,
       f2: -(0.35 + Math.random() * 0.35),
     };
-    var cor = fundoEm(e.clientX, e.clientY);
+    var cor = fundoEm(clientX, clientY);
     // começa um traço novo se o mouse parou, pulou ou mudou de fundo
-    if (!atual || agora - ultimo > 120 || atual.cor !== cor) {
-      atual = { cor: cor, pontos: [] };
-      if (tracos.length && tracos[tracos.length - 1].pontos.length) {
+    if (!atual || agora - ultimo > 120 || atual.cor !== cor || atual.naTela !== naTela) {
+      // emenda com o traço anterior (no mouse, como sempre; no toque, só dentro do mesmo arraste)
+      var emenda = atual ? atual.naTela === naTela : !naTela;
+      atual = { cor: cor, pontos: [], naTela: naTela };
+      if (emenda && tracos.length && tracos[tracos.length - 1].pontos.length) {
         // emenda com o ponto anterior para não deixar buraco na troca de cor
         var prev = tracos[tracos.length - 1].pontos;
         if (agora - ultimo <= 120) atual.pontos.push(prev[prev.length - 1]);
@@ -109,14 +118,33 @@
       animando = true;
       requestAnimationFrame(desenhar);
     }
-  }, { passive: true });
+  }
 
-  document.addEventListener("mouseleave", function () { atual = null; });
+  if (temMouse) {
+    document.addEventListener("mousemove", function (e) {
+      registrar(e.clientX, e.clientY, false);
+    }, { passive: true });
+    document.addEventListener("mouseleave", function () { atual = null; });
+  }
+
+  if (temToque) {
+    // cada toque começa um traço novo; só o primeiro dedo desenha
+    document.addEventListener("touchstart", function (e) {
+      atual = null;
+      var t = e.touches[0];
+      if (t) registrar(t.clientX, t.clientY, true);
+    }, { passive: true });
+    document.addEventListener("touchmove", function (e) {
+      var t = e.touches[0];
+      if (t) registrar(t.clientX, t.clientY, true);
+    }, { passive: true });
+    document.addEventListener("touchend", function () { atual = null; }, { passive: true });
+  }
 
   function desenhar() {
     var agora = performance.now();
-    ctx.setTransform(dpr, 0, 0, dpr, -scrollX * dpr, -scrollY * dpr);
-    ctx.clearRect(scrollX, scrollY, innerWidth, innerHeight);
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.lineCap = "butt"; // sem pontas redondas sobrepostas (evita "nós" escuros)
     ctx.lineJoin = "round";
 
@@ -126,6 +154,9 @@
     });
 
     tracos.forEach(function (tr) {
+      // traço do mouse acompanha a página; traço do dedo fica fixo na tela
+      if (tr.naTela) ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      else ctx.setTransform(dpr, 0, 0, dpr, -scrollX * dpr, -scrollY * dpr);
       ctx.strokeStyle = TINTA[tr.cor];
       var pts = tr.pontos;
       for (var i = 1; i < pts.length; i++) {

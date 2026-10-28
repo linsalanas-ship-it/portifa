@@ -14,6 +14,8 @@ Escreva para a Alana em português do Brasil, em linguagem simples.
   de colchetes em títulos, intertítulos ou itens de projeto.
 - Títulos em caixa alta; menus, subtítulos e textos em caixa baixa.
 - Páginas de projeto: fundo rosa, sem rastro de lápis (o cursor de lápis continua).
+- Rastro de lápis (`js/lapis.js`): no computador segue o mouse (pontos na página); no celular segue
+  o dedo (pontos na tela, porque arrastar rola a página). Não mudar o comportamento do computador.
 
 ## Modelo da página de projeto (referência: "Oito vidas de um vestido")
 
