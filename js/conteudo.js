@@ -169,7 +169,7 @@ const SITE = {
           frases: ["Habitar no Propósito & Realizar com papel."],
           texto: ["A síntese da marca. Presente em embalagens, redes sociais, site e abertura de produtos."],
         },
-        { tipo: "foto", src: "assets/img/purpose-paper/frase-guia.jpg" },
+        { tipo: "fotos", src: ["assets/img/purpose-paper/frase-guia.jpg", "assets/img/purpose-paper/outdoor.jpg"] },
         {
           tipo: "itens",
           itens: [
@@ -185,13 +185,14 @@ const SITE = {
             },
           ],
         },
-        { tipo: "foto", src: "assets/img/purpose-paper/cartazes.jpg" },
+        { tipo: "fotos", src: ["assets/img/purpose-paper/campanha-habitos.jpg", "assets/img/purpose-paper/campanha-rotina.jpg"] },
         {
           tipo: "topico",
           titulo: "Palavras sagradas",
           palavras: ["Propósito", "Papel", "Ferramentas", "Hábitos", "Rotina", "Praticar", "Realizar"],
           texto: ["Entre outras, essas são palavras que representam a essência da marca e são repetidas intencionalmente para reforçar posicionamento."],
         },
+        { tipo: "fotos", src: ["assets/img/purpose-paper/cartazes.jpg", "assets/img/purpose-paper/loja-planners.jpg"] },
         {
           tipo: "texto",
           colunas: 1,
