@@ -5,7 +5,7 @@
   "use strict";
 
   var DURACAO = 2500; // ms até o traço sumir
-  var ESPESSURA = 2.4; // px
+  var ESPESSURA = 3; // px (espessura média; varia com a velocidade)
   var COR = { azul: "#FAE7EC", rosa: "#0000EC" }; // cor do traço sobre cada fundo
 
   var semMouse = !window.matchMedia("(hover: hover) and (pointer: fine)").matches;
@@ -49,20 +49,48 @@
   var ultimo = 0;
   var animando = false;
 
-  function aleatorio() {
-    return Math.random() - 0.5;
+  // Textura de grafite: um ladrilho de grãos com transparência aleatória,
+  // usado como "tinta" do traço. Um ladrilho por cor.
+  function grafite(cor) {
+    var lado = 96;
+    var c = document.createElement("canvas");
+    c.width = c.height = lado;
+    var g = c.getContext("2d");
+    g.fillStyle = cor;
+    g.fillRect(0, 0, lado, lado);
+    var img = g.getImageData(0, 0, lado, lado);
+    for (var i = 3; i < img.data.length; i += 4) {
+      var r = Math.random();
+      // muitos grãos fortes, alguns fracos e alguns vazios (o papel aparecendo)
+      img.data[i] = r < 0.3 ? 0 : Math.round(255 * (0.6 + 0.4 * Math.random()));
+    }
+    g.putImageData(img, 0, 0);
+    var padrao = ctx.createPattern(c, "repeat");
+    // grão do tamanho de um pixel da tela, também em telas de alta densidade
+    if (padrao.setTransform && window.DOMMatrix) padrao.setTransform(new DOMMatrix().scale(1 / dpr));
+    return padrao;
   }
+  var TINTA = { azul: grafite(COR.azul), rosa: grafite(COR.rosa) };
 
   document.addEventListener("mousemove", function (e) {
     var agora = performance.now();
+    var anterior = atual && atual.pontos[atual.pontos.length - 1];
+    // "pressão": devagar o traço fica mais grosso, rápido fica mais fino
+    var largura = ESPESSURA;
+    if (anterior) {
+      var dt = Math.max(agora - anterior.t, 1);
+      var vel = Math.hypot(e.clientX + scrollX - anterior.x, e.clientY + scrollY - anterior.y) / dt;
+      var alvo = ESPESSURA * Math.min(Math.max(1.3 - vel * 0.3, 0.5), 1.3);
+      largura = anterior.w * 0.6 + alvo * 0.4;
+    }
     var ponto = {
       x: e.clientX + scrollX,
       y: e.clientY + scrollY,
       t: agora,
-      // pequenas variações fixas por ponto dão a textura do grafite
-      jx: aleatorio() * 1.2,
-      jy: aleatorio() * 1.2,
-      w: ESPESSURA * (0.8 + Math.random() * 0.4),
+      w: largura,
+      // afastamento dos fios finos que acompanham o traço, fixo por ponto
+      f1: 0.35 + Math.random() * 0.35,
+      f2: -(0.35 + Math.random() * 0.35),
     };
     var cor = fundoEm(e.clientX, e.clientY);
     // começa um traço novo se o mouse parou, pulou ou mudou de fundo
@@ -89,7 +117,7 @@
     var agora = performance.now();
     ctx.setTransform(dpr, 0, 0, dpr, -scrollX * dpr, -scrollY * dpr);
     ctx.clearRect(scrollX, scrollY, innerWidth, innerHeight);
-    ctx.lineCap = "round";
+    ctx.lineCap = "butt"; // sem pontas redondas sobrepostas (evita "nós" escuros)
     ctx.lineJoin = "round";
 
     tracos = tracos.filter(function (tr) {
@@ -98,27 +126,37 @@
     });
 
     tracos.forEach(function (tr) {
-      ctx.strokeStyle = COR[tr.cor];
-      for (var i = 1; i < tr.pontos.length; i++) {
-        var a = tr.pontos[i - 1];
-        var b = tr.pontos[i];
+      ctx.strokeStyle = TINTA[tr.cor];
+      var pts = tr.pontos;
+      for (var i = 1; i < pts.length; i++) {
+        var a = pts[i - 1];
+        var b = pts[i];
         var vida = 1 - (agora - b.t) / DURACAO;
         if (vida <= 0) continue;
         var alfa = vida * vida; // some devagar no começo, rápido no fim
-        // traço principal
-        ctx.globalAlpha = 0.9 * alfa;
+
+        // curva suave: de meio a meio dos segmentos, passando pelo ponto
+        var c = pts[i + 1] || b;
+        var ini = i === 1 ? a : { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 };
+        var fim = c === b ? b : { x: (b.x + c.x) / 2, y: (b.y + c.y) / 2 };
+        var dx = fim.x - ini.x, dy = fim.y - ini.y;
+        var len = Math.hypot(dx, dy) || 1;
+        var nx = -dy / len, ny = dx / len; // perpendicular ao traço
+
+        // miolo denso (cor lisa, mais fino) + corpo granulado com bordas ásperas
+        ctx.strokeStyle = COR[tr.cor];
+        ctx.globalAlpha = 0.7 * alfa;
+        ctx.lineWidth = b.w * 0.45;
+        curva(ini, b, fim, 0, 0);
+        ctx.strokeStyle = TINTA[tr.cor];
+        ctx.globalAlpha = alfa;
         ctx.lineWidth = b.w;
-        ctx.beginPath();
-        ctx.moveTo(a.x, a.y);
-        ctx.lineTo(b.x, b.y);
-        ctx.stroke();
-        // granulado do grafite: um segundo traço fino e deslocado
-        ctx.globalAlpha = 0.35 * alfa;
-        ctx.lineWidth = b.w * 0.6;
-        ctx.beginPath();
-        ctx.moveTo(a.x + a.jx, a.y + a.jy);
-        ctx.lineTo(b.x + b.jx, b.y + b.jy);
-        ctx.stroke();
+        curva(ini, b, fim, 0, 0);
+        // fios finos nas bordas, como a ponta gasta do lápis
+        ctx.globalAlpha = 0.55 * alfa;
+        ctx.lineWidth = Math.max(b.w * 0.35, 0.6);
+        curva(ini, b, fim, nx * b.w * b.f1, ny * b.w * b.f1);
+        curva(ini, b, fim, nx * b.w * b.f2, ny * b.w * b.f2);
       }
     });
     ctx.globalAlpha = 1;
@@ -129,6 +167,13 @@
     } else {
       animando = false;
     }
+  }
+
+  function curva(ini, meio, fim, ox, oy) {
+    ctx.beginPath();
+    ctx.moveTo(ini.x + ox, ini.y + oy);
+    ctx.quadraticCurveTo(meio.x + ox, meio.y + oy, fim.x + ox, fim.y + oy);
+    ctx.stroke();
   }
 
   // Se a página rolar com o traço na tela, redesenha na nova posição

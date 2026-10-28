@@ -47,6 +47,13 @@ Sem configuração, o botão “enviar” abre o programa de e-mail da pessoa co
 pronta para o endereço em `contato.email`. Para receber direto, sem abrir o e-mail,
 crie um formulário grátis em [formspree.io](https://formspree.io) e cole o link no campo `formspree`.
 
+## Depois de mudar CSS ou JavaScript
+
+Os arquivos são carregados com um número de versão (`style.css?v=2026102802`) em
+`index.html` e `projeto.html`. Ao alterar `css/` ou `js/`, troque esse número nos dois
+arquivos (por exemplo, pela data do dia) para os visitantes não verem a versão antiga
+guardada no navegador. Para editar só o `conteudo.js` não é preciso.
+
 ## Ver no computador
 
 Abra `index.html` no navegador, ou rode `npx serve .` na pasta e acesse o endereço exibido.
