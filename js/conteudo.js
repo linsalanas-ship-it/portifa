@@ -194,16 +194,6 @@ const SITE = {
         { tipo: "foto", largura: "wide", src: "assets/img/purpose-paper/campanha-habitos.jpg" },
         { tipo: "foto", largura: "wide", src: "assets/img/purpose-paper/campanha-rotina.jpg" },
         {
-          tipo: "galeria",
-          titulo: "Carrosséis para redes sociais",
-          src: ["assets/img/purpose-paper/carrossel-colecao.jpg", "assets/img/purpose-paper/carrossel-refil.jpg", "assets/img/purpose-paper/carrossel-cards.jpg"],
-        },
-        {
-          tipo: "galeria",
-          titulo: "E-mail marketing",
-          src: ["assets/img/purpose-paper/email-black.jpg", "assets/img/purpose-paper/email-compre-ganhe.jpg"],
-        },
-        {
           tipo: "topico",
           titulo: "Palavras sagradas",
           palavras: ["Propósito", "Papel", "Ferramentas", "Hábitos", "Rotina", "Praticar", "Realizar"],
