@@ -357,11 +357,13 @@ body { overflow-x: clip; } /* fotos de ponta a ponta não criam rolagem lateral 
 .bloco__texto p + p,
 .bloco--lide p + p { margin-top: 1em; }
 
-/* texto corrido: por padrão uma coluna alinhada à esquerda, com capitular pixelada.
-   Variações: centralizado (sem capitular) e duas colunas com fio separando. */
+/* texto corrido: uma coluna alinhada à esquerda, na largura toda do conteúdo (mesmas
+   bordas das fotos "wide" e das colunas), com capitular pixelada.
+   Variações (para listas etc.): centralizado e duas colunas com fio separando. */
 .blocos { --entre-colunas: clamp(2rem, 5vw, 4rem); }
-.bloco--texto { max-width: 44rem; }
+.bloco--texto { max-width: none; }
 .bloco--centro {
+  max-width: 44rem;
   margin: 0 auto;
   text-align: center;
   text-wrap: pretty;
@@ -375,7 +377,9 @@ body { overflow-x: clip; } /* fotos de ponta a ponta não criam rolagem lateral 
   column-rule: 1px solid rgba(0, 0, 236, 0.25);
 }
 
-/* capitular pixelada (a única letra pixelada nas páginas de projeto) */
+/* capitular pixelada (a única letra pixelada nas páginas de projeto);
+   o primeiro parágrafo contém a capitular, para ela não invadir o seguinte */
+.bloco--texto:not(.bloco--centro) > p:first-child { display: flow-root; }
 .bloco--texto:not(.bloco--centro) > p:first-child::first-letter {
   float: left;
   font-family: var(--fonte-cap);
@@ -384,16 +388,11 @@ body { overflow-x: clip; } /* fotos de ponta a ponta não criam rolagem lateral 
   margin: 0.06em 0.1em 0 0;
 }
 
-/* lide: abertura em letra maior */
+/* lide: abertura em letra maior, alinhada à esquerda na largura toda */
 .bloco--lide {
-  max-width: 48rem;
-  margin: 0 auto;
   font-size: var(--t-sub);
   line-height: 1.3;
-  text-align: center;
   text-wrap: pretty;
-  hyphens: manual;
-  -webkit-hyphens: manual;
 }
 
 /* foto de ponta a ponta */
@@ -414,6 +413,8 @@ body { overflow-x: clip; } /* fotos de ponta a ponta não criam rolagem lateral 
 .bloco--foto figcaption { padding: 0 var(--lateral); }
 /* "wide": ocupa a largura do conteúdo, sem ir de ponta a ponta da tela */
 .bloco--foto.bloco--wide { width: 100%; margin-left: 0; }
+/* a foto wide ocupa exatamente a largura do texto, para as bordas baterem */
+.bloco--foto.bloco--wide img { width: 100%; max-height: none; }
 .bloco--foto.bloco--wide figcaption { padding: 0; }
 
 /* duas fotos lado a lado */

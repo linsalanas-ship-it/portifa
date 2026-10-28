@@ -24,15 +24,15 @@ estão documentados no topo de `js/conteudo.js`.
 Princípios que valem para todo projeto:
 
 1. **Abertura**: título + subtítulo (o que é, para quem/onde). Em seguida, a imagem mais forte do
-   projeto inteira (`foto`), depois um `lide` centralizado de 1–2 parágrafos que explica o projeto
+   projeto inteira (`foto`), depois um `lide` (alinhado à esquerda) de 1–2 parágrafos que explica o projeto
    em poucas linhas, e o `botao` para o trabalho original quando existir.
 2. **Alternar texto e imagem**: nunca duas imagens (ou blocos de imagem) seguidas; sempre texto
    entre elas. Espalhar as fotos ao longo da página em vez de agrupá-las.
-3. **Texto corrido em uma coluna** por padrão (`texto`, alinhado à esquerda, com capitular).
-   **Alternar** entre alinhado à esquerda, centralizado (`alinhamento: "centro"`, sem capitular) e
-   duas colunas (`colunas: 2`, com capitular) — duas colunas só quando ajudar a leitura. Listas
-   paralelas (achados, pilares) vão em `itens`, que é em duas colunas. Quebrar textos longos em
-   vários blocos para intercalar com imagens. Parágrafo final: centralizado.
+3. **Texto corrido sempre em uma coluna, alinhado à esquerda** (`texto`, com capitular), ocupando
+   a largura toda do conteúdo — as mesmas bordas das fotos `wide`, de `itens` e das colunas. Isso
+   vale também para o `lide` e o parágrafo final. Duas colunas (`colunas: 2` ou `itens`) **só para
+   listas**, bullet points, achados, pilares etc. Quebrar textos longos em vários blocos para
+   intercalar com imagens.
 4. **Fotos sempre inteiras**: nunca cortar nem esticar; `foto` respeita a proporção e cabe na tela.
    Fotos horizontais boas → `foto` ou `foto-texto`; pares de detalhes → `fotos`; uma foto pequena
    para quebrar o ritmo → `foto-solta` (alternar `lado`); peças verticais (posts, e-mails) →
@@ -45,7 +45,7 @@ Princípios que valem para todo projeto:
    `colunas: 2`.
 7. **Destaque**: no máximo um `destaque` (olho) por página, com uma frase forte tirada do próprio
    texto, perto do fim.
-8. **Fechamento**: último parágrafo em uma coluna, centralizado, e o `botao` repetido se houver link.
+8. **Fechamento**: último parágrafo como texto corrido e o `botao` repetido se houver link.
 9. **Texto da Alana**: não reescrever o conteúdo dela. Só corrigir erros evidentes e avisar. Textos
    que não vieram dela (resumo da grade, texto do botão) devem ser apontados para ela revisar.
 

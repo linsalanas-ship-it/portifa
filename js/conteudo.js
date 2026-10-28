@@ -18,13 +18,12 @@
      { tipo: "lide", texto: ["..."] }
          abertura em letra maior, uma coluna
      { tipo: "texto", texto: ["...", "..."] }
-         texto corrido em uma coluna, alinhado à esquerda, com capitular
-         pixelada na primeira letra
+         texto corrido em uma coluna, alinhado à esquerda na largura toda,
+         com capitular pixelada na primeira letra (use sempre para texto corrido)
      { tipo: "texto", alinhamento: "centro", texto: ["..."] }
          uma coluna centralizada, sem capitular
      { tipo: "texto", colunas: 2, texto: ["..."] }
-         duas colunas (uma no celular), com capitular — use quando ajudar,
-         por exemplo em listas ou textos longos
+         duas colunas (uma no celular), com capitular — só para listas
      { tipo: "foto", src: "assets/img/...", legenda: "opcional" }
          foto de ponta a ponta da tela (sempre inteira, sem cortar)
      { tipo: "foto", largura: "wide", src: "assets/img/..." }
@@ -110,7 +109,6 @@ const SITE = {
         { tipo: "intertitulo", texto: "NARRATIVA DA MARCA" },
         {
           tipo: "texto",
-          colunas: 2,
           texto: [
             "Ao mergulhar na essência da Purpose Paper, entendemos que sua origem era mais do que uma história para a aba “Quem somos” — era o coração da marca.",
             "Maeli, fundadora da empresa, criou a empresa antes de casar. O que começou como uma forma de financiar essa nova etapa da vida acabou se tornando um negócio: uma marca que ajudaria outras mulheres a também realizarem seus objetivos.",
@@ -119,7 +117,6 @@ const SITE = {
         },
         {
           tipo: "texto",
-          alinhamento: "centro",
           texto: [
             "A força dessa percepção orientou também os ajustes no logo (e nas demais expressões visuais). A estrela, que antes representava o Propósito, passou a simbolizar também uma folha de papel. O encontro entre ferramenta e Propósito, presente e futuro.",
           ],
@@ -149,7 +146,6 @@ const SITE = {
         { tipo: "intertitulo", texto: "TOM DE VOZ NA PRÁTICA" },
         {
           tipo: "texto",
-          alinhamento: "centro",
           texto: [
             "Esses pilares se desdobram em diferentes tipos de linguagem prática, moldando a presença da marca nos pontos de contato.",
           ],
@@ -207,7 +203,6 @@ const SITE = {
         { tipo: "foto", largura: "wide", src: "assets/img/purpose-paper/loja-planners.jpg" },
         {
           tipo: "texto",
-          alinhamento: "centro",
           texto: [
             "O projeto foi concluído com a entrega de um brandbook detalhado e treinamentos práticos de expressão verbal e visual para o time interno. O objetivo era mais do que apresentar diretrizes: era garantir que cada pessoa envolvida com a Purpose Paper se sentisse parte da nova fase e soubesse como dar voz e forma ao Propósito da marca.",
           ],
@@ -256,7 +251,6 @@ const SITE = {
         },
         {
           tipo: "texto",
-          colunas: 2,
           texto: [
             "Isa, Eliane, Marcelo, Maurília, Gorete, Larissa e Ruth dão vida a sete dos oito capítulos. São eles: A alma; O corpo; A trama; O molde; A costura; O adeus e O depois.",
             "Eles não se conhecem na vida real, mas dentro da narrativa se tornam parte de um mesmo fio. O vestido que acompanhamos não é nenhum específico, por isso pode ser qualquer um — o meu, o seu, o de alguém que você conhece.",
@@ -267,7 +261,6 @@ const SITE = {
         { tipo: "foto", src: "assets/img/oito-vidas/miolo-gorete.jpg" },
         {
           tipo: "texto",
-          alinhamento: "centro",
           texto: [
             "Além da narração das histórias, há um segundo tipo de texto, destinado a compartilhar com o leitor as pesquisas simultâneas à escrita do livro. Eles tratam de temas como agrotóxicos, design, transparência na moda, trabalho infantil, poluição por tecidos sintéticos, entre outros assuntos, com entrevistas e opiniões de especialistas, aprofundando a reflexão.",
           ],
