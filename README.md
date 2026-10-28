@@ -7,7 +7,7 @@ Site estático (HTML + CSS + JavaScript, sem instalação nem build).
 **Tudo o que muda fica em um arquivo só: [`js/conteudo.js`](js/conteudo.js).**
 Abra no editor do GitHub (ícone de lápis), altere e salve (“Commit changes”).
 
-- **Letra pixelada:** coloque a letra entre colchetes → `"[A]LANA [L]INS"`.
+- **Letra pixelada:** coloque a letra entre colchetes → `"AL[A]NA LINS"`.
 - **Quebra de linha** num título: `<br>`.
 - **Link da loja:** campo `lojaUrl`.
 - **E-mail e redes:** bloco `contato`.
@@ -54,6 +54,11 @@ O "Oito vidas de um vestido" serve de modelo de ritmo, mas cada projeto pode ter
 - use no máximo um `destaque`, com uma frase forte do próprio texto;
 - feche com um parágrafo de texto e repita o botão, se houver.
 
+### Sopa de letrinhas (o que eu faço)
+
+Em `servicos.lista`, cada serviço tem `nome` (a palavra que flutua) e `descricao` (o texto que
+aparece ao clicar). Para acrescentar um serviço, copie um bloco `{ nome: ..., descricao: ... },`.
+
 ### Formulário de contato
 
 Sem configuração, o botão “enviar” abre o programa de e-mail da pessoa com a mensagem
@@ -62,7 +67,7 @@ crie um formulário grátis em [formspree.io](https://formspree.io) e cole o lin
 
 ## Depois de mudar CSS ou JavaScript
 
-Os arquivos são carregados com um número de versão (`style.css?v=2026102820`) em
+Os arquivos são carregados com um número de versão (`style.css?v=2026102824`) em
 `index.html` e `projeto.html`. Ao alterar `css/` ou `js/`, troque esse número nos dois
 arquivos (por exemplo, pela data do dia) para os visitantes não verem a versão antiga
 guardada no navegador. Para editar só o `conteudo.js` não é preciso.

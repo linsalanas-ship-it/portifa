@@ -91,9 +91,7 @@
     if (SITE.sobre.foto) $("sobre-foto").src = SITE.sobre.foto;
     else $("sobre-foto").remove();
 
-    $("lista-servicos").innerHTML = SITE.servicos.lista.map(function (s) {
-      return "<li>" + formatar(s) + "</li>";
-    }).join("");
+    iniciarSopa();
 
     var c = SITE.contato;
     var links = [];
@@ -312,6 +310,157 @@
     eventos.forEach(function (ev) {
       window.addEventListener(ev, pular, { passive: true });
     });
+  }
+
+  // ---------- sopa de letrinhas: serviços flutuando ----------
+  function iniciarSopa() {
+    var area = $("sopa");
+    var legenda = $("sopa-descricao");
+    var itens = SITE.servicos.lista.map(function (s) {
+      return typeof s === "string" ? { nome: s, descricao: "" } : s;
+    });
+    var letras = itens.map(function (it, i) {
+      var el = document.createElement("button");
+      el.type = "button";
+      el.className = "sopa__letra";
+      el.innerHTML = formatar(it.nome);
+      el.setAttribute("aria-pressed", "false");
+      area.appendChild(el);
+      return {
+        el: el, item: it,
+        x: 0, y: 0,
+        // direção e velocidade diferentes para cada palavra (px por segundo)
+        vx: (i % 2 ? 1 : -1) * (14 + i * 3), vy: (i % 3 ? 1 : -1) * (10 + i * 2),
+        fase: i * 1.7, w: 0, h: 0,
+      };
+    });
+    var escolhida = null;
+    // o balão da descrição também é um obstáculo: as outras palavras desviam dele
+    var balao = { fixa: true, ativo: false, x: 0, y: 0, w: 0, h: 0 };
+    function parada(l) { return l === escolhida || l.fixa; }
+
+    function medir() {
+      var W = area.clientWidth, H = area.clientHeight;
+      letras.forEach(function (l, i) {
+        l.w = l.el.offsetWidth; l.h = l.el.offsetHeight;
+        if (!l.posicionada) {
+          // posição inicial espalhada em faixas, para não começarem amontoadas
+          l.x = ((i * 37) % 100) / 100 * Math.max(W - l.w, 0);
+          l.y = (i + 0.5) / letras.length * Math.max(H - l.h, 0);
+          l.posicionada = true;
+        }
+        l.x = Math.min(Math.max(l.x, 0), Math.max(W - l.w, 0));
+        l.y = Math.min(Math.max(l.y, 0), Math.max(H - l.h, 0));
+      });
+    }
+
+    function pintar(t) {
+      letras.forEach(function (l) {
+        var giro = menosMovimento || l === escolhida ? 0 : Math.sin(t / 1400 + l.fase) * 4;
+        l.el.style.transform = "translate(" + l.x.toFixed(1) + "px," + l.y.toFixed(1) + "px) rotate(" + giro.toFixed(2) + "deg)";
+      });
+    }
+
+    var antes = 0, visivel = true, rodando = false;
+    function passo(t) {
+      var dt = Math.min((t - (antes || t)) / 1000, 0.05);
+      antes = t;
+      var W = area.clientWidth, H = area.clientHeight;
+      letras.forEach(function (l) {
+        if (l === escolhida) return; // a escolhida para de flutuar
+        var ritmo = l.el.matches(":hover") ? 0.25 : 1; // devagar sob o cursor
+        l.x += l.vx * dt * ritmo;
+        l.y += l.vy * dt * ritmo;
+        if (l.x < 0) { l.x = 0; l.vx = Math.abs(l.vx); }
+        if (l.y < 0) { l.y = 0; l.vy = Math.abs(l.vy); }
+        if (l.x > W - l.w) { l.x = Math.max(W - l.w, 0); l.vx = -Math.abs(l.vx); }
+        if (l.y > H - l.h) { l.y = Math.max(H - l.h, 0); l.vy = -Math.abs(l.vy); }
+      });
+      // palavras que se encostam se afastam devagar, como letrinhas no caldo
+      var corpos = balao.ativo ? letras.concat([balao]) : letras;
+      for (var i = 0; i < corpos.length; i++) {
+        for (var j = i + 1; j < corpos.length; j++) {
+          var a = corpos[i], b = corpos[j];
+          var sx = Math.min(a.x + a.w, b.x + b.w) - Math.max(a.x, b.x);
+          var sy = Math.min(a.y + a.h, b.y + b.h) - Math.max(a.y, b.y);
+          if (sx > 0 && sy > 0) {
+            var empurra = (sy < sx ? 1 : 0);
+            var dir;
+            if (empurra) {
+              dir = a.y < b.y ? -1 : 1;
+              if (!parada(a)) { a.vy = dir * Math.abs(a.vy); a.y += dir * sy / 2; }
+              if (!parada(b)) { b.vy = -dir * Math.abs(b.vy); b.y -= dir * sy / 2; }
+            } else {
+              dir = a.x < b.x ? -1 : 1;
+              if (!parada(a)) { a.vx = dir * Math.abs(a.vx); a.x += dir * sx / 2; }
+              if (!parada(b)) { b.vx = -dir * Math.abs(b.vx); b.x -= dir * sx / 2; }
+            }
+          }
+        }
+      }
+      pintar(t);
+      if (visivel && !menosMovimento) requestAnimationFrame(passo);
+      else rodando = false;
+    }
+    function animar() {
+      if (rodando || menosMovimento) return;
+      rodando = true; antes = 0;
+      requestAnimationFrame(passo);
+    }
+
+    function escolher(l) {
+      if (escolhida) {
+        escolhida.el.classList.remove("sopa__letra--ativa");
+        escolhida.el.setAttribute("aria-pressed", "false");
+      }
+      if (!l || l === escolhida) {
+        escolhida = null;
+        balao.ativo = false;
+        legenda.classList.remove("sopa__descricao--visivel");
+        return;
+      }
+      escolhida = l;
+      l.el.classList.add("sopa__letra--ativa");
+      l.el.setAttribute("aria-pressed", "true");
+      legenda.innerHTML = formatar(l.item.descricao || "");
+      pintar(performance.now());
+      posicionarBalao();
+      legenda.classList.add("sopa__descricao--visivel");
+      balao.ativo = true;
+    }
+
+    // balão logo abaixo da palavra; se não couber embaixo, vai para cima
+    function posicionarBalao() {
+      if (!escolhida) return;
+      var l = escolhida, W = area.clientWidth, H = area.clientHeight, folga = 6;
+      legenda.style.maxWidth = Math.min(W, 352) + "px";
+      var w = legenda.offsetWidth, h = legenda.offsetHeight;
+      var x = Math.min(Math.max(l.x + l.w / 2 - w / 2, 0), Math.max(W - w, 0));
+      var y = l.y + l.h + folga;
+      var acima = false;
+      if (y + h > H) { y = Math.max(l.y - h - folga, 0); acima = true; }
+      legenda.style.transform = "translate(" + x.toFixed(1) + "px," + y.toFixed(1) + "px)";
+      legenda.classList.toggle("sopa__descricao--acima", acima);
+      balao.x = x; balao.y = y; balao.w = w; balao.h = h;
+    }
+    letras.forEach(function (l) {
+      l.el.addEventListener("click", function (e) { e.stopPropagation(); escolher(l); });
+    });
+    area.addEventListener("click", function (e) { if (!legenda.contains(e.target)) escolher(null); });
+
+    medir();
+    pintar(0);
+    window.addEventListener("resize", function () { medir(); pintar(performance.now()); posicionarBalao(); });
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { medir(); pintar(0); });
+    // só anima quando a seção está na tela
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(function (e) {
+        visivel = e[0].isIntersecting;
+        if (visivel) animar();
+      }).observe(area);
+    } else {
+      animar();
+    }
   }
 
   // ---------- formulário de contato ----------

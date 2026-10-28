@@ -9,11 +9,13 @@ Escreva para a Alana em português do Brasil, em linguagem simples.
 - Cores: azul `#0000EC` e rosa `#FAE7EC`. Texto rosa sobre azul, azul sobre rosa. Nada além disso
   (fotos à parte).
 - Fontes: Switzer (todo o texto) e Retrogression (pixelada). Na página inicial, a pixelada marca
-  letras de destaque nos títulos, com colchetes em `conteudo.js` (`"[A]LANA"`). **Nas páginas de
+  letras de destaque nos títulos, com colchetes em `conteudo.js` (`"AL[A]NA LINS"`). **Nas páginas de
   projeto, a Retrogression aparece só como capitular** (primeira letra dos blocos de texto) — nada
   de colchetes em títulos, intertítulos ou itens de projeto.
 - Títulos em caixa alta; menus, subtítulos e textos em caixa baixa.
 - Páginas de projeto: fundo rosa, sem rastro de lápis (o cursor de lápis continua).
+- Rastro de lápis (`js/lapis.js`): no computador segue o mouse (pontos na página); no celular segue
+  o dedo (pontos na tela, porque arrastar rola a página). Não mudar o comportamento do computador.
 
 ## Modelo da página de projeto (referência: "Oito vidas de um vestido")
 

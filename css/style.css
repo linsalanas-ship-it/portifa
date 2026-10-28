@@ -218,15 +218,56 @@ p { margin: 0; }
   mask: url("../assets/img/rosto.png") center / contain no-repeat;
 }
 
-/* O que eu faço */
-.servicos .lista {
-  list-style: none;
-  margin: 1.6em 0 0;
-  padding: 0;
-  font-size: var(--t-sub);
-  line-height: 1.1;
-  text-align: center;
+/* Sopa de letrinhas: serviços flutuando */
+.sopa {
+  position: relative;
+  width: 100%;
+  max-width: var(--largura);
+  height: clamp(18rem, 48vh, 30rem);
+  margin-top: 2rem;
 }
+.sopa__letra {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 0.15em 0.35em;
+  font: inherit;
+  font-size: clamp(1.25rem, 0.9rem + 1.6vw, 2.25rem);
+  line-height: 1.1;
+  white-space: nowrap;
+  color: inherit;
+  background: none;
+  border: 0;
+  will-change: transform;
+}
+.sopa__letra:hover,
+.sopa__letra--ativa {
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+  text-decoration-thickness: 1px;
+}
+.sopa__letra.sopa__letra--ativa { color: var(--azul); background: var(--rosa); text-decoration: none; }
+/* balão com a descrição, logo abaixo (ou acima) da palavra clicada */
+.sopa__descricao {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  width: max-content;
+  margin: 0;
+  padding: 0.7em 0.9em;
+  font-size: var(--t-card);
+  line-height: 1.35;
+  text-align: left;
+  color: var(--azul);
+  background: var(--rosa);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.3s, visibility 0.3s;
+}
+.sopa__descricao--visivel { opacity: 1; visibility: visible; pointer-events: auto; }
+.sopa__letra { z-index: 1; }
 
 /* Contato */
 .contato .titulo { margin-bottom: 2.25rem; }
