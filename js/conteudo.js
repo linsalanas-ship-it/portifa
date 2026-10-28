@@ -19,7 +19,8 @@
          abertura em letra maior, uma coluna
      { tipo: "texto", texto: ["...", "..."] }
          texto corrido em uma coluna, alinhado à esquerda na largura toda,
-         com capitular pixelada na primeira letra (use sempre para texto corrido)
+         com capitular pixelada na primeira letra (use sempre para texto corrido;
+         a capitular só aparece se o primeiro parágrafo tiver 3 linhas ou mais)
      { tipo: "texto", alinhamento: "centro", texto: ["..."] }
          uma coluna centralizada, sem capitular
      { tipo: "texto", colunas: 2, texto: ["..."] }
@@ -151,34 +152,21 @@ const SITE = {
           ],
         },
         {
-          tipo: "topico",
-          titulo: "Manifesto",
-          texto: [
-            "O que defendemos com firmeza e anunciamos com beleza. Usado para expressar o coração da marca de forma poética e profunda, em apresentações institucionais e campanhas. Texto narrado no vídeo-manifesto pela fundadora da marca.",
-          ],
-        },
-        { tipo: "foto", src: "assets/img/purpose-paper/manifesto.jpg" },
-        { tipo: "video", url: "https://youtu.be/Mf1qoBb2ISo" },
-        {
-          tipo: "topico",
-          titulo: "Textos institucionais",
-          texto: [
-            "Criados para materiais impressos e páginas institucionais do site, reforçando o posicionamento com mais objetividade.",
-          ],
-        },
-        { tipo: "foto", largura: "wide", src: "assets/img/purpose-paper/cartao.jpg" },
-        { tipo: "foto", largura: "wide", src: "assets/img/purpose-paper/site.jpg" },
-        {
-          tipo: "topico",
-          titulo: "Tagline principal",
-          frases: ["Habitar no Propósito & Realizar com papel."],
-          texto: ["A síntese da marca. Presente em embalagens, redes sociais, site e abertura de produtos."],
-        },
-        { tipo: "foto", src: "assets/img/purpose-paper/frase-guia.jpg" },
-        { tipo: "foto", largura: "wide", src: "assets/img/purpose-paper/outdoor.jpg" },
-        {
           tipo: "itens",
           itens: [
+            {
+              titulo: "Manifesto",
+              texto: "O que defendemos com firmeza e anunciamos com beleza. Usado para expressar o coração da marca de forma poética e profunda, em apresentações institucionais e campanhas. Texto narrado no vídeo-manifesto pela fundadora da marca.",
+            },
+            {
+              titulo: "Tagline principal",
+              frases: ["Habitar no Propósito & Realizar com papel."],
+              texto: "A síntese da marca. Presente em embalagens, redes sociais, site e abertura de produtos.",
+            },
+            {
+              titulo: "Textos institucionais",
+              texto: "Criados para materiais impressos e páginas institucionais do site, reforçando o posicionamento com mais objetividade.",
+            },
             {
               titulo: "Chamadas à ação",
               frases: ["“Seus hábitos com Propósito começam agora.”", "“É hora de planejar e realizar!”", "“Dia a dia. Página a página.”"],
@@ -189,16 +177,21 @@ const SITE = {
               frases: ["“A história da Purpose é feita de muitas histórias.”", "“Em nossas mãos, o papel vira ferramenta.”", "“Clube das que planejam e realizam!”"],
               texto: "Frases que expressam pertencimento, afinidade e visão compartilhada.",
             },
+            {
+              titulo: "Palavras sagradas",
+              palavras: ["Propósito", "Papel", "Ferramentas", "Hábitos", "Rotina", "Praticar", "Realizar"],
+              texto: "Entre outras, essas são palavras que representam a essência da marca e são repetidas intencionalmente para reforçar posicionamento.",
+            },
           ],
         },
+        { tipo: "foto", src: "assets/img/purpose-paper/manifesto.jpg" },
+        { tipo: "video", url: "https://youtu.be/Mf1qoBb2ISo" },
+        { tipo: "foto", src: "assets/img/purpose-paper/frase-guia.jpg" },
+        { tipo: "foto", largura: "wide", src: "assets/img/purpose-paper/outdoor.jpg" },
+        { tipo: "foto", largura: "wide", src: "assets/img/purpose-paper/cartao.jpg" },
+        { tipo: "foto", largura: "wide", src: "assets/img/purpose-paper/site.jpg" },
         { tipo: "foto", largura: "wide", src: "assets/img/purpose-paper/campanha-habitos.jpg" },
         { tipo: "foto", largura: "wide", src: "assets/img/purpose-paper/campanha-rotina.jpg" },
-        {
-          tipo: "topico",
-          titulo: "Palavras sagradas",
-          palavras: ["Propósito", "Papel", "Ferramentas", "Hábitos", "Rotina", "Praticar", "Realizar"],
-          texto: ["Entre outras, essas são palavras que representam a essência da marca e são repetidas intencionalmente para reforçar posicionamento."],
-        },
         { tipo: "foto", largura: "wide", src: "assets/img/purpose-paper/cartazes.jpg" },
         { tipo: "foto", largura: "wide", src: "assets/img/purpose-paper/loja-planners.jpg" },
         {

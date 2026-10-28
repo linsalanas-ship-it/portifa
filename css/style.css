@@ -379,8 +379,8 @@ body { overflow-x: clip; } /* fotos de ponta a ponta não criam rolagem lateral 
 
 /* capitular pixelada (a única letra pixelada nas páginas de projeto);
    o primeiro parágrafo contém a capitular, para ela não invadir o seguinte */
-.bloco--texto:not(.bloco--centro) > p:first-child { display: flow-root; }
-.bloco--texto:not(.bloco--centro) > p:first-child::first-letter {
+.bloco--texto:not(.bloco--centro) > p:first-child:not(.sem-capitular) { display: flow-root; }
+.bloco--texto:not(.bloco--centro) > p:first-child:not(.sem-capitular)::first-letter {
   float: left;
   font-family: var(--fonte-cap);
   font-size: 4.6em;
@@ -478,7 +478,7 @@ body { overflow-x: clip; } /* fotos de ponta a ponta não criam rolagem lateral 
   grid-template-columns: 1fr 1fr;
   gap: 2.25rem var(--entre-colunas);
 }
-.itens__lista li {
+.itens__lista > li {
   padding-top: 1rem;
   border-top: 1px solid currentColor;
   line-height: 1.45;
@@ -499,7 +499,7 @@ body { overflow-x: clip; } /* fotos de ponta a ponta não criam rolagem lateral 
   line-height: 1.45;
 }
 .bloco--topico > p + p,
-.itens__lista li > p + p { margin-top: 0.8em; }
+.itens__lista > li > p + p { margin-top: 0.8em; }
 .topico__frases {
   margin: 0.4rem 0 1rem;
   font-size: clamp(1.25rem, 1rem + 1vw, 1.75rem);
@@ -520,8 +520,11 @@ body { overflow-x: clip; } /* fotos de ponta a ponta não criam rolagem lateral 
   text-transform: uppercase;
 }
 
+/* dentro da grade de itens, palavras e frases ficam alinhadas à esquerda */
+.itens__lista .topico__palavras { justify-content: flex-start; }
+
 /* vídeo 16:9 */
-.bloco--video { max-width: 56rem; width: 100%; margin: 0 auto; }
+.bloco--video { width: 100%; }
 .video__quadro { position: relative; aspect-ratio: 16 / 9; background: var(--azul); }
 .video__quadro iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 .video__link { margin-top: 0.6rem; font-size: var(--t-card); text-align: right; }
