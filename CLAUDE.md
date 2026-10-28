@@ -33,7 +33,8 @@ Princípios que valem para todo projeto:
    Fotos horizontais boas → `foto` ou `foto-texto`; pares de detalhes → `fotos`; uma foto pequena
    para quebrar o ritmo → `foto-solta` (alternar `lado`).
 5. **Projetos de estratégia/branding** (ex.: Purpose Paper) costumam ter etapas: usar `intertitulo`
-   para cada etapa (com letra pixelada) e `itens` para listas de achados, pilares, princípios etc.
+   para cada etapa (com letra pixelada), `itens` para listas de achados, pilares, princípios etc.,
+   e `topico` para subtópicos (com `frases` grandes ou `palavras` em linha). Vídeos: bloco `video`.
    Projetos editoriais/narrativos (ex.: Oito vidas) funcionam melhor como texto corrido.
 6. **Alinhamento**: `foto-texto` e `fotos` seguem as mesmas duas colunas do texto corrido.
 7. **Destaque**: no máximo um `destaque` (olho) por página, com uma frase forte tirada do próprio

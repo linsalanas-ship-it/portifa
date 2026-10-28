@@ -158,6 +158,20 @@
     return '<figure><img src="' + escapar(src) + '" alt="' + escapar(legenda || "") + '" loading="lazy">' +
       (legenda ? "<figcaption>" + formatar(legenda) + "</figcaption>" : "") + "</figure>";
   }
+  // título + frases + palavras + texto (todos opcionais), usado por "topico" e "itens"
+  function topico(t) {
+    var texto = [].concat(t.texto || []);
+    return (t.titulo ? '<h4 class="item__titulo">' + formatar(t.titulo) + "</h4>" : "") +
+      (t.frases ? '<div class="topico__frases">' + paragrafos(t.frases) + "</div>" : "") +
+      (t.palavras ? '<ul class="topico__palavras">' + t.palavras.map(function (w) {
+        return "<li>" + formatar(w) + "</li>";
+      }).join("") + "</ul>" : "") +
+      paragrafos(texto);
+  }
+  function idYoutube(url) {
+    var m = String(url || "").match(/(?:youtu\.be\/|v=|embed\/|shorts\/)([\w-]{11})/);
+    return m ? m[1] : null;
+  }
   function bloco(b) {
     switch (b.tipo) {
       case "lide":
@@ -183,8 +197,18 @@
         return '<div class="bloco bloco--itens">' +
           (b.titulo ? '<h3 class="itens__titulo">' + formatar(b.titulo) + "</h3>" : "") +
           '<ul class="itens__lista">' + (b.itens || []).map(function (it) {
-            return '<li><h4 class="item__titulo">' + formatar(it.titulo) + "</h4><p>" + formatar(it.texto) + "</p></li>";
+            return "<li>" + topico(it) + "</li>";
           }).join("") + "</ul></div>";
+      case "topico":
+        return '<div class="bloco bloco--topico">' + topico(b) + "</div>";
+      case "video":
+        var vid = idYoutube(b.url);
+        if (!vid) return "";
+        return '<div class="bloco bloco--video"><div class="video__quadro">' +
+          '<iframe src="https://www.youtube-nocookie.com/embed/' + vid + '" title="' + escapar(b.titulo || "Vídeo") + '"' +
+          ' loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"' +
+          ' allowfullscreen></iframe></div>' +
+          '<p class="video__link"><a href="https://www.youtube.com/watch?v=' + vid + '" target="_blank" rel="noopener">assistir no YouTube ↗</a></p></div>';
       case "destaque":
         return '<blockquote class="bloco bloco--destaque"><p>' + formatar(b.texto) + "</p></blockquote>";
       case "botao":

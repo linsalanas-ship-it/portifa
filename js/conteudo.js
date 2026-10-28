@@ -35,6 +35,11 @@
          título de seção dentro da página (aceita letra pixelada)
      { tipo: "itens", titulo: "opcional", itens: [{ titulo: "...", texto: "..." }] }
          lista em grade de duas colunas, cada item com título e texto
+     { tipo: "topico", titulo: "...", frases: ["..."], palavras: ["..."], texto: ["..."] }
+         subtópico centralizado; frases (grandes), palavras (em linha) e
+         texto são todos opcionais. Os itens de "itens" aceitam os mesmos campos
+     { tipo: "video", url: "https://youtu.be/..." }
+         vídeo do YouTube, com link para assistir lá
      { tipo: "destaque", texto: "frase em destaque" }
          citação grande, como olho de revista
      { tipo: "botao", texto: "ler o livro", url: "https://..." }
@@ -132,7 +137,68 @@ const SITE = {
             { titulo: "Prático", texto: "Nos comprometemos a traduzir a teoria para a prática. Por isso, nossa comunicação é fácil de entender, aplicável e voltada para a vida real." },
           ],
         },
+        { tipo: "foto", src: "assets/img/purpose-paper/tom-de-voz.jpg" },
+        { tipo: "intertitulo", texto: "[T]OM DE VOZ NA PRÁTICA" },
+        {
+          tipo: "texto",
+          colunas: 1,
+          texto: [
+            "Esses pilares se desdobram em diferentes tipos de linguagem prática, moldando a presença da marca nos pontos de contato.",
+          ],
+        },
+        {
+          tipo: "topico",
+          titulo: "Manifesto",
+          texto: [
+            "O que defendemos com firmeza e anunciamos com beleza. Usado para expressar o coração da marca de forma poética e profunda, em apresentações institucionais e campanhas. Texto narrado no vídeo-manifesto pela fundadora da marca.",
+          ],
+        },
+        { tipo: "foto", src: "assets/img/purpose-paper/manifesto.jpg" },
+        { tipo: "video", url: "https://youtu.be/Mf1qoBb2ISo" },
+        {
+          tipo: "topico",
+          titulo: "Textos institucionais",
+          texto: [
+            "Criados para materiais impressos e páginas institucionais do site, reforçando o posicionamento com mais objetividade.",
+          ],
+        },
+        { tipo: "fotos", src: ["assets/img/purpose-paper/cartao.jpg", "assets/img/purpose-paper/site.jpg"] },
+        {
+          tipo: "topico",
+          titulo: "Tagline principal",
+          frases: ["Habitar no Propósito & Realizar com papel."],
+          texto: ["A síntese da marca. Presente em embalagens, redes sociais, site e abertura de produtos."],
+        },
+        { tipo: "foto", src: "assets/img/purpose-paper/frase-guia.jpg" },
+        {
+          tipo: "itens",
+          itens: [
+            {
+              titulo: "Chamadas à ação",
+              frases: ["“Seus hábitos com Propósito começam agora.”", "“É hora de planejar e realizar!”", "“Dia a dia. Página a página.”"],
+              texto: "Frases motivadoras que incentivam o uso intencional dos produtos. Aplicadas em campanhas, embalagens e canais digitais.",
+            },
+            {
+              titulo: "Linguagem de comunidade",
+              frases: ["“A história da Purpose é feita de muitas histórias.”", "“Em nossas mãos, o papel vira ferramenta.”", "“Clube das que planejam e realizam!”"],
+              texto: "Frases que expressam pertencimento, afinidade e visão compartilhada.",
+            },
+          ],
+        },
         { tipo: "foto", src: "assets/img/purpose-paper/cartazes.jpg" },
+        {
+          tipo: "topico",
+          titulo: "Palavras sagradas",
+          palavras: ["Propósito", "Papel", "Ferramentas", "Hábitos", "Rotina", "Praticar", "Realizar"],
+          texto: ["Entre outras, essas são palavras que representam a essência da marca e são repetidas intencionalmente para reforçar posicionamento."],
+        },
+        {
+          tipo: "texto",
+          colunas: 1,
+          texto: [
+            "O projeto foi concluído com a entrega de um brandbook detalhado e treinamentos práticos de expressão verbal e visual para o time interno. O objetivo era mais do que apresentar diretrizes: era garantir que cada pessoa envolvida com a Purpose Paper se sentisse parte da nova fase e soubesse como dar voz e forma ao Propósito da marca.",
+          ],
+        },
       ],
     },
     {

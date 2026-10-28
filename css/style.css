@@ -483,6 +483,41 @@ body { overflow-x: clip; } /* fotos de ponta a ponta não criam rolagem lateral 
   text-transform: uppercase;
 }
 
+/* subtópico centralizado (e o conteúdo de cada item) */
+.bloco--topico {
+  max-width: 44rem;
+  margin: 0 auto;
+  text-align: center;
+  line-height: 1.45;
+}
+.bloco--topico > p + p,
+.itens__lista li > p + p { margin-top: 0.8em; }
+.topico__frases {
+  margin: 0.4rem 0 1rem;
+  font-size: clamp(1.25rem, 1rem + 1vw, 1.75rem);
+  line-height: 1.25;
+}
+.topico__frases p + p { margin-top: 0.35em; }
+.bloco--topico .topico__frases { font-size: clamp(1.5rem, 1.1rem + 1.8vw, 2.5rem); text-wrap: balance; }
+.topico__palavras {
+  list-style: none;
+  margin: 0.4rem 0 1.2rem;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.15em 0.9em;
+  font-size: clamp(1.375rem, 1rem + 1.6vw, 2.25rem);
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+/* vídeo 16:9 */
+.bloco--video { max-width: 56rem; width: 100%; margin: 0 auto; }
+.video__quadro { position: relative; aspect-ratio: 16 / 9; background: var(--azul); }
+.video__quadro iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.video__link { margin-top: 0.6rem; font-size: var(--t-card); text-align: right; }
+
 /* olho de revista */
 .bloco--destaque {
   margin: 0 auto;
