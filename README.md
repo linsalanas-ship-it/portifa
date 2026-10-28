@@ -7,7 +7,7 @@ Site estático (HTML + CSS + JavaScript, sem instalação nem build).
 **Tudo o que muda fica em um arquivo só: [`js/conteudo.js`](js/conteudo.js).**
 Abra no editor do GitHub (ícone de lápis), altere e salve (“Commit changes”).
 
-- **Letra pixelada:** coloque a letra entre colchetes → `"[A]LANA [L]INS"`.
+- **Letra pixelada:** coloque a letra entre colchetes → `"AL[A]NA LINS"`.
 - **Quebra de linha** num título: `<br>`.
 - **Link da loja:** campo `lojaUrl`.
 - **E-mail e redes:** bloco `contato`.
