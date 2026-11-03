@@ -53,8 +53,14 @@ O "Oito vidas de um vestido" serve de modelo de ritmo, mas cada projeto pode ter
 
 ### Sopa de letrinhas (o que eu faço)
 
-Em `servicos.lista`, cada serviço tem `nome` (a palavra que flutua) e `descricao` (o texto que
-aparece ao clicar). Para acrescentar um serviço, copie um bloco `{ nome: ..., descricao: ... },`.
+Em `servicos.lista`, cada serviço tem `nome` (a palavra que flutua), `peso` (a grossura da letra,
+de 200 a 700) e `descricao` (o texto do balão rosinha). Para acrescentar um serviço, copie um bloco
+`{ nome: ..., peso: ..., descricao: ... },`.
+
+### Sobre
+
+O "sobre" abre como uma folha azul por cima da página (pelo menu ou pelo endereço `#sobre`).
+O texto, a foto e os links das redes ficam no bloco `sobre` do `conteudo.js`.
 
 ### Formulário de contato
 
@@ -64,7 +70,7 @@ crie um formulário grátis em [formspree.io](https://formspree.io) e cole o lin
 
 ## Depois de mudar CSS ou JavaScript
 
-Os arquivos são carregados com um número de versão (`style.css?v=2026110304`) em
+Os arquivos são carregados com um número de versão (`style.css?v=2026110305`) em
 `index.html` e `projeto.html`. Ao alterar `css/` ou `js/`, troque esse número nos dois
 arquivos (por exemplo, pela data do dia) para os visitantes não verem a versão antiga
 guardada no navegador. Para editar só o `conteudo.js` não é preciso.
@@ -80,13 +86,13 @@ Abra `index.html` no navegador, ou rode `npx serve .` na pasta e acesse o endere
 ## Estrutura
 
 ```
-index.html        página única (aberturas, projetos, sobre, o que faço, contato)
+index.html        página única (nome, projetos, sopa de letrinhas, contato; o sobre abre por cima)
 projeto.html      modelo da página interna de cada projeto
 js/conteudo.js    ← conteúdo editável
 js/main.js        monta as páginas a partir do conteúdo
 css/style.css     cores, tipografia e layout responsivo
-assets/fonts/     Switzer e Retrogression
+assets/fonts/     Switzer (vários pesos)
 assets/img/       imagens (as "placeholder-*" são provisórias)
 ```
 
-A abertura (headers 1 e 2) aparece uma vez por visita; clique, role ou aperte uma tecla para pular.
+A abertura (o lápis desenhando a bonequinha) aparece uma vez por visita; clique, role ou aperte uma tecla para pular.

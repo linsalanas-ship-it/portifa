@@ -52,6 +52,10 @@
   });
 
 
+  // risco de lápis que aparece sob o título do card no hover (ver .risco no CSS)
+  var RISCO = '<svg class="risco" viewBox="0 0 100 10" preserveAspectRatio="none" aria-hidden="true">' +
+    '<path d="M1 6.2 C 22 4.6, 48 7.4, 70 5.4 S 92 4.4, 99 5.6"/><path d="M8 8.2 C 30 7, 60 8.6, 94 7.2"/></svg>';
+
   // ---------- página inicial ----------
   if ($("grade-projetos")) {
     $("grade-projetos").innerHTML = SITE.projetos.map(function (p) {
@@ -61,7 +65,7 @@
           '<a href="projeto.html?p=' + encodeURIComponent(p.id) + '">' +
             '<img src="' + escapar(p.capa) + '" alt="' + escapar(titulo) + '" loading="lazy">' +
             '<span class="card__info">' +
-              '<span class="card__titulo">' + formatar(p.titulo) + "</span>" +
+              '<span class="card__titulo">' + formatar(p.titulo) + RISCO + "</span>" +
               '<span class="card__resumo">' + formatar(p.resumo) + "</span>" +
             "</span>" +
           "</a>" +
@@ -69,9 +73,8 @@
       );
     }).join("");
 
-    $("sobre-texto").innerHTML = paragrafos(SITE.sobre.texto);
-    if (SITE.sobre.foto) $("sobre-foto").src = SITE.sobre.foto;
-    else $("sobre-foto").remove();
+    iniciarSobre();
+    iniciarPassagem();
 
     iniciarSopa();
     iniciarNome();
@@ -342,6 +345,7 @@
       el.type = "button";
       el.className = "sopa__letra";
       el.innerHTML = formatar(it.nome);
+      if (it.peso) el.style.fontWeight = it.peso;
       el.setAttribute("aria-pressed", "false");
       area.appendChild(el);
       return {
@@ -440,6 +444,7 @@
       escolhida = l;
       l.el.classList.add("sopa__letra--ativa");
       l.el.setAttribute("aria-pressed", "true");
+      l.w = l.el.offsetWidth; l.h = l.el.offsetHeight; // em 800 a palavra fica mais larga
       legenda.innerHTML = formatar(l.item.descricao || "");
       pintar(performance.now());
       posicionarBalao();
@@ -462,7 +467,13 @@
       balao.x = x; balao.y = y; balao.w = w; balao.h = h;
     }
     letras.forEach(function (l) {
-      l.el.addEventListener("click", function (e) { e.stopPropagation(); escolher(l); });
+      l.el.addEventListener("click", function (e) {
+        e.stopPropagation();
+        if (l === escolhida && e.pointerType === "mouse") return; // com mouse, o hover já abriu
+        escolher(l);
+      });
+      // com mouse, o balão abre só de passar por cima
+      l.el.addEventListener("pointerenter", function (e) { if (e.pointerType === "mouse" && l !== escolhida) escolher(l); });
     });
     area.addEventListener("click", function (e) { if (!legenda.contains(e.target)) escolher(null); });
 
@@ -481,11 +492,148 @@
     }
   }
 
+  // ---------- sobre: a bio abre como uma folha por cima da página ----------
+  function iniciarSobre() {
+    var sobre = $("sobre"), folha = sobre.querySelector(".sobre__folha");
+    var fundo = sobre.querySelector(".sobre__fundo"), fechar = sobre.querySelector(".sobre__fechar");
+    var link = $("abrir-sobre"), focoAntes = null;
+    var s = SITE.sobre;
+    $("sobre-texto").innerHTML = paragrafos(s.texto);
+    $("sobre-foto").src = s.foto;
+    var ICONES = {
+      instagram: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor"/></svg>',
+      substack: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 3.5h15v2.3h-15zM4.5 7.9h15v2.3h-15zM4.5 12.3h15v8.4l-7.5-4.2-7.5 4.2z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>'
+    };
+    $("sobre-redes").innerHTML = (s.redes || []).map(function (r) {
+      return '<a href="' + escapar(r.url) + '" target="_blank" rel="noopener" aria-label="' + escapar(r.rotulo || r.nome) + '">' +
+        (ICONES[r.nome] || "") + "<span>" + escapar(r.nome) + "</span></a>";
+    }).join("");
+
+    function abrir(e) {
+      if (e) e.preventDefault();
+      if (!sobre.hidden) return;
+      focoAntes = document.activeElement;
+      sobre.hidden = false;
+      document.documentElement.classList.add("travado");
+      if (!menosMovimento) {
+        fundo.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 300, easing: "ease-out" });
+        // entra subindo de baixo, passa um pouco do ponto e assenta em -1,2°
+        folha.animate([
+          { transform: "translateY(110vh) rotate(-4deg)" },
+          { transform: "translateY(-10px) rotate(-0.6deg)", offset: 0.75 },
+          { transform: "rotate(-1.2deg)" }
+        ], { duration: 650, easing: "cubic-bezier(.2,.8,.2,1)" });
+      }
+      sobre.scrollTop = 0;
+      folha.focus({ preventScroll: true });
+    }
+    function fecharSobre() {
+      if (sobre.hidden) return;
+      function fim() {
+        sobre.hidden = true;
+        document.documentElement.classList.remove("travado");
+        if (focoAntes && focoAntes.focus) focoAntes.focus();
+      }
+      if (menosMovimento) return fim();
+      var f = fundo.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 380, fill: "forwards" });
+      var a = folha.animate([
+        { transform: "rotate(-1.2deg)" },
+        { transform: "translateY(110vh) rotate(3deg)" }
+      ], { duration: 420, easing: "cubic-bezier(.6,0,.8,.4)", fill: "forwards" });
+      a.onfinish = function () { fim(); a.cancel(); f.cancel(); };
+    }
+    link.addEventListener("click", abrir);
+    sobre.querySelectorAll("[data-fechar]").forEach(function (el) { el.addEventListener("click", fecharSobre); });
+    document.addEventListener("keydown", function (e) {
+      if (sobre.hidden) return;
+      if (e.key === "Escape") { e.preventDefault(); fecharSobre(); }
+      // o foco fica dentro do card enquanto ele está aberto
+      if (e.key === "Tab") {
+        var itens = Array.prototype.slice.call(folha.querySelectorAll("button, a[href]"));
+        var i = itens.indexOf(document.activeElement);
+        e.preventDefault();
+        itens[(i + (e.shiftKey ? itens.length - 1 : 1)) % itens.length].focus();
+      }
+    });
+    function pelaUrl() { if (location.hash === "#sobre") setTimeout(abrir, 0); }
+    pelaUrl();
+    window.addEventListener("hashchange", pelaUrl);
+  }
+
+  // ---------- passagem entre seções: cada uma sobe como uma folha nova ----------
+  function iniciarPassagem() {
+    if (menosMovimento) return;
+    var secoes = Array.prototype.slice.call(document.querySelectorAll("main > .secao")).slice(1);
+    var pendente = false;
+    function atualizar() {
+      pendente = false;
+      var H = window.innerHeight;
+      secoes.forEach(function (el) {
+        // progresso: o topo da seção vai da borda de baixo da tela até 60% da altura
+        var topo = el.getBoundingClientRect().top - (parseFloat(el.style.getPropertyValue("--sobe")) || 0);
+        var p = Math.min(Math.max((H - topo) / (H * 0.4), 0), 1);
+        var suave = 1 - Math.pow(1 - p, 3); // ease-out
+        var y = (70 * (1 - suave)).toFixed(1);
+        el.style.setProperty("--sobe", y + "px");
+        el.style.transform = "translateY(" + y + "px)";
+      });
+    }
+    function pedir() { if (!pendente) { pendente = true; requestAnimationFrame(atualizar); } }
+    window.addEventListener("scroll", pedir, { passive: true });
+    window.addEventListener("resize", pedir);
+    atualizar();
+  }
+
   // ---------- formulário de contato ----------
   function iniciarFormulario() {
     var form = $("form-contato");
     var status = $("form-status");
     var c = SITE.contato;
+    var botao = form.querySelector('button[type="submit"]');
+    var confirmacao = $("confirmacao");
+
+    // aviãozinho de papel que sai do botão e voa até o canto superior direito
+    function voar(origem) {
+      var aviao = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+      aviao.setAttribute("viewBox", "0 0 48 48");
+      aviao.setAttribute("class", "aviao");
+      aviao.setAttribute("aria-hidden", "true");
+      aviao.innerHTML = '<g fill="none" stroke="#0000ec" stroke-width="2" stroke-linejoin="round"><path d="M4 24 44 6 34 42 22 30Z" fill="#F1EBE1"/><path d="M44 6 22 30 20 40 26 33"/></g>';
+      document.body.appendChild(aviao);
+      var x0 = origem.left + origem.width / 2 - 23, y0 = origem.top + origem.height / 2 - 23;
+      var dx = window.innerWidth - x0 + 60, dy = -y0 - 80;
+      aviao.animate([
+        { transform: "translate(" + x0 + "px," + y0 + "px) rotate(0deg) scale(.6)", opacity: 0 },
+        { transform: "translate(" + (x0 - 40) + "px," + (y0 + 30) + "px) rotate(-10deg) scale(1)", opacity: 1, offset: 0.18 },
+        { transform: "translate(" + (x0 + dx * 0.45) + "px," + (y0 + dy * 0.2) + "px) rotate(-18deg) scale(1)", offset: 0.6 },
+        { transform: "translate(" + (x0 + dx) + "px," + (y0 + dy) + "px) rotate(-30deg) scale(.8)", opacity: 1 }
+      ], { duration: 1300, easing: "cubic-bezier(.45,0,.3,1)" }).onfinish = function () { aviao.remove(); };
+    }
+    function confirmar() {
+      form.hidden = true;
+      confirmacao.hidden = false;
+      if (!menosMovimento) confirmacao.animate([{ opacity: 0, transform: "translateY(12px)" }, { opacity: 1, transform: "none" }], { duration: 500, easing: "ease-out" });
+    }
+    // deu certo: os campos se dobram um a um, o avião voa e aparece a confirmação
+    function enviado() {
+      status.textContent = "";
+      if (menosMovimento) { confirmar(); return; }
+      var r = botao.getBoundingClientRect();
+      form.querySelectorAll(":scope > label, .form__rodape").forEach(function (el, i) {
+        el.animate([{ transform: "scaleY(1)", opacity: 1 }, { transform: "scaleY(0)", opacity: 0 }],
+          { duration: 450, delay: i * 80, easing: "cubic-bezier(.6,0,.4,1)", fill: "forwards" });
+      });
+      setTimeout(function () { voar(r); }, 250);
+      setTimeout(confirmar, 1350);
+    }
+    $("de-novo").addEventListener("click", function () {
+      form.querySelectorAll(":scope > label, .form__rodape").forEach(function (el) {
+        el.getAnimations().forEach(function (a) { a.cancel(); });
+      });
+      form.reset();
+      form.hidden = false;
+      confirmacao.hidden = true;
+    });
 
     form.addEventListener("submit", function (e) {
       e.preventDefault();
@@ -499,8 +647,7 @@
           headers: { Accept: "application/json" },
         }).then(function (r) {
           if (!r.ok) throw new Error();
-          form.reset();
-          status.textContent = "mensagem enviada. obrigada!";
+          enviado();
         }).catch(function () {
           status.textContent = "não consegui enviar. tente pelo e-mail abaixo.";
         });
@@ -512,7 +659,7 @@
       location.href = "mailto:" + c.email +
         "?subject=" + encodeURIComponent(assunto) +
         "&body=" + encodeURIComponent(corpo);
-      status.textContent = "abrindo seu programa de e-mail…";
+      enviado();
     });
   }
 })();

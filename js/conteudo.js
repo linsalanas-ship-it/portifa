@@ -356,39 +356,58 @@ const SITE = {
 
   /* ---------- Seção Sobre mim ---------- */
   sobre: {
+    // abre como uma folha por cima da página, pelo link "sobre" do menu
     titulo: "Alana, Lana, Laninha",
-    foto: "assets/img/placeholder-sobre.jpg", // imagem vertical ao lado do texto
+    foto: "assets/img/alana.jpg", // foto vertical
     texto: [
-      "Lorem ipsum dolor sit amet consectetur. Interdum tincidunt elit ut non phasellus. Consequat est diam fermentum aliquam amet nibh. Maecenas porttitor morbi nunc sit risus. Morbi id morbi leo urna id pharetra. Blandit ut est non cras lectus viverra tellus elementum. Mauris nunc bibendum senectus blandit eu lorem. Molestie tortor dui at nisl malesuada commodo viverra. Lacus ornare dictum faucibus sed sit vitae in.",
-      "Quis ultricies et mi diam ac. Odio tellus pulvinar neque bibendum senectus pellentesque nisl proin. Ullamcorper laoreet tincidunt vel urna sit diam nibh vitae. Ut tristique nisi orci adipiscing dictumst faucibus elementum. Posuere potenti id curabitur sem. Neque augue non non aenean euismod adipiscing mollis.",
+      "Minha mãe me deu um nome fácil de aprender a escrever. Acho que com o tempo que sobrou, tomei gosto pelo restante do alfabeto.",
+      "Ainda bem, porque toda boa ideia começa com as palavras. Por isso é preciso saber dançar, brincar e criar com elas, e esse é o meu trabalho.",
+      "Sou nascida e criada na terra da luz, jornalista, redatora de marketing/branding e escritora por natureza.",
+    ],
+    // ícone: "instagram" ou "substack"
+    redes: [
+      { nome: "instagram", url: "https://www.instagram.com/eualanalins/", rotulo: "Instagram (@eualanalins)" },
+      { nome: "substack", url: "https://bonecafalante.substack.com/", rotulo: "Substack (Boneca Falante)" },
     ],
   },
+
 
   /* ---------- Seção O que eu faço ---------- */
   /* ---------- Seção Sopa de letrinhas (o que eu faço) ----------
      Os nomes flutuam pela tela; ao clicar, aparece a descrição. */
   servicos: {
     titulo: "Sopa de letrinhas",
+    // peso: de 200 (fininho) a 800 (bem grosso); no hover todos vão a 800
     lista: [
       {
         nome: "estratégia de marca",
-        descricao: "Lorem ipsum dolor sit amet consectetur. Interdum tincidunt elit ut non phasellus, consequat est diam fermentum aliquam.",
+        peso: 300,
+        descricao: "Antes do texto, o porquê. Diagnóstico, posicionamento e a narrativa que sustenta tudo o que a marca diz.",
       },
       {
         nome: "identidade verbal",
-        descricao: "Maecenas porttitor morbi nunc sit risus. Morbi id morbi leo urna id pharetra, blandit ut est non cras lectus viverra.",
+        peso: 600,
+        descricao: "Tom de voz, vocabulário e boas práticas de escrita: o jeito de a marca se comunicar, em qualquer canal.",
+      },
+      {
+        nome: "naming",
+        peso: 400,
+        descricao: "Nomes fáceis de dizer, difíceis de esquecer e que já carregam um pedaço da história da marca.",
       },
       {
         nome: "planejamento de conteúdo",
-        descricao: "Mauris nunc bibendum senectus blandit eu lorem. Molestie tortor dui at nisl malesuada commodo viverra.",
+        peso: 200,
+        descricao: "Linhas editoriais, pautas e calendário para a marca ter sempre o que dizer — e dizer com constância.",
       },
       {
         nome: "redação criativa",
-        descricao: "Quis ultricies et mi diam ac. Odio tellus pulvinar neque bibendum senectus pellentesque nisl proin.",
+        peso: 500,
+        descricao: "Campanhas, roteiros, conteúdos para as redes e textos institucionais que dão vontade de ler até o fim.",
       },
       {
         nome: "copywriting",
-        descricao: "Ullamcorper laoreet tincidunt vel urna sit diam nibh vitae. Ut tristique nisi orci adipiscing dictumst faucibus.",
+        peso: 700,
+        descricao: "Sites, e-mails, anúncios e lançamentos: palavras que convencem sem empurrar.",
       },
     ],
   },
@@ -397,7 +416,7 @@ const SITE = {
   /* ---------- Seção Contato ---------- */
   contato: {
     titulo: "Vamos colaborar?",
-    email: "seuemail@exemplo.com", // troque pelo seu e-mail — as mensagens do formulário vão para este e-mail
+    email: "contatosalnstudio@gmail.com", // as mensagens do formulário vão para este e-mail
     // Opcional: para o formulário enviar sem abrir o programa de e-mail,
     // crie um formulário grátis em https://formspree.io e cole o link aqui
     // (ex.: "https://formspree.io/f/abcdwxyz"). Vazio = abre o e-mail da pessoa.

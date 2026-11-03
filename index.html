@@ -7,7 +7,7 @@
   <meta name="description" content="Alana Lins: jornalista, estrategista e redatora. Estratégia de marca, identidade verbal, conteúdo e copywriting.">
   <meta name="theme-color" content="#F1EBE1">
   <link rel="preload" href="assets/fonts/Switzer-400.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="css/style.css?v=2026110304">
+  <link rel="stylesheet" href="css/style.css?v=2026110305">
   <script>
     // Decide antes de pintar a página se a abertura com o lápis vai rodar:
     // só na primeira visita da sessão e sem #âncora na URL.
@@ -24,7 +24,7 @@
     <a class="menu__marca" href="#inicio"><span class="assinatura" aria-hidden="true"></span><span>alana lins</span></a>
     <nav aria-label="Principal">
       <a href="#projetos">projetos</a>
-      <a href="#sobre">sobre</a>
+      <a href="#sobre" id="abrir-sobre" aria-haspopup="dialog">sobre</a>
       <a href="#contato">contato</a>
       <a href="#" data-loja target="_blank" rel="noopener">loja</a>
     </nav>
@@ -49,14 +49,6 @@
         <p class="subtitulo" data-campo="secaoProjetos.descricao"></p>
       </div>
       <ul class="grade" id="grade-projetos"></ul>
-    </section>
-
-    <section class="secao sobre" id="sobre">
-      <div class="cab"><h2 class="titulo" data-campo="sobre.titulo"></h2></div>
-      <div class="sobre__conteudo">
-        <img class="sobre__foto" id="sobre-foto" alt="" loading="lazy">
-        <div class="texto" id="sobre-texto"></div>
-      </div>
     </section>
 
     <section class="secao servicos" id="servicos">
@@ -86,9 +78,38 @@
           <button type="submit" class="botao">enviar</button>
         </div>
       </form>
+      <div class="confirmacao" id="confirmacao" hidden role="status">
+        <p class="confirmacao__titulo">Mensagem enviada!</p>
+        <p>Ela já voou até mim. Respondo em breve.</p>
+        <button type="button" class="vazio-link" id="de-novo">escrever outra</button>
+      </div>
       <p class="contato__links micro" id="contato-links"></p>
     </section>
   </main>
+
+  <!-- Sobre: abre como uma folha por cima da página (conteúdo em SITE.sobre) -->
+  <div class="sobre" id="sobre" hidden>
+    <div class="sobre__fundo" data-fechar></div>
+    <article class="sobre__folha" role="dialog" aria-modal="true" aria-labelledby="sobre-titulo" tabindex="-1">
+      <div class="sobre__lado">
+        <p class="sobre__meta"><b>sobre</b><button type="button" class="sobre__fechar" data-fechar aria-label="Fechar">×</button></p>
+        <h2 class="sobre__titulo" id="sobre-titulo" data-campo="sobre.titulo"></h2>
+        <div class="sobre__texto" id="sobre-texto"></div>
+        <p class="sobre__redes" id="sobre-redes"></p>
+      </div>
+      <figure class="sobre__foto"><img id="sobre-foto" alt="Alana Lins" loading="lazy"></figure>
+    </article>
+  </div>
+
+  <!-- Filtro de grafite para o risco de lápis nos títulos dos projetos -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <filter id="grafite" x="-5%" y="-60%" width="110%" height="220%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="4" result="ruido"/>
+      <feDisplacementMap in="SourceGraphic" in2="ruido" scale="1.6" xChannelSelector="R" yChannelSelector="G" result="tremido"/>
+      <feColorMatrix in="ruido" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -0.9 1.35" result="graos"/>
+      <feComposite in="tremido" in2="graos" operator="in"/>
+    </filter>
+  </svg>
 
   <!-- Abertura: uma folha do mesmo papel em que o lápis desenha a bonequinha -->
   <div class="abertura" id="abertura">
@@ -99,9 +120,9 @@
     <canvas id="abertura-lapis" aria-hidden="true"></canvas>
   </div>
 
-  <script src="js/conteudo.js?v=2026110304"></script>
-  <script src="js/main.js?v=2026110304"></script>
-  <script src="js/abertura.js?v=2026110304"></script>
-  <script src="js/lapis.js?v=2026110304"></script>
+  <script src="js/conteudo.js?v=2026110305"></script>
+  <script src="js/main.js?v=2026110305"></script>
+  <script src="js/abertura.js?v=2026110305"></script>
+  <script src="js/lapis.js?v=2026110305"></script>
 </body>
 </html>

@@ -23,6 +23,13 @@ Escreva para a Alana em português do Brasil, em linguagem simples.
   o rastro do `lapis.js` fica pausado.
 - Menu: "alana lins" à esquerda com a assinatura (a bonequinha como máscara do `rosto.png`, balança
   no hover), links à direita.
+- Sobre: não é seção; abre como folha azul (texto cru, foto ao lado) por cima da página ao clicar
+  em "sobre" no menu ou com `#sobre` na URL (fecha no ×, Esc ou clicando fora). Texto e redes em
+  `sobre` no `conteudo.js`.
+- Sopa de letrinhas: cada serviço tem um `peso` de fonte (200–700) e vai a 800 no hover/seleção;
+  a descrição abre num balão rosinha. Cards da grade: no hover a capa sobe 4px e um risco de lápis
+  (SVG + filtro `#grafite`) se desenha sob o título. Cada seção sobe 70px→0 ao entrar na tela.
+- Contato: depois de enviar, os campos se dobram, um aviãozinho voa e aparece "Mensagem enviada!".
 - Páginas de projeto: mesmo papel cru, sem rastro de lápis (o cursor de lápis continua).
 - Rastro de lápis (`js/lapis.js`): no computador segue o mouse (pontos na página); no celular segue
   o dedo (pontos na tela, porque arrastar rola a página). Não mudar o comportamento do computador.
