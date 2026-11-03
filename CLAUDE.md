@@ -6,13 +6,13 @@ Escreva para a Alana em português do Brasil, em linguagem simples.
 
 ## Identidade (não mudar sem pedido)
 
-- Cores: azul `#0000EC` e rosa `#FAE7EC`. Texto rosa sobre azul, azul sobre rosa. Nada além disso
-  (fotos à parte).
-- Fontes: Switzer (todo o texto) e Retrogression (pixelada). Na página inicial, a pixelada marca
-  letras de destaque nos títulos, com colchetes em `conteudo.js` (`"AL[A]NA LINS"`). **Nas páginas de
-  projeto não há Retrogression** (sem capitulares, sem colchetes em títulos, intertítulos ou itens).
+- Cores: papel cru `#F1EBE1` em todo o site (sem alternância de fundos) e azul `#0000EC` para
+  texto, fios, bordas e botões. Rosinha `#F7D5DE` só no balão da sopa de letrinhas. Textura de
+  papel na camada `.grao`, por cima de tudo e abaixo do canvas do lápis.
+- Fonte: só a Switzer (`assets/fonts/Switzer-200…800.woff2`), em vários pesos. Sem fonte pixelada;
+  colchetes antigos em `conteudo.js` são apenas removidos pelo `formatar()`.
 - Títulos em caixa alta; menus, subtítulos e textos em caixa baixa.
-- Páginas de projeto: fundo rosa, sem rastro de lápis (o cursor de lápis continua).
+- Páginas de projeto: mesmo papel cru, sem rastro de lápis (o cursor de lápis continua).
 - Rastro de lápis (`js/lapis.js`): no computador segue o mouse (pontos na página); no celular segue
   o dedo (pontos na tela, porque arrastar rola a página). Não mudar o comportamento do computador.
 
@@ -42,7 +42,7 @@ Princípios que valem para todo projeto:
    para quebrar o ritmo → `foto-solta` (alternar `lado`); peças verticais (posts, e-mails) →
    `galeria` com `titulo`.
 5. **Projetos de estratégia/branding** (ex.: Purpose Paper) costumam ter etapas: usar `intertitulo`
-   para cada etapa (sem letra pixelada), `itens` para listas de achados, pilares, princípios etc.,
+   para cada etapa, `itens` para listas de achados, pilares, princípios etc.,
    e `topico` para subtópicos (com `frases` grandes ou `palavras` em linha). Vídeos: bloco `video`.
    Projetos editoriais/narrativos (ex.: Oito vidas) funcionam melhor como texto corrido.
 6. **Alinhamento**: `foto-texto` e `fotos` seguem a mesma grade de duas colunas de `itens` e

@@ -6,9 +6,8 @@
   <title>Alana Lins — jornalista, estrategista e redatora</title>
   <meta name="description" content="Alana Lins: jornalista, estrategista e redatora. Estratégia de marca, identidade verbal, conteúdo e copywriting.">
   <meta name="theme-color" content="#F1EBE1">
-  <link rel="preload" href="assets/fonts/Switzer-Regular.otf" as="font" type="font/otf" crossorigin>
-  <link rel="preload" href="assets/fonts/Retrogression-Regular.otf" as="font" type="font/otf" crossorigin>
-  <link rel="stylesheet" href="css/style.css?v=2026110301">
+  <link rel="preload" href="assets/fonts/Switzer-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/style.css?v=2026110302">
   <script>
     // Decide antes de pintar a página se a abertura (headers 1 e 2) deve rodar.
     try {
@@ -55,13 +54,15 @@
     </header>
 
     <section class="secao projetos" id="projetos">
-      <h2 class="titulo" data-campo="secaoProjetos.titulo"></h2>
-      <p class="subtitulo" data-campo="secaoProjetos.descricao"></p>
+      <div class="cab">
+        <h2 class="titulo" data-campo="secaoProjetos.titulo"></h2>
+        <p class="subtitulo" data-campo="secaoProjetos.descricao"></p>
+      </div>
       <ul class="grade" id="grade-projetos"></ul>
     </section>
 
     <section class="secao sobre" id="sobre">
-      <h2 class="titulo" data-campo="sobre.titulo"></h2>
+      <div class="cab"><h2 class="titulo" data-campo="sobre.titulo"></h2></div>
       <div class="sobre__conteudo">
         <img class="sobre__foto" id="sobre-foto" alt="" loading="lazy">
         <div class="texto" id="sobre-texto"></div>
@@ -69,14 +70,14 @@
     </section>
 
     <section class="secao servicos" id="servicos">
-      <h2 class="titulo" data-campo="servicos.titulo"></h2>
+      <div class="cab"><h2 class="titulo" data-campo="servicos.titulo"></h2></div>
       <div class="sopa" id="sopa">
         <p class="sopa__descricao" id="sopa-descricao" aria-live="polite"></p>
       </div>
     </section>
 
     <section class="secao contato" id="contato">
-      <h2 class="titulo" data-campo="contato.titulo"></h2>
+      <div class="cab"><h2 class="titulo" data-campo="contato.titulo"></h2></div>
       <form class="form" id="form-contato">
         <label class="campo">
           <span class="sr">nome</span>
@@ -95,12 +96,12 @@
           <button type="submit" class="botao">enviar</button>
         </div>
       </form>
-      <p class="contato__links" id="contato-links"></p>
+      <p class="contato__links micro" id="contato-links"></p>
     </section>
   </main>
 
-  <script src="js/conteudo.js?v=2026110301"></script>
-  <script src="js/main.js?v=2026110301"></script>
-  <script src="js/lapis.js?v=2026110301"></script>
+  <script src="js/conteudo.js?v=2026110302"></script>
+  <script src="js/main.js?v=2026110302"></script>
+  <script src="js/lapis.js?v=2026110302"></script>
 </body>
 </html>

@@ -7,7 +7,6 @@ Site estático (HTML + CSS + JavaScript, sem instalação nem build).
 **Tudo o que muda fica em um arquivo só: [`js/conteudo.js`](js/conteudo.js).**
 Abra no editor do GitHub (ícone de lápis), altere e salve (“Commit changes”).
 
-- **Letra pixelada:** coloque a letra entre colchetes → `"AL[A]NA LINS"`.
 - **Quebra de linha** num título: `<br>`.
 - **Link da loja:** campo `lojaUrl`.
 - **E-mail e redes:** bloco `contato`.
@@ -49,7 +48,6 @@ O "Oito vidas de um vestido" serve de modelo de ritmo, mas cada projeto pode ter
 - alterne texto e imagem: evite duas imagens seguidas e espalhe as fotos pela página;
 - texto corrido sempre em uma coluna, alinhado à esquerda; duas colunas só para listas;
 - quebre textos longos em vários blocos `texto` para intercalar com as fotos;
-- nas páginas de projeto não se usa a letra pixelada (não use colchetes nos títulos);
 - use no máximo um `destaque`, com uma frase forte do próprio texto;
 - feche com um parágrafo de texto e repita o botão, se houver.
 
@@ -66,7 +64,7 @@ crie um formulário grátis em [formspree.io](https://formspree.io) e cole o lin
 
 ## Depois de mudar CSS ou JavaScript
 
-Os arquivos são carregados com um número de versão (`style.css?v=2026110301`) em
+Os arquivos são carregados com um número de versão (`style.css?v=2026110302`) em
 `index.html` e `projeto.html`. Ao alterar `css/` ou `js/`, troque esse número nos dois
 arquivos (por exemplo, pela data do dia) para os visitantes não verem a versão antiga
 guardada no navegador. Para editar só o `conteudo.js` não é preciso.

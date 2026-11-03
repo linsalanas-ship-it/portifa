@@ -13,11 +13,11 @@
       .replace(/"/g, "&quot;");
   }
 
-  // "[A]LANA" → <span class="cap">A</span>LANA ; "<br>" vira quebra de linha
+  // "<br>" vira quebra de linha; colchetes antigos ("[A]LANA") são só removidos
   function formatar(texto) {
     return escapar(texto)
       .replace(/&lt;br\s*\/?&gt;/gi, "<br>")
-      .replace(/\[([^\]]+)\]/g, '<span class="cap">$1</span>');
+      .replace(/\[([^\]]+)\]/g, "$1");
   }
 
   // Versão sem marcações, para títulos de aba e textos alternativos
@@ -212,7 +212,7 @@
           ' loading="lazy" referrerpolicy="strict-origin-when-cross-origin"' +
           ' allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"' +
           ' allowfullscreen></iframe></div>' +
-          '<p class="video__link"><a href="https://www.youtube.com/watch?v=' + vid + '" target="_blank" rel="noopener">assistir no YouTube ↗</a></p></div>';
+          '<p class="video__link micro"><a href="https://www.youtube.com/watch?v=' + vid + '" target="_blank" rel="noopener">assistir no YouTube ↗</a></p></div>';
       case "destaque":
         return '<blockquote class="bloco bloco--destaque"><p>' + formatar(b.texto) + "</p></blockquote>";
       case "botao":
