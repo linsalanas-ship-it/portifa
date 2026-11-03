@@ -49,6 +49,11 @@
       ' muted loop autoplay playsinline preload="metadata" aria-label="' + esc(rotulo) + '"></video>';
   }
 
+  function proximoLink(classe) {
+    if (!proximo || proximo === projeto) return "";
+    return '<a class="proximo' + (classe ? " " + classe : "") + '" href="projeto.html?p=' + encodeURIComponent(proximo.id) + '"><span>próximo projeto: ' +
+      esc(puro(proximo.titulo)) + '</span><span aria-hidden="true">→</span></a>';
+  }
   function figura(src, alt, nome, classe, posicao) {
     return '<figure class="midia' + (classe ? " " + classe : "") + '" data-nome="' + esc(puro(nome)) + '"><img src="' + esc(src) +
       '" alt="' + esc(alt || "") + '"' + (posicao ? ' style="object-position:' + esc(posicao) + '"' : "") + ' draggable="false"></figure>';
@@ -59,11 +64,29 @@
   var TIPOS = {
     lide: function (f) {
       return '<div class="pad">' + meta(f.meta) + '<p class="lide">' + fmt(f.texto) + "</p>" +
+        (f.pe ? '<p class="lide-pe">' + fmt(f.pe) + "</p>" : "") +
         (f.selos ? '<div class="selos empurra" aria-hidden="true">' + String(f.selos).split("").map(function (c) { return "<span>" + esc(c) + "</span>"; }).join("") + "</div>" : "") +
+        (f.link ? link(f.link.texto, f.link.url) : "") +
         "</div>";
     },
     frase: function (f) {
-      return '<div class="pad">' + (f.quadrada ? "" : meta(f.meta)) + '<p class="frase">' + fmt(f.texto) + "</p></div>";
+      return '<div class="pad">' + (f.quadrada ? "" : meta(f.meta)) + '<p class="frase' + (f.links ? " empurra" : "") + '">' + fmt(f.texto) + "</p>" +
+        (f.links ? '<div class="frase__links">' + f.links.map(function (l) {
+          if (l.proximo) return proximoLink();
+          return link(l.texto, l.url);
+        }).join("") + "</div>" : "") + "</div>";
+    },
+    sumario: function (f) {
+      return '<div class="pad">' + meta(f.meta) + (f.texto ? '<p class="sumario__txt">' + fmt(f.texto) + "</p>" : "") +
+        '<ol class="sumario empurra">' + (f.itens || []).map(function (it) {
+          return "<li><span>" + fmt(it[0]) + "</span><b>" + fmt(it[1]) + "</b><span>" + fmt(it[2] || "—") + "</span></li>";
+        }).join("") + "</ol></div>";
+    },
+    fio: function (f) {
+      return '<svg class="fio" viewBox="0 0 1000 300" preserveAspectRatio="none" aria-hidden="true">' +
+        '<path d="M-20 232 C 90 150, 170 290, 290 214 S 470 96, 585 196 S 760 300, 860 196 S 960 120, 1020 150"/></svg>' +
+        '<div class="pad"><div class="fio__titulo">' + meta(f.meta) + '<h2 class="inter">' + fmt(f.titulo) + "</h2></div>" +
+        '<p class="fio__texto">' + fmt(f.texto) + "</p></div>";
     },
     bilhete: function (f) {
       return '<svg class="clipe" viewBox="0 0 20 44" aria-hidden="true"><path d="M7 30 V8 a4 4 0 0 1 8 0 V34 a6 6 0 0 1 -12 0 V12"/></svg>' +
@@ -124,10 +147,12 @@
         (f.link ? link(f.link.texto, f.link.url) : "") + "</div>";
     },
     passo: function (f) {
+      var texto = f.aspas ? "“" + f.texto + "”" : f.texto;
       return '<div class="lado"><p class="passo__olho">' + fmt(f.olho || "página de destino") + "</p>" +
         '<h3 class="passo__titulo">' + fmt(f.titulo) + "</h3>" +
+        (f.funcao ? '<p class="passo__funcao">' + fmt(f.funcao) + "</p>" : "") +
         '<span class="passo__marca" aria-hidden="true"></span>' +
-        '<p class="passo__texto">' + fmt(f.texto) + "</p>" +
+        '<p class="passo__texto"><span>' + fmt(texto) + "</span></p>" +
         (f.url ? link(f.link || "ver a página no site", f.url) : "") + "</div>" +
         figura(f.foto, f.alt || puro(f.titulo), f.nome || f.titulo, "", f.posicao);
     },
@@ -146,8 +171,9 @@
     },
     personalidade: function (f) {
       return '<div class="pad">' + meta(f.meta) + '<p class="tag-grande">' + fmt(f.texto) + "</p>" +
-        (f.legenda ? '<p class="leg empurra">' + fmt(f.legenda) + "</p>" : "") + "</div>" +
-        figura(f.foto, f.alt, f.nome);
+        (f.legenda ? '<p class="leg empurra">' + fmt(f.legenda) + "</p>" : "") +
+        (f.paragrafos ? '<div class="leg empurra">' + f.paragrafos.map(function (t) { return "<p>" + fmt(t) + "</p>"; }).join("") + "</div>" : "") +
+        "</div>" + figura(f.foto, f.alt, f.nome, "", f.posicao);
     },
     lista: function (f) {
       return '<div class="pad"><h3>' + fmt(f.titulo) + "</h3><ul>" +
@@ -158,8 +184,7 @@
         (f.texto ? '<p class="credito-txt">' + fmt(f.texto) + "</p>" : "") +
         (f.pares ? '<dl class="creditos">' +
           f.pares.map(function (p) { return "<dt>" + fmt(p[0]) + "</dt><dd>" + fmt(p[1]) + "</dd>"; }).join("") + "</dl>" : "") +
-        (proximo && proximo !== projeto ? '<a class="proximo empurra" href="projeto.html?p=' + encodeURIComponent(proximo.id) + '"><span>próximo projeto: ' +
-          esc(puro(proximo.titulo)) + '</span><span aria-hidden="true">→</span></a>' : "") + "</div>";
+        proximoLink("empurra") + "</div>";
     },
     foto: function (f) {
       return figura(f.src, f.alt || f.nome, f.nome, "midia--cheia");
@@ -169,7 +194,8 @@
     lide: "f-lide", frase: "f-frase", bilhete: "f-achados", tagline: "f-tag", manifesto: "f-manifesto",
     "video-youtube": "f-video", texto: "f-texto", formulario: "f-pilares", tela: "f-tela", passo: "f-passo",
     lista: "f-pratica f-entrega", creditos: "f-creditos", foto: "f-foto",
-    "foto-texto": "f-fototexto", personalidade: "f-tag f-perso-foto", naming: "f-naming", janela: "f-janela"
+    "foto-texto": "f-fototexto", personalidade: "f-tag f-perso-foto", naming: "f-naming", janela: "f-janela",
+    sumario: "f-sumario", fio: "f-momento"
   };
   var FUNDOS = { pagina: 1, azul: 1, rosinha: 1, rosa: 1, lilas: 1, amarelo: 1, salvia: 1 };
 
@@ -177,8 +203,10 @@
     var fundo = FUNDOS[f.fundo] ? f.fundo : "pagina";
     var estilo = "--ar:" + (f.proporcao || f.espaco || 1.3) + ";--fundo:var(--f-" + fundo + ")" +
       (fundo === "azul" ? ";--tinta:var(--f-pagina)" : "") + (f.tamanho ? ";--fs:" + f.tamanho + "cqw" : "") +
-      (f.corpo ? ";--corpo:" + f.corpo + "cqw" : "");
-    var classe = "folha " + (CLASSES[f.tipo] || "") + (f.quadrada ? " f-quadrada" : "") + (f.retrato ? " f-retrato" : "");
+      (f.corpo ? ";--corpo:" + f.corpo + "cqw" : "") +
+      (f.colunas && typeof f.colunas === "string" ? ";--cols:" + f.colunas : "");
+    var classe = "folha " + (CLASSES[f.tipo] || "") + (f.quadrada ? " f-quadrada" : "") + (f.retrato ? " f-retrato" : "") +
+      (f.fotoEsquerda ? " f-inv" : "") + (f.fotoEmCima ? " f-foto-cima" : "") + (f.capitulo ? " f-cap" : "");
     var corpo = (TIPOS[f.tipo] || TIPOS.texto)(f);
     return '<article class="' + classe + '" data-f="' + esc(f.id) + '" style="' + estilo + '">' + corpo + "</article>";
   }
@@ -186,6 +214,8 @@
   // ---------- monta a página ----------
   html.classList.add("com-mesa");
   raiz.classList.add("projeto--mesa");
+  var h1 = $("#projeto-titulo");
+  if (h1 && puro(projeto.titulo).length > 16) h1.classList.add("titulo--longo");
   var total = SITE.projetos.length;
   var ficha = (M.ficha || []).concat([["projeto", dois(indice + 1) + " de " + dois(total)]]);
   var resumo = $("#projeto-resumo");

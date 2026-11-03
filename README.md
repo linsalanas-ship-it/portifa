@@ -42,7 +42,7 @@ tipo estão no topo de `js/conteudo.js`, e o projeto "Oito vidas de um vestido" 
 
 ### Página do projeto em mesa de folhas
 
-Um projeto pode ter `mesa` em vez de `blocos` (veja a Cieli, a Purpose Paper e a Fifi): as folhas ficam espalhadas sobre o
+Um projeto pode ter `mesa` em vez de `blocos` (todos os projetos já usam esse formato): as folhas ficam espalhadas sobre o
 papel, podem ser arrastadas, e o botão "reorganizar" volta ao arranjo inicial. Fotos e vídeos abrem
 num visor com setas. No celular, as folhas viram uma pilha. A primeira imagem (`abertura`) aparece
 em destaque no topo, levemente inclinada. Os tipos de folha estão explicados no topo de
@@ -78,7 +78,7 @@ crie um formulário grátis em [formspree.io](https://formspree.io) e cole o lin
 
 ## Depois de mudar CSS ou JavaScript
 
-Os arquivos são carregados com um número de versão (`style.css?v=2026110309`) em
+Os arquivos são carregados com um número de versão (`style.css?v=2026110310`) em
 `index.html` e `projeto.html`. Ao alterar `css/` ou `js/`, troque esse número nos dois
 arquivos (por exemplo, pela data do dia) para os visitantes não verem a versão antiga
 guardada no navegador. Para editar só o `conteudo.js` não é preciso.

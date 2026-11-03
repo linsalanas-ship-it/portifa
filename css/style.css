@@ -1186,13 +1186,43 @@ input, textarea { cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/
 .f-fototexto .pad { flex: 1 1 auto; height: auto; min-height: 0; padding: 3cqw 4cqw 4cqw; justify-content: space-between; }
 
 /* personalidade com foto */
-.f-perso-foto { display: grid; grid-template-columns: 1.2fr 0.8fr; }
+.f-perso-foto { display: grid; grid-template-columns: var(--cols, 1.2fr 0.8fr); }
+.f-perso-foto div.leg p + p { margin-top: 0.75em; }
+.f-perso-foto div.leg { font-size: var(--corpo, 1.95cqw); }
 .f-perso-foto .pad { min-width: 0; }
 .f-perso-foto .tag-grande { font-size: 6.4cqw; }
 .f-perso-foto .leg { font-size: 1.95cqw; line-height: 1.34; max-width: none; }
 
 /* passo: página de destino, texto à esquerda + foto */
-.f-passo { display: grid; grid-template-columns: 1fr 1fr; }
+.f-passo { display: grid; grid-template-columns: var(--cols, 1fr 1fr); }
+.f-inv .midia { order: -1; }
+.passo__funcao { font-size: 1.6cqw; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.8; }
+.f-cap .passo__texto { line-height: 1.36; letter-spacing: 0; }
+
+/* lide com parágrafo de apoio e link no pé */
+.lide-pe { font-size: 2.45cqw; line-height: 1.35; }
+.f-lide .passo__link { margin-top: 1cqw; }
+
+/* sumário, como o índice de um livro */
+.sumario__txt { font-size: 3.4cqw; line-height: 1.22; letter-spacing: -0.01em; }
+.sumario { list-style: none; margin: 0; padding: 0; counter-reset: none; }
+.sumario li { display: grid; grid-template-columns: 6cqw 1fr auto; align-items: baseline; gap: 2cqw; padding: 1.25cqw 0; border-top: 1px solid currentColor; font-size: 3.2cqw; line-height: 1.2; }
+.sumario li:last-child { border-bottom: 1px solid currentColor; }
+.sumario li > span:first-child { font-size: 2cqw; font-weight: 600; letter-spacing: 0.04em; }
+.sumario b { font-weight: 400; }
+
+/* fio: capítulo sem texto, atravessado por um fio rosa */
+.f-momento .fio { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.f-momento .fio path { fill: none; stroke: var(--f-rosa); stroke-width: 2.4px; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+.f-momento .pad { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 4cqw; align-items: start; }
+.f-momento .meta { font-size: 0.85cqw; }
+.f-momento .inter { margin-top: 1.5cqw; font-size: 4.2cqw; }
+.fio__texto { font-size: 1.32cqw; line-height: 1.45; }
+
+/* frase com links no pé (fechamento) */
+.frase__links { display: flex; flex-direction: column; gap: 1.6cqw; }
+.frase__links .passo__link, .frase__links .proximo { font-size: 2.1cqw; padding-top: 1.4cqw; }
+.f-frase .frase.empurra { margin-bottom: 3cqw; }
 .f-passo .lado { display: flex; flex-direction: column; align-items: flex-start; gap: 1.2cqw; padding: 4cqw; min-width: 0; min-height: 0; text-align: left; }
 .passo__olho { font-size: 1.6cqw; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.8; }
 .passo__titulo { font-size: 2.1cqw; font-weight: 600; line-height: 1.1; letter-spacing: 0.08em; text-transform: uppercase; }
@@ -1369,6 +1399,23 @@ html.visor-aberto { overflow: hidden; }
 .pilha .f-perso-foto .tag-grande { font-size: 2.4rem; }
 .pilha .f-perso-foto .leg { font-size: 1rem; }
 .pilha .f-perso-foto .midia, .pilha .f-retrato .midia { aspect-ratio: 4 / 5; }
+.pilha .f-cap .midia, .pilha .f-foto-cima .midia { order: -1; aspect-ratio: 4 / 5; }
+.pilha .f-perso-foto div.leg { font-size: 1rem; }
+.pilha .passo__funcao { font-size: 0.6875rem; }
+.pilha .lide-pe { font-size: 0.95rem; }
+.pilha .sumario__txt { font-size: 1.1rem; }
+.pilha .sumario li { grid-template-columns: 1.6rem 1fr auto; gap: 0.6rem; padding: 0.45rem 0; font-size: 1rem; }
+.pilha .sumario li > span:first-child { font-size: 0.75rem; }
+.pilha .f-momento .pad { grid-template-columns: 1fr; gap: 1rem; }
+.pilha .f-momento .meta { font-size: 0.75rem; }
+.pilha .f-momento .inter { font-size: 2rem; }
+.pilha .fio__texto { font-size: 1rem; }
+.pilha .frase__links { gap: 0.5rem; }
+.pilha .frase__links .passo__link, .pilha .frase__links .proximo { font-size: 0.95rem; padding-top: 0.5rem; }
+@media (max-width: 759px) {
+  .projeto--mesa .cab { grid-template-columns: 1fr; }
+  .projeto--mesa .titulo--longo { font-size: clamp(2.6rem, 12.5vw, 4rem); }
+}
 .pilha .f-naming .nome-marca { font-size: 6rem; }
 .pilha .f-naming .leg { font-size: 1rem; }
 .pilha .folha .janela__barra { font-size: 0.8rem; padding: 0.5rem 1rem; gap: 0.7rem; }

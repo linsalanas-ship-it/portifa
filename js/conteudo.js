@@ -90,6 +90,13 @@
          personalidade  texto (destaque), legenda, foto (à direita)
          naming      texto (o nome, enorme), legenda
          janela      barra ("fifi diz:"), texto (janela de bate-papo antiga)
+         sumario     texto, itens: [["01", "capítulo", "personagem"]] (índice de livro)
+         fio         titulo, texto (folha larga atravessada por um fio rosa)
+       Opções extras: lide aceita pe (parágrafo menor) e link: { texto, url };
+       frase aceita links: [{ texto, url }, { proximo: true }]; passo aceita
+       capitulo: true, funcao, aspas: true, fotoEsquerda: true e colunas:
+       "1.12fr 0.88fr"; personalidade aceita paragrafos, colunas, posicao e
+       fotoEmCima: true (no celular).
          lista       titulo, itens
          creditos    pares: [["rótulo", "valor"]] ou texto (o link do próximo projeto é automático)
          foto        src, alt, espaco (proporção do espaço reservado: largura ×
@@ -472,59 +479,93 @@ const SITE = {
       titulo: "Oito vidas de um vestido",
       resumo: "livro-reportagem sobre a história de uma peça de roupa",
       capa: "assets/img/oito-vidas/capa-grade.jpg",
-      subtitulo: "livro-reportagem · trabalho de conclusão de curso em Jornalismo, UFC",
-      blocos: [
-        { tipo: "foto", src: "assets/img/oito-vidas/capa-livro.jpg" },
-        {
-          tipo: "lide",
-          texto: [
-            "O livro-reportagem Oito vidas de um vestido acompanha a história de uma peça de roupa desde a ideia, passando pelo nascimento da matéria-prima até o uso do vestido em que ela se torna.",
-            "Nesse equilíbrio entre a literatura e o texto jornalístico, a própria peça de roupa é narradora das histórias de personagens que fazem parte da indústria da moda no Ceará. Este é um livro sobre trabalho, moda, sustentabilidade, criatividade e, sobretudo, pessoas.",
-          ],
-        },
-        { tipo: "botao", texto: "folhear o livro", url: "https://online.fliphtml5.com/ejvpj/rebh/index.html" },
-        {
-          tipo: "fotos",
-          src: ["assets/img/oito-vidas/abertura-capitulo.jpg", "assets/img/oito-vidas/detalhe-agulha.jpg"],
-        },
-        {
-          tipo: "texto",
-          texto: [
-            "Em 2017, no último período da graduação em Jornalismo na Universidade Federal do Ceará, eu tinha certeza de que queria escrever um livro como trabalho de conclusão de curso. Saber se minha escrita teria fôlego para sustentar um longo texto era um desafio pessoal que eu gostaria de enfrentar.",
-            "Na época, eu estava bastante apaixonada por livros, conteúdos e movimentos que tratavam sobre moda, criatividade e sustentabilidade. A ideia de escrever a história de uma peça de roupa surgiu durante uma das aulas de Projeto de TCC.",
-            "A partir dessa ideia, precisei tomar decisões práticas para que o projeto acontecesse, pois eu seria responsável por toda a produção, sem equipe ou qualquer tipo de financiamento.",
-            "Decidi abordar a pauta pela voz de profissionais que representassem etapas da cadeia produtiva da moda — como design, cultivo de matéria-prima, modelagem, costura, etc.",
-            "Fiz toda a pesquisa, produção de pauta, roteiro para entrevistas, convites, entrevistas propriamente ditas, decupagem, escrita e direcionamento do projeto gráfico.",
-          ],
-        },
-        {
-          tipo: "foto-texto",
-          src: "assets/img/oito-vidas/miolo-costura.jpg",
-          lado: "esquerda",
-          texto: [
-            "Entre os personagens principais estão pessoas que conheço desde a infância, amigas de amigas e, ainda, gratas surpresas que a apuração me trouxe.",
-            "Conversei a respeito do trabalho, dos hábitos e das memórias de cada pessoa em seu ambiente próprio. Nas entrevistas (que duravam aproximadamente duas horas e 30 minutos), enfrentei o desafio de ser três em uma: entrevistadora, fotógrafa e, quando o tempo ajudava, cinegrafista.",
-            "A produção de todo o projeto levou aproximadamente 6 meses. O livro foi aprovado com nota máxima pela banca avaliadora.",
-          ],
-        },
-        {
-          tipo: "texto",
-          texto: [
-            "Isa, Eliane, Marcelo, Maurília, Gorete, Larissa e Ruth dão vida a sete dos oito capítulos. São eles: A alma; O corpo; A trama; O molde; A costura; O adeus e O depois.",
-            "Eles não se conhecem na vida real, mas dentro da narrativa se tornam parte de um mesmo fio. O vestido que acompanhamos não é nenhum específico, por isso pode ser qualquer um — o meu, o seu, o de alguém que você conhece.",
-            "De certo modo, o vestido também sou eu. Ouvindo a fala dos entrevistados, conhecendo suas rotinas, me apegando a suas particularidades e transformando essa experiência em escrita. Ao fim de tudo, a peça que se constrói são as palavras.",
-          ],
-        },
-        { tipo: "destaque", texto: "Ao fim de tudo, a peça que se constrói são as palavras." },
-        { tipo: "foto", src: "assets/img/oito-vidas/miolo-gorete.jpg" },
-        {
-          tipo: "texto",
-          texto: [
-            "Além da narração das histórias, há um segundo tipo de texto, destinado a compartilhar com o leitor as pesquisas simultâneas à escrita do livro. Eles tratam de temas como agrotóxicos, design, transparência na moda, trabalho infantil, poluição por tecidos sintéticos, entre outros assuntos, com entrevistas e opiniões de especialistas, aprofundando a reflexão.",
-          ],
-        },
-        { tipo: "botao", texto: "folhear o livro", url: "https://online.fliphtml5.com/ejvpj/rebh/index.html" },
-      ],
+      mesa: {
+        ficha: [
+          ["cliente", "projeto de conclusão do curso de jornalismo na Universidade Federal do Ceará"],
+          ["ano", "2017"],
+          ["trabalho", "pesquisa e pauta, entrevistas, fotografia, escrita e direcionamento do projeto gráfico"],
+          ["entrega", "livro-reportagem impresso aprovado com nota máxima pela banca avaliadora"],
+        ],
+        abertura: { src: "assets/img/oito-vidas/capa.jpg", alt: "Capa do livro Oito vidas de um vestido, com a ilustração de mãos formando um vestido, sobre uma mesa de madeira", nome: "capa do livro" },
+        folhas: [
+          // ---------- apresentação ----------
+          { id: "lide", tipo: "lide", nome: "apresentação", fundo: "pagina", proporcao: 1.1, tamanho: 3.55,
+            x: 0.03, y: 0.02, largura: 0.46, giro: 1.2, camada: 2,
+            meta: ["Oito vidas de um vestido · livro-reportagem", "folha 01"], selos: "OV04",
+            texto: "Oito vidas de um vestido é um livro-reportagem que acompanha a trajetória de uma peça de roupa, da ideia ao uso, passando pelo cultivo da matéria-prima, pela modelagem e pela costura. Entre a literatura e o jornalismo, o próprio vestido narra as histórias de sete profissionais da indústria da moda no Ceará, que não se conhecem na vida real mas se tornam parte de um mesmo fio.",
+            pe: "Intercalados à narrativa, textos de apuração com especialistas aprofundam temas como agrotóxicos, transparência na moda, trabalho infantil e poluição por tecidos sintéticos.",
+            link: { texto: "Ver o livro completo", url: "https://online.fliphtml5.com/ejvpj/rebh/index.html#p=83" } },
+          { id: "intro", tipo: "personalidade", fotoEmCima: true, nome: "introdução", fundo: "azul", proporcao: 1.14, colunas: "1.25fr 0.75fr", corpo: 2.36,
+            x: 0.52, y: 0, largura: 0.46, giro: -1.8, camada: 3,
+            meta: ["introdução", "folha 02"], texto: "Em 80 anos, ainda estarei aqui.",
+            paragrafos: [
+              "Se nada fora do normal acontecer, em 100, talvez. Das pessoas que toquei e abracei restarão memórias. E cheiros. Algumas deixam cheiros, que não saem nem com todos os banhos. Talvez você não sinta. Mas, quando vem uma brisa, mesmo que por uma pequena fresta, consigo respirar o aroma da lavanda, um tanto amadeirado, por poucos segundos. Depois, já foi.",
+              "Penso que já não sou tão belo, mas, ainda assim, me olham com certa admiração, afeto, até. Será que o tempo faz isso? Valoriza a história em detrimento da beleza? Mas, aqui, já estamos no fim. <b>Voltemos para o começo.</b>",
+            ],
+            foto: "assets/img/oito-vidas/guarda-roupa.jpg", posicao: "50% 60%", alt: "Vestido pendurado num guarda-roupa" },
+          { id: "personagens", tipo: "sumario", nome: "personagens", fundo: "amarelo", proporcao: 1.22,
+            x: 0.05, y: 0.46, largura: 0.38, giro: -1.5, camada: 4,
+            meta: ["personagens", "folha 03"],
+            texto: "Isa, Eliane, Marcelo, Maurília, Gorete, Larissa e Ruth dão vida a sete dos oito capítulos. São eles:",
+            itens: [
+              ["01", "A alma", "Isa"], ["02", "O corpo", "Eliane"], ["03", "A trama", "Marcelo"], ["04", "O molde", "Maurília"],
+              ["05", "A costura", "Gorete"], ["06", "O momento", "—"], ["07", "O adeus", "Larissa"], ["08", "O depois", "Ruth"],
+            ] },
+          // ---------- capítulos (texto entre aspas; tamanho da letra por capítulo) ----------
+          { id: "isa", tipo: "passo", capitulo: true, aspas: true, nome: "capítulo 1 · Isa de Paula", fundo: "rosinha", proporcao: 1.45, tamanho: 2.75, colunas: "1.12fr 0.88fr",
+            x: 0.5, y: 0.46, largura: 0.47, giro: 1.5, camada: 5,
+            olho: "capítulo 1", titulo: "A alma: Isa de Paula", funcao: "designer de moda",
+            foto: "assets/img/oito-vidas/isa.jpg", posicao: "47% 40%", alt: "Isa de Paula, designer de moda",
+            texto: "Lembro-me de me dar conta de existir. Num átimo, simplesmente sabia. Não tinha outras memórias, mas a partir dali comecei a criá-las. Ainda não era possível me tocar; era apenas a minha alma, permitam-me chamar assim. Depois eu soube que existia porque alguém me criou. <b>Isa me criou.</b>" },
+          { id: "livro-isa", tipo: "foto", nome: "livro: fim do capítulo de Isa", src: "assets/img/oito-vidas/livro-isa.jpg", alt: "Página do livro com o fim do capítulo de Isa",
+            espaco: 1.504, x: 0.56, y: 0.83, largura: 0.37, giro: -2, camada: 6 },
+          { id: "eliane", tipo: "passo", capitulo: true, aspas: true, fotoEsquerda: true, nome: "capítulo 2 · Eliane Ramos", fundo: "salvia", proporcao: 1.4, tamanho: 2.6, colunas: "0.88fr 1.12fr",
+            x: 0.03, y: 0.84, largura: 0.47, giro: 1, camada: 7,
+            olho: "capítulo 2", titulo: "O corpo: Eliane Ramos", funcao: "agricultora de algodão",
+            foto: "assets/img/oito-vidas/eliane.jpg", posicao: "50% 30%", alt: "Eliane Ramos, agricultora de algodão",
+            texto: "De longe, vejo se aproximar quem me plantou. Na primeira vez que vi Maria Eliane, eu ainda era uma sementinha pequena aninhada nas mãos dela, que são cheias de linhas, parecem caminhos da terra. Agora, na flor desabrochada, continuo pequeno, mas já estou pronto para ser, de novo, tocado pelas mãos dela." },
+          { id: "marcelo", tipo: "passo", capitulo: true, aspas: true, nome: "capítulo 3 · Marcelo Sampaio", fundo: "pagina", proporcao: 1.4, tamanho: 2.6, colunas: "1.12fr 0.88fr",
+            x: 0.53, y: 1.12, largura: 0.44, giro: -1.5, camada: 8,
+            olho: "capítulo 3", titulo: "A trama: Marcelo Sampaio", funcao: "vendedor de tecidos",
+            foto: "assets/img/oito-vidas/marcelo.jpg", posicao: "50% 35%", alt: "Marcelo Sampaio, vendedor de tecidos",
+            texto: "Começo a constatar que Marcelo tem uma casca dura, mas, no fundo, não é tão severo assim. Escuto todos chamarem por ele. ‘Marcelo, ei, Marcelo’. Ouço risadas, algumas contidas, outras extravagantes. Marcelo é o mais velho, mas entre os colegas vira menino." },
+          { id: "maurilia", tipo: "passo", capitulo: true, aspas: true, fotoEsquerda: true, nome: "capítulo 4 · Maurília de Sousa", fundo: "amarelo", proporcao: 1.12, tamanho: 2.4, colunas: "0.88fr 1.12fr",
+            x: 0.03, y: 1.23, largura: 0.47, giro: -1, camada: 9,
+            olho: "capítulo 4", titulo: "O molde: Maurília de Sousa", funcao: "modelista",
+            foto: "assets/img/oito-vidas/maurilia.jpg", posicao: "72% 45%", alt: "Maurília de Sousa, modelista, desenhando um molde",
+            texto: "Enquanto Maurília fala, ela rabisca. Dali a pouco, o rabisco vira um esboço. E o esboço vira um desenho. Acostumou-se tanto a riscar o papel madeira, que virou até passatempo. Mas quando começam a fazer uma modelagem, as mãos rápidas de quem já fez centenas delas nem se demoram. Quando menos espero, chega minha vez. Maurília me examina, desenrola mais papel do grande rolo sobre a mesa e começa os rituais de medição. Vira dali, prende com os clipes aqui, risca, corta. Depois de alguns minutos, meu esqueleto está pronto. Milimetricamente pensado. Maurília me deu forma em alguns instantes." },
+          { id: "gorete", tipo: "passo", capitulo: true, aspas: true, nome: "capítulo 5 · Gorete Santos", fundo: "lilas", proporcao: 1.2, tamanho: 2.5, colunas: "1.12fr 0.88fr",
+            x: 0.52, y: 1.48, largura: 0.46, giro: 1.3, camada: 10,
+            olho: "capítulo 5", titulo: "A costura: Gorete Santos", funcao: "costureira",
+            foto: "assets/img/oito-vidas/gorete.jpg", posicao: "70% 45%", alt: "Gorete Santos, costureira, na máquina de costura",
+            texto: "Espero, e torço com todas as minhas fibras, que dona Gorete jamais se sinta só. Mesmo com a casa vazia na maior parte do tempo. Mesmo com a companhia apenas das máquinas e da televisão durante a semana. Espero que ela perceba a si mesma como uma peça de fé, resiliência e gentileza que a vida está costurando. O melhor de tudo é que a costura ainda não acabou. O pé ainda está no pedal, o barulho veloz ainda não cessou e a agulha ainda transpassa o fio." },
+          { id: "livro-gorete", tipo: "foto", nome: "livro: páginas 124 e 125", src: "assets/img/oito-vidas/livro-gorete.jpg", alt: "Livro aberto nas páginas 124 e 125, do capítulo de Gorete",
+            espaco: 1.54, x: 0.04, y: 1.69, largura: 0.44, giro: 1.5, camada: 11 },
+          { id: "livro-costura", tipo: "foto", nome: "livro: abertura de A costura", src: "assets/img/oito-vidas/livro-costura.jpg", alt: "Livro aberto na abertura do capítulo A costura",
+            espaco: 1.563, x: 0.55, y: 1.91, largura: 0.38, giro: -1.8, camada: 12 },
+          { id: "momento", tipo: "fio", nome: "capítulo 6 · O momento", fundo: "pagina", proporcao: 3.3,
+            x: 0.05, y: 2.22, largura: 0.9, giro: -0.6, camada: 13,
+            meta: ["capítulo 6", "folha 09"], titulo: "O momento",
+            texto: "Este é um capítulo diferente, sem texto, apenas com um fio que atravessa as páginas. O leitor é convidado a imaginar que o vestido criado enfim ganhou um corpo para vestir e seguiu para viver suas aventuras. Por não ser nenhuma peça de roupa específica, e sim uma representação, o vestido pode ser qualquer um, de qualquer pessoa." },
+          { id: "larissa", tipo: "passo", capitulo: true, aspas: true, fotoEsquerda: true, nome: "capítulo 7 · Larissa Barbosa", fundo: "rosa", proporcao: 1.2, tamanho: 2.32, colunas: "0.88fr 1.12fr",
+            x: 0.03, y: 2.56, largura: 0.47, giro: 1.2, camada: 14,
+            olho: "capítulo 7", titulo: "O adeus: Larissa Barbosa", funcao: "idealizadora do Brechó 55, em Fortaleza",
+            foto: "assets/img/oito-vidas/larissa.jpg", posicao: "24% 40%", alt: "Larissa Barbosa, idealizadora do Brechó 55",
+            texto: "Mas eu preciso dizer, Larissa me deu um lar, mesmo pequeno. Me dá esperança de voltar a vestir e ser o que fui feito para ser. Me dá senso de valor, e não falo apenas do dinheiro. Até porque, repito, dele entendo pouco. Falo do sentir, do viver, do criar algo novo com algo que novo já não é. Às 17h de todas as quintas, sextas e sábados, quando a música começa a tocar e os portões do Quintal se abrem, eu sei que há mais vida entrando aqui." },
+          { id: "livro-brecho", tipo: "foto", nome: "livro: Brechó 55", src: "assets/img/oito-vidas/livro-brecho.jpg", alt: "Livro aberto na página com a foto do Brechó 55",
+            espaco: 1.504, x: 0.07, y: 2.99, largura: 0.37, giro: -1.5, camada: 15 },
+          { id: "ruth", tipo: "passo", capitulo: true, aspas: true, nome: "capítulo 8 · Ruth Andrade", fundo: "salvia", proporcao: 1.12, tamanho: 2.22, colunas: "1.12fr 0.88fr",
+            x: 0.52, y: 2.58, largura: 0.46, giro: -1.2, camada: 16,
+            olho: "capítulo 8", titulo: "O depois: Ruth Andrade", funcao: "a segunda dona do vestido",
+            foto: "assets/img/oito-vidas/ruth.jpg", posicao: "64% 40%", alt: "Ruth Andrade, a segunda dona do vestido",
+            texto: "A personalidade camaleoa de Ruth, é claro, não se manifesta apenas nos cabelos. Seu guarda-roupas é um caleidoscópio, capaz de desequilibrar os desavisados. É um espetáculo. Assim como a pessoa que as veste. Ruth é circense, sim, teatral. Provavelmente, as aulas de teatro que frequenta a ajudam a descobrir mais camadas de si mesma. O jeito de se vestir é uma das formas de revelá-las e, assim como um artista num tecido acrobático — modalidade, aliás, que Ruth pratica — para ela, o vestir é um constante movimento. Há dias de bege, dias de estampas escandalosas, dias de coturno preto. Seria impossível, portanto, ser uma Ruth só." },
+          // ---------- fechamento ----------
+          { id: "fim", tipo: "frase", nome: "fechamento", fundo: "azul", proporcao: 1.55, tamanho: 6.6,
+            x: 0.53, y: 3.06, largura: 0.42, giro: 1.5, camada: 17,
+            meta: ["fechamento", "folha 12"], texto: "Esse texto é sobre um vestido.<br>Esse vestido é um texto.",
+            links: [{ texto: "Ver o livro completo", url: "https://online.fliphtml5.com/ejvpj/rebh/index.html#p=83" }, { proximo: true }] },
+        ],
+      },
     },
   ],
 
