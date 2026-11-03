@@ -138,18 +138,42 @@
   }
 
   if (temToque) {
-    // cada toque começa um traço novo; só o primeiro dedo desenha
+    // No celular, o gesto decide: se o dedo começa andando na horizontal, é rabisco
+    // (a página fica parada e o lápis risca); se começa na vertical, é rolagem
+    // (a página rola e o lápis não risca). Só o primeiro dedo conta.
+    var gesto = null; // { x0, y0, pontos, modo: null | "rabisco" | "rolar" }
+    // onde o dedo já tem outra função: arrastar o post-it, o visor, campos de texto
+    var LIVRES = ".etiqueta, .visor, input, textarea, select, iframe, .sobre";
     document.addEventListener("touchstart", function (e) {
       atual = null;
       var t = e.touches[0];
-      if (t) registrar(t.clientX, t.clientY, true);
+      if (!t || e.touches.length > 1) { gesto = null; return; }
+      var alvo = e.target && e.target.closest ? e.target.closest(LIVRES) : null;
+      gesto = alvo ? null : { x0: t.clientX, y0: t.clientY, modo: null };
     }, { passive: true });
     document.addEventListener("touchmove", function (e) {
+      if (!gesto) return;
       var t = e.touches[0];
-      if (t) registrar(t.clientX, t.clientY, true);
-    }, { passive: true });
-    document.addEventListener("touchend", function () { atual = null; }, { passive: true });
+      if (!t || e.touches.length > 1) { gesto = null; return; }
+      if (!gesto.modo) {
+        // decide já no primeiro movimento: o iPhone só deixa travar a rolagem
+        // se o primeiro movimento do dedo for bloqueado
+        var dx = Math.abs(t.clientX - gesto.x0), dy = Math.abs(t.clientY - gesto.y0);
+        if (dx === 0 && dy === 0) return;
+        gesto.modo = dx > dy ? "rabisco" : "rolar";
+        if (gesto.modo === "rabisco") {
+          registrar(gesto.x0, gesto.y0, true); // o traço começa onde o dedo tocou
+        }
+      }
+      if (gesto.modo === "rabisco") {
+        if (e.cancelable) e.preventDefault(); // trava a página enquanto rabisca
+        registrar(t.clientX, t.clientY, true);
+      }
+    }, { passive: false });
+    document.addEventListener("touchend", function () { atual = null; gesto = null; }, { passive: true });
+    document.addEventListener("touchcancel", function () { atual = null; gesto = null; }, { passive: true });
   }
+
 
   function desenhar() {
     var agora = performance.now();

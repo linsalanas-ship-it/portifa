@@ -75,7 +75,7 @@
 
   /* ---------- o lápis: só contorno azul e miolo cru ---------- */
   var M = { graf: 13, cone: 46, corpo: 262, fer: 292, bor: 318 }, R = 12;
-  function tamanho() { return W < 600 ? 0.5 : 0.6; } // ~190 × 14 px (160 × 12 no celular)
+  function tamanho() { return W < 600 ? 0.42 : 0.55; } // ~175 × 13 px (135 × 10 no celular)
   function desenharLapis(x, y, ang, esc, alfa) {
     cx.setTransform(1, 0, 0, 1, 0, 0);
     cx.clearRect(0, 0, cvLapis.width, cvLapis.height);
@@ -116,7 +116,7 @@
   /* ---------- a bonequinha, desenhada traço a traço ---------- */
   var ROSTO = null, rosto = null;
   function montarRosto() {
-    var h = Math.min(H * 0.5, 380, W * 0.62 * ROSTO.h / ROSTO.w);
+    var h = Math.min(H * 0.36, 280, W * 0.42 * ROSTO.h / ROSTO.w);
     var s = h / ROSTO.h, w = ROSTO.w * s, ox = W / 2 - w / 2, oy = H * 0.47 - h / 2;
     var rota = [], d = 3, ultimo = { x: W + 120, y: H + 160 }, comTinta = 0;
     function P(x, y) { return { x: ox + x * s, y: oy + y * s }; }
@@ -341,7 +341,7 @@
       // sem o JSON (ex.: arquivo aberto direto do computador): mostra o rosto pronto
       var img = new Image();
       img.onload = function () {
-        var h = Math.min(H * 0.5, 380, W * 0.62 * 800 / 737), w = h * 737 / 800;
+        var h = Math.min(H * 0.36, 280, W * 0.42 * 800 / 737), w = h * 737 / 800;
         cxRosto.setTransform(dpr, 0, 0, dpr, 0, 0);
         cxRosto.drawImage(img, W / 2 - w / 2, H * 0.47 - h / 2, w, h);
       };

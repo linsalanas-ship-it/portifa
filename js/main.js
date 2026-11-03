@@ -102,7 +102,7 @@
 
     var c = SITE.contato;
     var links = [];
-    // o e-mail já aparece no subtítulo; aqui ficam só as redes (se houver)
+    // o e-mail já aparece no subtítulo e no botão; aqui ficam só as redes (se houver)
     if (c.email && !c.descricao) links.push('<a href="mailto:' + escapar(c.email) + '">' + escapar(c.email) + "</a>");
     (c.redes || []).forEach(function (r) {
       links.push('<a href="' + escapar(r.url) + '" target="_blank" rel="noopener">' + escapar(r.nome) + "</a>");
@@ -621,13 +621,13 @@
     atualizar();
   }
 
-  // ---------- formulário de contato ----------
+  // ---------- contato: botão de e-mail que vira aviãozinho ----------
   function iniciarFormulario() {
-    var form = $("form-contato");
-    var status = $("form-status");
     var c = SITE.contato;
-    var botao = form.querySelector('button[type="submit"]');
-    var confirmacao = $("confirmacao");
+    var botao = $("fale");
+    if (!botao) return;
+    botao.textContent = c.botao || "fale comigo";
+    botao.href = "mailto:" + c.email + (c.assunto ? "?subject=" + encodeURIComponent(c.assunto) : "");
 
     // aviãozinho de papel que sai do botão e voa até o canto superior direito
     function voar(origem) {
@@ -646,69 +646,18 @@
         { transform: "translate(" + (x0 + dx) + "px," + (y0 + dy) + "px) rotate(-30deg) scale(.8)", opacity: 1 }
       ], { duration: 1300, easing: "cubic-bezier(.45,0,.3,1)" }).onfinish = function () { aviao.remove(); };
     }
-    function confirmar() {
-      form.hidden = true;
-      confirmacao.hidden = false;
-      if (!menosMovimento) confirmacao.animate([{ opacity: 0, transform: "translateY(12px)" }, { opacity: 1, transform: "none" }], { duration: 500, easing: "ease-out" });
-    }
-    // deu certo: os campos se dobram um a um, o avião voa e aparece a confirmação
-    function enviado() {
-      status.textContent = "";
-      if (menosMovimento) { confirmar(); return; }
+
+    // ao clicar, o botão se dobra e vira o aviãozinho; o e-mail abre normalmente
+    botao.addEventListener("click", function () {
+      if (menosMovimento) return;
       var r = botao.getBoundingClientRect();
-      form.querySelectorAll(":scope > label, .form__rodape").forEach(function (el, i) {
-        el.animate([{ transform: "scaleY(1)", opacity: 1 }, { transform: "scaleY(0)", opacity: 0 }],
-          { duration: 450, delay: i * 80, easing: "cubic-bezier(.6,0,.4,1)", fill: "forwards" });
-      });
-      setTimeout(function () { voar(r); }, 250);
-      setTimeout(confirmar, 1350);
-    }
-    $("de-novo").addEventListener("click", function () {
-      form.querySelectorAll(":scope > label, .form__rodape").forEach(function (el) {
-        el.getAnimations().forEach(function (a) { a.cancel(); });
-      });
-      form.reset();
-      form.hidden = false;
-      confirmacao.hidden = true;
-    });
-
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
-      var dados = new FormData(form);
-
-      if (c.envio) {
-        // envio direto para o e-mail (FormSubmit); se falhar, oferece o e-mail
-        status.textContent = "enviando…";
-        botao.disabled = true;
-        fetch(c.envio, {
-          method: "POST",
-          headers: { "Content-Type": "application/json", Accept: "application/json" },
-          body: JSON.stringify({
-            nome: dados.get("nome"),
-            email: dados.get("email"),
-            mensagem: dados.get("mensagem"),
-            _replyto: dados.get("email"),
-            _subject: "Contato pelo site — " + dados.get("nome"),
-            _template: "table",
-            _captcha: "false",
-          }),
-        }).then(function (r) { return r.json(); }).then(function (j) {
-          botao.disabled = false;
-          if (String(j.success) !== "true") throw new Error(j.message);
-          enviado();
-        }).catch(function () {
-          botao.disabled = false;
-          status.innerHTML = 'não consegui enviar. escreva direto para <a href="mailto:' + escapar(c.email) + '">' + escapar(c.email) + "</a>";
-        });
-        return;
-      }
-
-      var assunto = "Contato pelo site — " + dados.get("nome");
-      var corpo = dados.get("mensagem") + "\n\n" + dados.get("nome") + " · " + dados.get("email");
-      location.href = "mailto:" + c.email +
-        "?subject=" + encodeURIComponent(assunto) +
-        "&body=" + encodeURIComponent(corpo);
-      enviado();
+      botao.animate([
+        { transform: "none", opacity: 1 },
+        { transform: "scale(.4) rotate(-12deg)", opacity: 0, offset: 0.25 },
+        { transform: "scale(.4) rotate(-12deg)", opacity: 0, offset: 0.8 },
+        { transform: "none", opacity: 1 }
+      ], { duration: 1900, easing: "ease-out" });
+      setTimeout(function () { voar(r); }, 180);
     });
   }
 })();
