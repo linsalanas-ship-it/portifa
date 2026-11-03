@@ -13,15 +13,14 @@ Escreva para a Alana em português do Brasil, em linguagem simples.
 - Fonte: só a Switzer (`assets/fonts/Switzer-200…800.woff2` e `Switzer-400-italic.woff2`), em vários pesos. Sem fonte pixelada;
   colchetes antigos em `conteudo.js` são apenas removidos pelo `formatar()`.
 - Página inicial: o nome (`abertura.nome`) é gigante, em duas linhas que enchem a largura (tamanho
-  calculado no `main.js`), com o post-it azul arrastável (`abertura.etiqueta`). O nome e os títulos
-  de seção alternam caixa alta e caixa mista letra a letra a cada 3,2 s; na caixa mista os títulos
-  ficam como estão escritos no `conteudo.js` (por isso lá eles são escritos em caixa mista).
+  calculado no `main.js`), com o post-it azul arrastável (`abertura.etiqueta`). O nome alterna caixa
+  alta e caixa mista letra a letra a cada 3,2 s. Os títulos de seção ficam só em caixa alta, sem
+  animação.
   Menus, subtítulos e textos em caixa baixa.
-- Abertura (`js/abertura.js`, só na 1ª visita da sessão e sem #âncora): folha cru com um lápis
-  mínimo (contorno azul, miolo cru) que desenha a bonequinha a partir de
-  `assets/img/rosto-tracos.json` (linha central dos traços do `rosto.png`, em coordenadas 737×800,
-  `pontos` = bolinhas x, y, raio). Depois a folha sobe e o site sobe colado nela. Durante a abertura
-  o rastro do `lapis.js` fica pausado.
+- Abertura (`js/abertura.js`, só na 1ª visita da sessão e sem #âncora): folha cru com a
+  bonequinha inteira (máscara do `rosto.png` em azul) balançando de um lado para o outro por ~2,4 s;
+  depois a folha sobe e o site sobe colado nela. Clique, toque, rolagem ou tecla pulam. Durante a
+  abertura o rastro do `lapis.js` fica pausado.
 - Menu: "alana lins" à esquerda com a assinatura (a bonequinha como máscara do `rosto.png`, balança
   no hover), links à direita com sublinhado de lápis no hover (o mesmo risco dos cards). Sem
   `lojaUrl`, o clique em "loja" mostra "em breve".

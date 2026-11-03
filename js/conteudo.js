@@ -408,8 +408,8 @@ const SITE = {
             x: 0.03, y: 0.32, largura: 0.44, giro: -1, camada: 4,
             meta: ["origem da marca", "folha 02"], titulo: "Criando do zero",
             texto: [
-              "Vamos pensar lingerie sem cair no clichê da lingerie sensual e performática? Não é a lingerie sexy que acompanha as mulheres nos melhores e piores momentos, enquanto crescem e amadurecem no decorrer dos anos. É a calcinha — aquela básica, normalzinha.",
-              "É ela que está com as mulheres enquanto elas veem um filme largadas no sofá, vão a uma consulta, correm atrás do ônibus ou passam pelo período menstrual. <b>E essa intimidade tem nome: amizade.</b>",
+              "Vamos pensar roupa íntima sem cair no clichê da sensualidade? Não é a lingerie sexy que acompanha as mulheres nos melhores e piores momentos, enquanto crescem e amadurecem no decorrer dos anos. É a calcinha — aquela básica, normalzinha.",
+              "É ela que está com a gente quando vemos um filme largadas no sofá, vamos a uma consulta, corremos atrás do ônibus ou passamos pelas torturas da tpm. <b>E essa intimidade tem nome: amizade.</b>",
             ] },
           { id: "cacheada", tipo: "foto", nome: "modelo de cabelo cacheado", src: "assets/img/fifi/cacheada.jpg", alt: "Mulher de cabelo cacheado sorrindo, de regata branca e calcinha rosa e laranja",
             espaco: 1.833, x: 0.53, y: 0.172, largura: 0.46, giro: 1.5, camada: 5 },
