@@ -1,5 +1,5 @@
 /* Rastro de lápis: por onde o mouse passa fica um traço que some em alguns
-   segundos. Branco (rosa-claro) sobre o azul, azul sobre o rosa.
+   segundos, sempre em azul (o site é todo em papel cru).
    No celular/tablet, o traço segue o dedo na tela (inclusive enquanto rola).
    Desligado para quem pede menos movimento. */
 (function () {
@@ -7,12 +7,24 @@
 
   var DURACAO = 2500; // ms até o traço sumir
   var ESPESSURA = 3; // px (espessura média; varia com a velocidade)
-  var COR = { azul: "#FAE7EC", rosa: "#0000EC" }; // cor do traço sobre cada fundo
+  var COR_TRACO = "#0000EC"; // cor do traço sobre o papel cru
+  var COR_CLARA = "#FBF7EF"; // cor do traço sobre as seções azuis (.tema-azul)
 
   var temMouse = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
   var temToque = "ontouchstart" in window || navigator.maxTouchPoints > 0;
   var menosMovimento = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if ((!temMouse && !temToque) || menosMovimento) return;
+  // nas páginas de projeto, o rastro só aparece na mesa de folhas (js/mesa.js)
+  var naMesa = document.documentElement.classList.contains("com-mesa");
+  if (document.getElementById("projeto") && !naMesa) return;
+  // na mesa, o lápis não risca em cima de folhas, fotos e textos, nem durante o arrasto
+  var SOBRE_CONTEUDO = ".folha, .heroi, img, video, iframe, h1, h2, h3, p, a, button, li, dt, dd, .acoes, .menu, .visor";
+  function sobreConteudo(x, y) {
+    if (!naMesa) return false;
+    if (document.documentElement.classList.contains("arrastando")) return true;
+    var el = document.elementFromPoint(x, y);
+    return !!(el && el.closest && el.closest(SOBRE_CONTEUDO));
+  }
 
   var canvas = document.createElement("canvas");
   canvas.className = "rastro";
@@ -32,19 +44,6 @@
   redimensionar();
   window.addEventListener("resize", redimensionar);
 
-  // Qual fundo está sob o ponteiro? Durante a abertura, depende da etapa.
-  function fundoEm(x, y) {
-    var intro = document.getElementById("intro");
-    if (intro && document.documentElement.classList.contains("com-intro") &&
-        !intro.classList.contains("intro--fim")) {
-      if (intro.classList.contains("intro--cor-2")) return "rosa";
-      return intro.classList.contains("intro--cor-1") ? "azul" : "rosa";
-    }
-    var el = document.elementFromPoint(x, y);
-    var tema = el && el.closest(".tema-azul, .tema-rosa");
-    return tema && tema.classList.contains("tema-azul") ? "azul" : "rosa";
-  }
-
   // Pontos guardados em coordenadas da página, para o traço rolar junto
   var tracos = [];
   var atual = null;
@@ -52,7 +51,7 @@
   var animando = false;
 
   // Textura de grafite: um ladrilho de grãos com transparência aleatória,
-  // usado como "tinta" do traço. Um ladrilho por cor.
+  // usado como "tinta" do traço.
   function grafite(cor) {
     var lado = 96;
     var c = document.createElement("canvas");
@@ -72,12 +71,22 @@
     if (padrao.setTransform && window.DOMMatrix) padrao.setTransform(new DOMMatrix().scale(1 / dpr));
     return padrao;
   }
-  var TINTA = { azul: grafite(COR.azul), rosa: grafite(COR.rosa) };
+  var TINTAS = {};
+  TINTAS[COR_TRACO] = grafite(COR_TRACO);
+  TINTAS[COR_CLARA] = grafite(COR_CLARA);
+  // sobre fundo azul o traço fica claro
+  function corEm(x, y) {
+    var el = document.elementFromPoint(x, y);
+    return el && el.closest && el.closest(".tema-azul") ? COR_CLARA : COR_TRACO;
+  }
 
   // Registra um ponto do traço. Mouse: pontos na página (o traço rola junto).
   // Toque: pontos na tela, porque ao arrastar o dedo a página rola junto com ele
   // e, na página, o traço viraria um ponto só.
   function registrar(clientX, clientY, naTela) {
+    // durante a abertura quem risca é o lápis dela (js/abertura.js)
+    if (document.documentElement.classList.contains("com-abertura")) return;
+    if (sobreConteudo(clientX, clientY)) { atual = null; return; }
     var ox = naTela ? 0 : scrollX;
     var oy = naTela ? 0 : scrollY;
     var agora = performance.now();
@@ -99,16 +108,17 @@
       f1: 0.35 + Math.random() * 0.35,
       f2: -(0.35 + Math.random() * 0.35),
     };
-    var cor = fundoEm(clientX, clientY);
+    var cor = corEm(clientX, clientY);
     // começa um traço novo se o mouse parou, pulou ou mudou de fundo
-    if (!atual || agora - ultimo > 120 || atual.cor !== cor || atual.naTela !== naTela) {
+    if (!atual || agora - ultimo > 120 || atual.naTela !== naTela || atual.cor !== cor) {
       // emenda com o traço anterior (no mouse, como sempre; no toque, só dentro do mesmo arraste)
       var emenda = atual ? atual.naTela === naTela : !naTela;
-      atual = { cor: cor, pontos: [], naTela: naTela };
+      var trocouCor = atual && atual.cor !== cor;
+      atual = { pontos: [], naTela: naTela, cor: cor };
       if (emenda && tracos.length && tracos[tracos.length - 1].pontos.length) {
-        // emenda com o ponto anterior para não deixar buraco na troca de cor
+        // emenda com o ponto anterior para não deixar buraco entre os traços
         var prev = tracos[tracos.length - 1].pontos;
-        if (agora - ultimo <= 120) atual.pontos.push(prev[prev.length - 1]);
+        if (agora - ultimo <= 120 && !trocouCor) atual.pontos.push(prev[prev.length - 1]);
       }
       tracos.push(atual);
     }
@@ -157,7 +167,8 @@
       // traço do mouse acompanha a página; traço do dedo fica fixo na tela
       if (tr.naTela) ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       else ctx.setTransform(dpr, 0, 0, dpr, -scrollX * dpr, -scrollY * dpr);
-      ctx.strokeStyle = TINTA[tr.cor];
+      var cor = tr.cor || COR_TRACO, tinta = TINTAS[cor];
+      ctx.strokeStyle = tinta;
       var pts = tr.pontos;
       for (var i = 1; i < pts.length; i++) {
         var a = pts[i - 1];
@@ -175,11 +186,11 @@
         var nx = -dy / len, ny = dx / len; // perpendicular ao traço
 
         // miolo denso (cor lisa, mais fino) + corpo granulado com bordas ásperas
-        ctx.strokeStyle = COR[tr.cor];
+        ctx.strokeStyle = cor;
         ctx.globalAlpha = 0.7 * alfa;
         ctx.lineWidth = b.w * 0.45;
         curva(ini, b, fim, 0, 0);
-        ctx.strokeStyle = TINTA[tr.cor];
+        ctx.strokeStyle = tinta;
         ctx.globalAlpha = alfa;
         ctx.lineWidth = b.w;
         curva(ini, b, fim, 0, 0);

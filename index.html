@@ -5,77 +5,67 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Alana Lins — jornalista, estrategista e redatora</title>
   <meta name="description" content="Alana Lins: jornalista, estrategista e redatora. Estratégia de marca, identidade verbal, conteúdo e copywriting.">
-  <meta name="theme-color" content="#0000EC">
-  <link rel="preload" href="assets/fonts/Switzer-Regular.otf" as="font" type="font/otf" crossorigin>
-  <link rel="preload" href="assets/fonts/Retrogression-Regular.otf" as="font" type="font/otf" crossorigin>
-  <link rel="stylesheet" href="css/style.css?v=2026102824">
+  <meta name="theme-color" content="#F1EBE1">
+  <link rel="preload" href="assets/fonts/Switzer-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/style.css?v=2026110312">
   <script>
-    // Decide antes de pintar a página se a abertura (headers 1 e 2) deve rodar.
+    // Decide antes de pintar a página se a abertura com o lápis vai rodar:
+    // só na primeira visita da sessão e sem #âncora na URL.
     try {
       if (!location.hash && !sessionStorage.getItem("introVista")) {
-        document.documentElement.classList.add("com-intro");
+        document.documentElement.classList.add("com-abertura");
       }
     } catch (e) {}
   </script>
 </head>
 <body>
-  <!-- Headers 1 e 2: abertura em sequência -->
-  <div class="intro" id="intro" aria-hidden="true">
-    <div class="intro__tela intro__tela--1 tema-azul">
-      <p class="titulo" data-campo="abertura.frase"></p>
-    </div>
-    <div class="intro__tela intro__tela--2 tema-rosa">
-      <span class="rosto-animado"><span class="rosto"></span></span>
-    </div>
-  </div>
-
-  <!-- Filtro que faz o traço do rosto "tremer" como desenho à mão -->
-  <svg class="sr" aria-hidden="true" focusable="false">
-    <filter id="rabisco" x="-10%" y="-10%" width="120%" height="120%">
-      <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="1">
-        <animate attributeName="seed" values="1;4;7;10" dur="0.5s" calcMode="discrete" repeatCount="indefinite"/>
-      </feTurbulence>
-      <feDisplacementMap in="SourceGraphic" scale="5" xChannelSelector="R" yChannelSelector="G"/>
-    </filter>
-  </svg>
-
-  <nav class="menu" id="menu" aria-label="Principal">
-    <a href="#projetos">projetos</a>
-    <a href="#sobre">sobre</a>
-    <a href="#contato">contato</a>
-    <a href="#" data-loja target="_blank" rel="noopener">loja</a>
-  </nav>
+  <div class="grao" aria-hidden="true"></div>
+  <header class="menu" id="menu">
+    <a class="menu__marca" href="#inicio"><span class="assinatura" aria-hidden="true"></span><span>alana lins</span></a>
+    <nav aria-label="Principal">
+      <a href="#projetos">projetos</a>
+      <a href="#sobre" id="abrir-sobre" aria-haspopup="dialog">sobre</a>
+      <a href="#contato">contato</a>
+      <a href="#" data-loja>loja</a>
+    </nav>
+  </header>
 
   <main>
     <!-- Header 3 -->
-    <header class="secao hero tema-azul" id="inicio">
-      <h1 class="titulo" data-campo="abertura.nome"></h1>
-      <p class="subtitulo" data-campo="abertura.descricao"></p>
+    <header class="secao hero" id="inicio">
+      <!-- as letras do nome são montadas pelo main.js a partir de abertura.nome -->
+      <h1 class="nome" id="nome" aria-label="Alana Lins">
+        <span class="linha linha--1" aria-hidden="true"></span>
+        <span class="linha linha--2" aria-hidden="true"></span>
+      </h1>
+      <div class="etiqueta" id="etiqueta">
+        <p class="etiqueta__texto" data-campo="abertura.etiqueta"></p>
+      </div>
     </header>
 
-    <section class="secao projetos tema-rosa" id="projetos">
-      <h2 class="titulo" data-campo="secaoProjetos.titulo"></h2>
-      <p class="subtitulo" data-campo="secaoProjetos.descricao"></p>
+    <section class="secao projetos" id="projetos">
+      <div class="cab">
+        <h2 class="titulo" data-campo="secaoProjetos.titulo"></h2>
+        <p class="subtitulo" data-campo="secaoProjetos.descricao"></p>
+      </div>
       <ul class="grade" id="grade-projetos"></ul>
     </section>
 
-    <section class="secao sobre tema-rosa" id="sobre">
-      <h2 class="titulo" data-campo="sobre.titulo"></h2>
-      <div class="sobre__conteudo">
-        <img class="sobre__foto" id="sobre-foto" alt="" loading="lazy">
-        <div class="texto" id="sobre-texto"></div>
-      </div>
-    </section>
-
     <section class="secao servicos tema-azul" id="servicos">
-      <h2 class="titulo" data-campo="servicos.titulo"></h2>
+      <div class="cab">
+        <h2 class="titulo" data-campo="servicos.titulo"></h2>
+        <p class="subtitulo" data-campo="servicos.descricao"></p>
+      </div>
       <div class="sopa" id="sopa">
         <p class="sopa__descricao" id="sopa-descricao" aria-live="polite"></p>
       </div>
     </section>
 
     <section class="secao contato tema-azul" id="contato">
-      <h2 class="titulo" data-campo="contato.titulo"></h2>
+      <div class="cab">
+        <h2 class="titulo" data-campo="contato.titulo"></h2>
+        <p class="subtitulo" id="contato-sub"></p>
+      </div>
       <form class="form" id="form-contato">
         <label class="campo">
           <span class="sr">nome</span>
@@ -94,12 +84,51 @@
           <button type="submit" class="botao">enviar</button>
         </div>
       </form>
-      <p class="contato__links" id="contato-links"></p>
+      <div class="confirmacao" id="confirmacao" hidden role="status">
+        <p class="confirmacao__titulo">Mensagem enviada!</p>
+        <p>Ela já voou até mim. Respondo em breve.</p>
+        <button type="button" class="vazio-link" id="de-novo">escrever outra</button>
+      </div>
+      <p class="contato__links micro" id="contato-links"></p>
     </section>
   </main>
 
-  <script src="js/conteudo.js?v=2026102824"></script>
-  <script src="js/main.js?v=2026102824"></script>
-  <script src="js/lapis.js?v=2026102824"></script>
+  <!-- Sobre: abre como uma folha por cima da página (conteúdo em SITE.sobre) -->
+  <div class="sobre" id="sobre" hidden>
+    <div class="sobre__fundo" data-fechar></div>
+    <article class="sobre__folha" role="dialog" aria-modal="true" aria-labelledby="sobre-titulo" tabindex="-1">
+      <div class="sobre__lado">
+        <p class="sobre__meta"><b>sobre</b><button type="button" class="sobre__fechar" data-fechar aria-label="Fechar">×</button></p>
+        <h2 class="sobre__titulo" id="sobre-titulo" data-campo="sobre.titulo"></h2>
+        <div class="sobre__texto" id="sobre-texto"></div>
+        <p class="sobre__redes" id="sobre-redes"></p>
+      </div>
+      <figure class="sobre__foto"><img id="sobre-foto" alt="Alana Lins" loading="lazy"></figure>
+    </article>
+  </div>
+
+  <!-- Filtro de grafite para o risco de lápis nos títulos dos projetos -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <filter id="grafite" x="-5%" y="-60%" width="110%" height="220%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="4" result="ruido"/>
+      <feDisplacementMap in="SourceGraphic" in2="ruido" scale="1.6" xChannelSelector="R" yChannelSelector="G" result="tremido"/>
+      <feColorMatrix in="ruido" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -0.9 1.35" result="graos"/>
+      <feComposite in="tremido" in2="graos" operator="in"/>
+    </filter>
+  </svg>
+
+  <!-- Abertura: uma folha do mesmo papel em que o lápis desenha a bonequinha -->
+  <div class="abertura" id="abertura">
+    <div class="abertura__folha" id="abertura-folha">
+      <canvas id="abertura-riscos" aria-hidden="true"></canvas>
+      <canvas id="abertura-rosto" aria-hidden="true"></canvas>
+    </div>
+    <canvas id="abertura-lapis" aria-hidden="true"></canvas>
+  </div>
+
+  <script src="js/conteudo.js?v=2026110312"></script>
+  <script src="js/main.js?v=2026110312"></script>
+  <script src="js/abertura.js?v=2026110312"></script>
+  <script src="js/lapis.js?v=2026110312"></script>
 </body>
 </html>

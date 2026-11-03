@@ -13,11 +13,11 @@
       .replace(/"/g, "&quot;");
   }
 
-  // "[A]LANA" → <span class="cap">A</span>LANA ; "<br>" vira quebra de linha
+  // "<br>" vira quebra de linha; colchetes antigos ("[A]LANA") são só removidos
   function formatar(texto) {
     return escapar(texto)
       .replace(/&lt;br\s*\/?&gt;/gi, "<br>")
-      .replace(/\[([^\]]+)\]/g, '<span class="cap">$1</span>');
+      .replace(/\[([^\]]+)\]/g, "$1");
   }
 
   // Versão sem marcações, para títulos de aba e textos alternativos
@@ -47,28 +47,35 @@
     if (v != null) el.innerHTML = formatar(v);
   });
 
+  // loja: sem link, o clique mostra "em breve" logo abaixo
   document.querySelectorAll("[data-loja]").forEach(function (el) {
-    el.href = SITE.lojaUrl || "#";
+    if (SITE.lojaUrl) { el.href = SITE.lojaUrl; return; }
+    el.removeAttribute("target");
+    el.setAttribute("aria-describedby", "loja-aviso");
+    var aviso = document.createElement("span");
+    aviso.className = "menu__aviso";
+    aviso.id = "loja-aviso";
+    aviso.setAttribute("role", "status");
+    el.appendChild(aviso);
+    var t;
+    el.addEventListener("click", function (e) {
+      e.preventDefault();
+      aviso.textContent = "em breve";
+      aviso.classList.add("menu__aviso--visivel");
+      clearTimeout(t);
+      t = setTimeout(function () { aviso.classList.remove("menu__aviso--visivel"); }, 2200);
+    });
   });
 
-  // O menu fixo assume a cor da seção que está passando por baixo dele
-  var menu = $("menu");
-  var secoes = Array.prototype.slice.call(document.querySelectorAll(".secao"));
-  function atualizarMenu() {
-    var y = menu.offsetHeight / 2;
-    var tema = "tema-azul";
-    for (var i = 0; i < secoes.length; i++) {
-      var r = secoes[i].getBoundingClientRect();
-      if (r.top <= y && r.bottom > y) {
-        tema = secoes[i].classList.contains("tema-rosa") ? "tema-rosa" : "tema-azul";
-        break;
-      }
-    }
-    menu.classList.toggle("tema-rosa", tema === "tema-rosa");
-    menu.classList.toggle("tema-azul", tema === "tema-azul");
-  }
-  window.addEventListener("scroll", atualizarMenu, { passive: true });
-  window.addEventListener("resize", atualizarMenu);
+
+  // risco de lápis que aparece sob o título do card no hover (ver .risco no CSS)
+  var RISCO = '<svg class="risco" viewBox="0 0 100 10" preserveAspectRatio="none" aria-hidden="true">' +
+    '<path d="M1 6.2 C 22 4.6, 48 7.4, 70 5.4 S 92 4.4, 99 5.6"/><path d="M8 8.2 C 30 7, 60 8.6, 94 7.2"/></svg>';
+
+  // menu: sublinhado de lápis, o mesmo risco dos títulos dos projetos
+  document.querySelectorAll(".menu nav a").forEach(function (a) {
+    a.insertAdjacentHTML("beforeend", RISCO);
+  });
 
   // ---------- página inicial ----------
   if ($("grade-projetos")) {
@@ -79,7 +86,7 @@
           '<a href="projeto.html?p=' + encodeURIComponent(p.id) + '">' +
             '<img src="' + escapar(p.capa) + '" alt="' + escapar(titulo) + '" loading="lazy">' +
             '<span class="card__info">' +
-              '<span class="card__titulo">' + formatar(p.titulo) + "</span>" +
+              '<span class="card__titulo">' + formatar(p.titulo) + RISCO + "</span>" +
               '<span class="card__resumo">' + formatar(p.resumo) + "</span>" +
             "</span>" +
           "</a>" +
@@ -87,22 +94,28 @@
       );
     }).join("");
 
-    $("sobre-texto").innerHTML = paragrafos(SITE.sobre.texto);
-    if (SITE.sobre.foto) $("sobre-foto").src = SITE.sobre.foto;
-    else $("sobre-foto").remove();
+    iniciarSobre();
+    iniciarPassagem();
 
     iniciarSopa();
+    iniciarNome();
 
     var c = SITE.contato;
     var links = [];
-    if (c.email) links.push('<a href="mailto:' + escapar(c.email) + '">' + escapar(c.email) + "</a>");
+    // o e-mail já aparece no subtítulo; aqui ficam só as redes (se houver)
+    if (c.email && !c.descricao) links.push('<a href="mailto:' + escapar(c.email) + '">' + escapar(c.email) + "</a>");
     (c.redes || []).forEach(function (r) {
       links.push('<a href="' + escapar(r.url) + '" target="_blank" rel="noopener">' + escapar(r.nome) + "</a>");
     });
     $("contato-links").innerHTML = links.join('<span class="sep" aria-hidden="true">·</span>');
+    // subtítulo do contato: o e-mail escrito nele vira link
+    if (c.descricao && $("contato-sub")) {
+      var sub = formatar(c.descricao);
+      if (c.email) sub = sub.replace(escapar(c.email), '<a href="mailto:' + escapar(c.email) + '">' + escapar(c.email) + "</a>");
+      $("contato-sub").innerHTML = sub;
+    }
 
     iniciarFormulario();
-    iniciarAbertura();
   }
 
   // ---------- página interna de projeto ----------
@@ -120,19 +133,15 @@
     document.title = textoPuro(p.titulo) + " — Alana Lins";
     $("projeto-titulo").innerHTML = formatar(p.titulo);
     $("projeto-resumo").innerHTML = formatar(p.subtitulo || p.resumo);
-    if (p.blocos) {
+    if (p.mesa) {
+      // mesa de folhas: quem monta é o js/mesa.js
+      ["projeto-banner", "projeto-texto", "projeto-galeria", "projeto-blocos", "projeto-navegacao"].forEach(function (el) { $(el).remove(); });
+      return;
+    } else if (p.blocos) {
       // diagramação de revista, montada bloco a bloco
       $("projeto").classList.add("projeto--revista");
       ["projeto-banner", "projeto-texto", "projeto-galeria"].forEach(function (el) { $(el).remove(); });
       $("projeto-blocos").innerHTML = p.blocos.map(bloco).join("");
-      ajustarCapitulares();
-      if (document.fonts && document.fonts.ready) document.fonts.ready.then(ajustarCapitulares);
-      var aguardando = false;
-      window.addEventListener("resize", function () {
-        if (aguardando) return;
-        aguardando = true;
-        requestAnimationFrame(function () { aguardando = false; ajustarCapitulares(); });
-      });
     } else {
       $("projeto-blocos").remove();
       paginaSimples(p);
@@ -159,17 +168,6 @@
     $("projeto-galeria").innerHTML = (p.galeria || []).map(function (src) {
       return '<img src="' + escapar(src) + '" alt="" loading="lazy">';
     }).join("");
-  }
-
-  // Capitular só quando o primeiro parágrafo do bloco tem 3 linhas ou mais
-  // (medido sem a capitular, e de novo quando a largura da tela muda)
-  function ajustarCapitulares() {
-    document.querySelectorAll(".bloco--texto > p:first-child").forEach(function (p) {
-      p.classList.add("sem-capitular");
-      var altura = parseFloat(getComputedStyle(p).lineHeight) || 1;
-      var linhas = Math.round(p.getBoundingClientRect().height / altura);
-      if (linhas >= 3) p.classList.remove("sem-capitular");
-    });
   }
 
   // Um bloco da página de projeto (tipos explicados no topo do conteudo.js)
@@ -249,7 +247,7 @@
           ' loading="lazy" referrerpolicy="strict-origin-when-cross-origin"' +
           ' allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"' +
           ' allowfullscreen></iframe></div>' +
-          '<p class="video__link"><a href="https://www.youtube.com/watch?v=' + vid + '" target="_blank" rel="noopener">assistir no YouTube ↗</a></p></div>';
+          '<p class="video__link micro"><a href="https://www.youtube.com/watch?v=' + vid + '" target="_blank" rel="noopener">assistir no YouTube ↗</a></p></div>';
       case "destaque":
         return '<blockquote class="bloco bloco--destaque"><p>' + formatar(b.texto) + "</p></blockquote>";
       case "botao":
@@ -260,55 +258,110 @@
     }
   }
 
-  atualizarMenu();
 
-  // ---------- abertura: header 1 → header 2 → header 3 ----------
-  function iniciarAbertura() {
-    var raiz = document.documentElement;
-    var intro = $("intro");
-    if (!raiz.classList.contains("com-intro")) {
-      intro.remove();
-      return;
-    }
-    var timers = [];
-    var encerrada = false;
-    var eventos = ["click", "keydown", "wheel", "touchstart"];
+  // ---------- nome gigante, títulos letra a letra e post-it ----------
+  function iniciarNome() {
+    var nome = $("nome");
+    var palavras = textoPuro(SITE.abertura.nome).trim().split(/\s+/);
+    var grupos = [];
 
-    function depois(ms, fn) {
-      timers.push(setTimeout(fn, ms));
-    }
-    function etapa(classe) {
-      return function () { intro.classList.add(classe); };
+    // cada letra vira um span com as duas versões guardadas
+    function letra(alta, mista) {
+      var l = document.createElement("span");
+      l.className = "l";
+      l.setAttribute("data-alta", alta);
+      l.setAttribute("data-mista", mista);
+      l.textContent = alta;
+      return l;
     }
 
-    // Termina a abertura: revela o header 3, depois o título, depois o menu.
-    // "pulou" = a pessoa clicou/rolou, então tudo acontece mais rápido.
-    function encerrar(pulou) {
-      if (encerrada) return;
-      encerrada = true;
-      timers.forEach(clearTimeout);
-      eventos.forEach(function (ev) { window.removeEventListener(ev, pular); });
-      try { sessionStorage.setItem("introVista", "1"); } catch (e) {}
+    // nome: 1ª palavra na linha de cima, o resto na de baixo
+    var linhas = nome.querySelectorAll(".linha");
+    var letrasNome = [];
+    [palavras[0], palavras.slice(1).join(" ")].forEach(function (pal, n) {
+      for (var i = 0; i < pal.length; i++) {
+        var mista = i === 0 ? pal[i].toUpperCase() : pal[i].toLowerCase();
+        var l = letra(pal[i].toUpperCase(), mista);
+        linhas[n].appendChild(l);
+        letrasNome.push(l);
+      }
+    });
+    nome.setAttribute("aria-label", palavras.join(" "));
+    grupos.push(letrasNome);
 
-      intro.classList.add("intro--fim");
-      var t = pulou ? 300 : 700;
-      setTimeout(function () { raiz.classList.add("hero-visivel"); }, t);
-      setTimeout(function () { raiz.classList.add("menu-visivel"); }, t + (pulou ? 200 : 700));
-      setTimeout(function () {
-        raiz.classList.remove("com-intro", "hero-visivel", "menu-visivel");
-        intro.remove();
-      }, t + 1700);
+    // títulos de seção: mesmas letras soltas; na caixa mista ficam como no conteudo.js
+    document.querySelectorAll("#projetos .titulo, #servicos .titulo, #contato .titulo").forEach(function (h) {
+      var txt = h.textContent.trim(), grupo = [];
+      h.setAttribute("aria-label", txt);
+      h.innerHTML = "";
+      txt.split(" ").forEach(function (w, wi, todas) {
+        var pal = document.createElement("span");
+        pal.className = "palavra";
+        pal.setAttribute("aria-hidden", "true");
+        for (var i = 0; i < w.length; i++) {
+          var l = letra(w[i].toUpperCase(), w[i]);
+          pal.appendChild(l);
+          grupo.push(l);
+        }
+        h.appendChild(pal);
+        if (wi < todas.length - 1) h.appendChild(document.createTextNode(" "));
+      });
+      grupos.push(grupo);
+    });
+
+    // tamanho: a palavra mais larga (em caixa alta ou mista) enche a largura
+    var medidor = document.createElement("span");
+    medidor.setAttribute("aria-hidden", "true");
+    medidor.style.cssText = "position:absolute;left:-9999px;top:0;visibility:hidden;white-space:nowrap;font-size:100px;letter-spacing:-0.03em";
+    document.body.appendChild(medidor);
+    function largura(texto) {
+      medidor.style.fontWeight = getComputedStyle(nome).fontWeight;
+      medidor.textContent = texto;
+      return medidor.getBoundingClientRect().width;
     }
-    function pular() { encerrar(true); }
+    function ajustar() {
+      var maior = 0;
+      [palavras[0], palavras.slice(1).join(" ")].forEach(function (pal) {
+        var mista = pal.charAt(0).toUpperCase() + pal.slice(1).toLowerCase();
+        maior = Math.max(maior, largura(pal.toUpperCase()), largura(mista));
+      });
+      if (maior) nome.style.fontSize = (100 * nome.clientWidth * 0.99 / maior).toFixed(1) + "px";
+    }
+    ajustar();
+    window.addEventListener("resize", ajustar);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(ajustar);
 
-    // Header 1: cor → frase. Header 2: cor → rostinho. Depois, header 3.
-    depois(60, etapa("intro--cor-1"));
-    depois(900, etapa("intro--conteudo-1"));
-    depois(3100, etapa("intro--cor-2"));
-    depois(3900, etapa("intro--conteudo-2"));
-    depois(7000, function () { encerrar(false); });
-    eventos.forEach(function (ev) {
-      window.addEventListener(ev, pular, { passive: true });
+    // alterna caixa alta e mista a cada 3,2 s, uma letra por vez (70 ms entre elas)
+    var emAlta = true;
+    function trocarCaixa() {
+      emAlta = !emAlta;
+      grupos.forEach(function (g) {
+        g.forEach(function (l, i) {
+          setTimeout(function () {
+            l.textContent = l.getAttribute(emAlta ? "data-alta" : "data-mista");
+          }, i * 70);
+        });
+      });
+    }
+    if (!menosMovimento) {
+      setInterval(function () { if (!document.hidden) trocarCaixa(); }, 3200);
+    }
+
+    // post-it arrastável com mouse ou dedo (a posição não é salva)
+    var etq = $("etiqueta"), arrasto = null, desloc = { x: 0, y: 0 };
+    etq.addEventListener("pointerdown", function (e) {
+      arrasto = { x: e.clientX - desloc.x, y: e.clientY - desloc.y };
+      etq.setPointerCapture(e.pointerId);
+      etq.classList.add("arrastando");
+    });
+    etq.addEventListener("pointermove", function (e) {
+      if (!arrasto) return;
+      desloc = { x: e.clientX - arrasto.x, y: e.clientY - arrasto.y };
+      etq.style.setProperty("--dx", desloc.x + "px");
+      etq.style.setProperty("--dy", desloc.y + "px");
+    });
+    ["pointerup", "pointercancel"].forEach(function (t) {
+      etq.addEventListener(t, function () { arrasto = null; etq.classList.remove("arrastando"); });
     });
   }
 
@@ -324,6 +377,7 @@
       el.type = "button";
       el.className = "sopa__letra";
       el.innerHTML = formatar(it.nome);
+      if (it.peso) el.style.fontWeight = it.peso;
       el.setAttribute("aria-pressed", "false");
       area.appendChild(el);
       return {
@@ -337,6 +391,7 @@
     var escolhida = null;
     // o balão da descrição também é um obstáculo: as outras palavras desviam dele
     var balao = { fixa: true, ativo: false, x: 0, y: 0, w: 0, h: 0 };
+    var FOLGA = 10; // distância mínima entre as palavras e o balão aberto
     function parada(l) { return l === escolhida || l.fixa; }
 
     function medir() {
@@ -381,19 +436,23 @@
       for (var i = 0; i < corpos.length; i++) {
         for (var j = i + 1; j < corpos.length; j++) {
           var a = corpos[i], b = corpos[j];
-          var sx = Math.min(a.x + a.w, b.x + b.w) - Math.max(a.x, b.x);
-          var sy = Math.min(a.y + a.h, b.y + b.h) - Math.max(a.y, b.y);
-          if (sx > 0 && sy > 0) {
-            var empurra = (sy < sx ? 1 : 0);
+          if (parada(a) && parada(b)) continue;
+          // o balão e a palavra escolhida ganham uma margem: as outras passam longe
+          var m = parada(a) || parada(b) ? FOLGA : 0;
+          var sx = Math.min(a.x + a.w, b.x + b.w) - Math.max(a.x, b.x) + m;
+          var sy = Math.min(a.y + a.h, b.y + b.h) - Math.max(a.y, b.y) + m;
+          if (sx > m && sy > m || (m && sx > 0 && sy > 0)) {
+            // quem está parado não se mexe: a outra palavra sai inteira do caminho
+            var pa = parada(a) ? 0 : parada(b) ? 1 : 0.5, pb = 1 - pa;
             var dir;
-            if (empurra) {
+            if (sy < sx) {
               dir = a.y < b.y ? -1 : 1;
-              if (!parada(a)) { a.vy = dir * Math.abs(a.vy); a.y += dir * sy / 2; }
-              if (!parada(b)) { b.vy = -dir * Math.abs(b.vy); b.y -= dir * sy / 2; }
+              if (!parada(a)) { a.vy = dir * Math.abs(a.vy); a.y += dir * sy * pa; }
+              if (!parada(b)) { b.vy = -dir * Math.abs(b.vy); b.y -= dir * sy * pb; }
             } else {
               dir = a.x < b.x ? -1 : 1;
-              if (!parada(a)) { a.vx = dir * Math.abs(a.vx); a.x += dir * sx / 2; }
-              if (!parada(b)) { b.vx = -dir * Math.abs(b.vx); b.x -= dir * sx / 2; }
+              if (!parada(a)) { a.vx = dir * Math.abs(a.vx); a.x += dir * sx * pa; }
+              if (!parada(b)) { b.vx = -dir * Math.abs(b.vx); b.x -= dir * sx * pb; }
             }
           }
         }
@@ -422,6 +481,7 @@
       escolhida = l;
       l.el.classList.add("sopa__letra--ativa");
       l.el.setAttribute("aria-pressed", "true");
+      l.w = l.el.offsetWidth; l.h = l.el.offsetHeight; // em 800 a palavra fica mais larga
       legenda.innerHTML = formatar(l.item.descricao || "");
       pintar(performance.now());
       posicionarBalao();
@@ -444,7 +504,13 @@
       balao.x = x; balao.y = y; balao.w = w; balao.h = h;
     }
     letras.forEach(function (l) {
-      l.el.addEventListener("click", function (e) { e.stopPropagation(); escolher(l); });
+      l.el.addEventListener("click", function (e) {
+        e.stopPropagation();
+        if (l === escolhida && e.pointerType === "mouse") return; // com mouse, o hover já abriu
+        escolher(l);
+      });
+      // com mouse, o balão abre só de passar por cima
+      l.el.addEventListener("pointerenter", function (e) { if (e.pointerType === "mouse" && l !== escolhida) escolher(l); });
     });
     area.addEventListener("click", function (e) { if (!legenda.contains(e.target)) escolher(null); });
 
@@ -463,28 +529,176 @@
     }
   }
 
+  // ---------- sobre: a bio abre como uma folha por cima da página ----------
+  function iniciarSobre() {
+    var sobre = $("sobre"), folha = sobre.querySelector(".sobre__folha");
+    var fundo = sobre.querySelector(".sobre__fundo"), fechar = sobre.querySelector(".sobre__fechar");
+    var link = $("abrir-sobre"), focoAntes = null;
+    var s = SITE.sobre;
+    $("sobre-texto").innerHTML = paragrafos(s.texto);
+    $("sobre-foto").src = s.foto;
+    var ICONES = {
+      instagram: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor"/></svg>',
+      substack: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 3.5h15v2.3h-15zM4.5 7.9h15v2.3h-15zM4.5 12.3h15v8.4l-7.5-4.2-7.5 4.2z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>'
+    };
+    $("sobre-redes").innerHTML = (s.redes || []).map(function (r) {
+      return '<a href="' + escapar(r.url) + '" target="_blank" rel="noopener" aria-label="' + escapar(r.rotulo || r.nome) + '">' +
+        (ICONES[r.nome] || "") + "<span>" + escapar(r.nome) + "</span></a>";
+    }).join("");
+
+    function abrir(e) {
+      if (e) e.preventDefault();
+      if (!sobre.hidden) return;
+      focoAntes = document.activeElement;
+      sobre.hidden = false;
+      document.documentElement.classList.add("travado");
+      if (!menosMovimento) {
+        fundo.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 300, easing: "ease-out" });
+        // entra subindo de baixo, passa um pouco do ponto e assenta em -1,2°
+        folha.animate([
+          { transform: "translateY(110vh) rotate(-4deg)" },
+          { transform: "translateY(-10px) rotate(-0.6deg)", offset: 0.75 },
+          { transform: "rotate(-1.2deg)" }
+        ], { duration: 650, easing: "cubic-bezier(.2,.8,.2,1)" });
+      }
+      sobre.scrollTop = 0;
+      folha.focus({ preventScroll: true });
+    }
+    function fecharSobre() {
+      if (sobre.hidden) return;
+      function fim() {
+        sobre.hidden = true;
+        document.documentElement.classList.remove("travado");
+        if (focoAntes && focoAntes.focus) focoAntes.focus();
+      }
+      if (menosMovimento) return fim();
+      var f = fundo.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 380, fill: "forwards" });
+      var a = folha.animate([
+        { transform: "rotate(-1.2deg)" },
+        { transform: "translateY(110vh) rotate(3deg)" }
+      ], { duration: 420, easing: "cubic-bezier(.6,0,.8,.4)", fill: "forwards" });
+      a.onfinish = function () { fim(); a.cancel(); f.cancel(); };
+    }
+    link.addEventListener("click", abrir);
+    sobre.querySelectorAll("[data-fechar]").forEach(function (el) { el.addEventListener("click", fecharSobre); });
+    document.addEventListener("keydown", function (e) {
+      if (sobre.hidden) return;
+      if (e.key === "Escape") { e.preventDefault(); fecharSobre(); }
+      // o foco fica dentro do card enquanto ele está aberto
+      if (e.key === "Tab") {
+        var itens = Array.prototype.slice.call(folha.querySelectorAll("button, a[href]"));
+        var i = itens.indexOf(document.activeElement);
+        e.preventDefault();
+        itens[(i + (e.shiftKey ? itens.length - 1 : 1)) % itens.length].focus();
+      }
+    });
+    function pelaUrl() { if (location.hash === "#sobre") setTimeout(abrir, 0); }
+    pelaUrl();
+    window.addEventListener("hashchange", pelaUrl);
+  }
+
+  // ---------- passagem entre seções: cada uma sobe como uma folha nova ----------
+  function iniciarPassagem() {
+    if (menosMovimento) return;
+    var secoes = Array.prototype.slice.call(document.querySelectorAll("main > .secao")).slice(1);
+    var pendente = false;
+    function atualizar() {
+      pendente = false;
+      var H = window.innerHeight;
+      secoes.forEach(function (el) {
+        // progresso: o topo da seção vai da borda de baixo da tela até 60% da altura
+        var topo = el.getBoundingClientRect().top - (parseFloat(el.style.getPropertyValue("--sobe")) || 0);
+        var p = Math.min(Math.max((H - topo) / (H * 0.4), 0), 1);
+        var suave = 1 - Math.pow(1 - p, 3); // ease-out
+        var y = (70 * (1 - suave)).toFixed(1);
+        el.style.setProperty("--sobe", y + "px");
+        el.style.transform = "translateY(" + y + "px)";
+      });
+    }
+    function pedir() { if (!pendente) { pendente = true; requestAnimationFrame(atualizar); } }
+    window.addEventListener("scroll", pedir, { passive: true });
+    window.addEventListener("resize", pedir);
+    atualizar();
+  }
+
   // ---------- formulário de contato ----------
   function iniciarFormulario() {
     var form = $("form-contato");
     var status = $("form-status");
     var c = SITE.contato;
+    var botao = form.querySelector('button[type="submit"]');
+    var confirmacao = $("confirmacao");
+
+    // aviãozinho de papel que sai do botão e voa até o canto superior direito
+    function voar(origem) {
+      var aviao = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+      aviao.setAttribute("viewBox", "0 0 48 48");
+      aviao.setAttribute("class", "aviao");
+      aviao.setAttribute("aria-hidden", "true");
+      aviao.innerHTML = '<g fill="none" stroke="#0000ec" stroke-width="2" stroke-linejoin="round"><path d="M4 24 44 6 34 42 22 30Z" fill="#F1EBE1"/><path d="M44 6 22 30 20 40 26 33"/></g>';
+      document.body.appendChild(aviao);
+      var x0 = origem.left + origem.width / 2 - 23, y0 = origem.top + origem.height / 2 - 23;
+      var dx = window.innerWidth - x0 + 60, dy = -y0 - 80;
+      aviao.animate([
+        { transform: "translate(" + x0 + "px," + y0 + "px) rotate(0deg) scale(.6)", opacity: 0 },
+        { transform: "translate(" + (x0 - 40) + "px," + (y0 + 30) + "px) rotate(-10deg) scale(1)", opacity: 1, offset: 0.18 },
+        { transform: "translate(" + (x0 + dx * 0.45) + "px," + (y0 + dy * 0.2) + "px) rotate(-18deg) scale(1)", offset: 0.6 },
+        { transform: "translate(" + (x0 + dx) + "px," + (y0 + dy) + "px) rotate(-30deg) scale(.8)", opacity: 1 }
+      ], { duration: 1300, easing: "cubic-bezier(.45,0,.3,1)" }).onfinish = function () { aviao.remove(); };
+    }
+    function confirmar() {
+      form.hidden = true;
+      confirmacao.hidden = false;
+      if (!menosMovimento) confirmacao.animate([{ opacity: 0, transform: "translateY(12px)" }, { opacity: 1, transform: "none" }], { duration: 500, easing: "ease-out" });
+    }
+    // deu certo: os campos se dobram um a um, o avião voa e aparece a confirmação
+    function enviado() {
+      status.textContent = "";
+      if (menosMovimento) { confirmar(); return; }
+      var r = botao.getBoundingClientRect();
+      form.querySelectorAll(":scope > label, .form__rodape").forEach(function (el, i) {
+        el.animate([{ transform: "scaleY(1)", opacity: 1 }, { transform: "scaleY(0)", opacity: 0 }],
+          { duration: 450, delay: i * 80, easing: "cubic-bezier(.6,0,.4,1)", fill: "forwards" });
+      });
+      setTimeout(function () { voar(r); }, 250);
+      setTimeout(confirmar, 1350);
+    }
+    $("de-novo").addEventListener("click", function () {
+      form.querySelectorAll(":scope > label, .form__rodape").forEach(function (el) {
+        el.getAnimations().forEach(function (a) { a.cancel(); });
+      });
+      form.reset();
+      form.hidden = false;
+      confirmacao.hidden = true;
+    });
 
     form.addEventListener("submit", function (e) {
       e.preventDefault();
       var dados = new FormData(form);
 
-      if (c.formspree) {
+      if (c.envio) {
+        // envio direto para o e-mail (FormSubmit); se falhar, oferece o e-mail
         status.textContent = "enviando…";
-        fetch(c.formspree, {
+        botao.disabled = true;
+        fetch(c.envio, {
           method: "POST",
-          body: dados,
-          headers: { Accept: "application/json" },
-        }).then(function (r) {
-          if (!r.ok) throw new Error();
-          form.reset();
-          status.textContent = "mensagem enviada. obrigada!";
+          headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: JSON.stringify({
+            nome: dados.get("nome"),
+            email: dados.get("email"),
+            mensagem: dados.get("mensagem"),
+            _replyto: dados.get("email"),
+            _subject: "Contato pelo site — " + dados.get("nome"),
+            _template: "table",
+            _captcha: "false",
+          }),
+        }).then(function (r) { return r.json(); }).then(function (j) {
+          botao.disabled = false;
+          if (String(j.success) !== "true") throw new Error(j.message);
+          enviado();
         }).catch(function () {
-          status.textContent = "não consegui enviar. tente pelo e-mail abaixo.";
+          botao.disabled = false;
+          status.innerHTML = 'não consegui enviar. escreva direto para <a href="mailto:' + escapar(c.email) + '">' + escapar(c.email) + "</a>";
         });
         return;
       }
@@ -494,7 +708,7 @@
       location.href = "mailto:" + c.email +
         "?subject=" + encodeURIComponent(assunto) +
         "&body=" + encodeURIComponent(corpo);
-      status.textContent = "abrindo seu programa de e-mail…";
+      enviado();
     });
   }
 })();
