@@ -172,7 +172,11 @@
     personalidade: function (f) {
       return '<div class="pad">' + meta(f.meta) + '<p class="tag-grande">' + fmt(f.texto) + "</p>" +
         (f.legenda ? '<p class="leg empurra">' + fmt(f.legenda) + "</p>" : "") +
-        (f.paragrafos ? '<div class="leg empurra">' + f.paragrafos.map(function (t) { return "<p>" + fmt(t) + "</p>"; }).join("") + "</div>" : "") +
+        (f.paragrafos ? '<div class="leg empurra">' + f.paragrafos.map(function (t, i, l) {
+          // aspas: abre no primeiro parágrafo e fecha no último
+          if (f.aspas) t = (i === 0 ? "“" : "") + t + (i === l.length - 1 ? "”" : "");
+          return "<p>" + fmt(t) + "</p>";
+        }).join("") + "</div>" : "") +
         "</div>" + figura(f.foto, f.alt, f.nome, "", f.posicao);
     },
     lista: function (f) {

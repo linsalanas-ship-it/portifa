@@ -95,7 +95,7 @@
        Opções extras: lide aceita pe (parágrafo menor) e link: { texto, url };
        frase aceita links: [{ texto, url }, { proximo: true }]; passo aceita
        capitulo: true, funcao, aspas: true, fotoEsquerda: true e colunas:
-       "1.12fr 0.88fr"; personalidade aceita paragrafos, colunas, posicao e
+       "1.12fr 0.88fr"; personalidade aceita paragrafos, aspas: true, colunas, posicao e
        fotoEmCima: true (no celular).
          lista       titulo, itens
          creditos    pares: [["rótulo", "valor"]] ou texto (o link do próximo projeto é automático)
@@ -495,7 +495,7 @@ const SITE = {
             texto: "Oito vidas de um vestido é um livro-reportagem que acompanha a trajetória de uma peça de roupa, da ideia ao uso, passando pelo cultivo da matéria-prima, pela modelagem e pela costura. Entre a literatura e o jornalismo, o próprio vestido narra as histórias de sete profissionais da indústria da moda no Ceará, que não se conhecem na vida real mas se tornam parte de um mesmo fio.",
             pe: "Intercalados à narrativa, textos de apuração com especialistas aprofundam temas como agrotóxicos, transparência na moda, trabalho infantil e poluição por tecidos sintéticos.",
             link: { texto: "Ver o livro completo", url: "https://online.fliphtml5.com/ejvpj/rebh/index.html#p=83" } },
-          { id: "intro", tipo: "personalidade", fotoEmCima: true, nome: "introdução", fundo: "azul", proporcao: 1.14, colunas: "1.25fr 0.75fr", corpo: 2.36,
+          { id: "intro", tipo: "personalidade", fotoEmCima: true, aspas: true, nome: "introdução", fundo: "azul", proporcao: 1.14, colunas: "1.25fr 0.75fr", corpo: 2.36,
             x: 0.52, y: 0, largura: 0.46, giro: -1.8, camada: 3,
             meta: ["introdução", "folha 02"], texto: "Em 80 anos, ainda estarei aqui.",
             paragrafos: [
