@@ -138,7 +138,7 @@ p { margin: 0; }
   display: grid;
   grid-template-columns: 1fr minmax(0, 22rem);
   gap: 1rem 2rem;
-  align-items: end;
+  align-items: start; /* subtítulo alinhado ao topo do título */
 }
 .cab .subtitulo { text-align: right; }
 
@@ -1079,6 +1079,7 @@ input, textarea { cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/
   max-width: 88rem;
   grid-template-columns: minmax(0, 1fr) auto;
   gap: 1.5rem 3rem;
+  align-items: end; /* a ficha continua alinhada à base do título */
 }
 .projeto--mesa .titulo {
   font-size: clamp(3.25rem, 1rem + 9vw, 9.5rem);
