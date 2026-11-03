@@ -133,6 +133,7 @@ const SITE = {
       mesa: {
         ficha: [
           ["cliente", "agência de viagens de luxo"],
+          ["ano", "2026"],
           ["trabalho", "expressão verbal, arquitetura de conteúdo para site e copywriting"],
           ["entrega", "tagline principal, manifesto, arquitetura das páginas e conteúdo em texto para o site"],
         ],
@@ -259,6 +260,7 @@ const SITE = {
       mesa: {
         ficha: [
           ["cliente", "papelaria e editora"],
+          ["ano", "2025"],
           ["trabalho", "estratégia, plataforma de marca e identidade verbal"],
           ["entrega", "brandbook com manual de identidade verbal e treinamento interno"],
         ],
@@ -387,6 +389,7 @@ const SITE = {
       mesa: {
         ficha: [
           ["cliente", "projeto pessoal"],
+          ["ano", "2024"],
           ["trabalho", "estratégia de marca, naming e identidade verbal"],
           ["entrega", "apresentação de marca"],
         ],
