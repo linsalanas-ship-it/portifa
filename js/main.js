@@ -289,24 +289,9 @@
     nome.setAttribute("aria-label", palavras.join(" "));
     grupos.push(letrasNome);
 
-    // títulos de seção: mesmas letras soltas; na caixa mista ficam como no conteudo.js
+    // títulos de seção: só em caixa alta, sem animação
     document.querySelectorAll("#projetos .titulo, #servicos .titulo, #contato .titulo").forEach(function (h) {
-      var txt = h.textContent.trim(), grupo = [];
-      h.setAttribute("aria-label", txt);
-      h.innerHTML = "";
-      txt.split(" ").forEach(function (w, wi, todas) {
-        var pal = document.createElement("span");
-        pal.className = "palavra";
-        pal.setAttribute("aria-hidden", "true");
-        for (var i = 0; i < w.length; i++) {
-          var l = letra(w[i].toUpperCase(), w[i]);
-          pal.appendChild(l);
-          grupo.push(l);
-        }
-        h.appendChild(pal);
-        if (wi < todas.length - 1) h.appendChild(document.createTextNode(" "));
-      });
-      grupos.push(grupo);
+      h.textContent = h.textContent.trim().toUpperCase();
     });
 
     // tamanho: a palavra mais larga (em caixa alta ou mista) enche a largura
@@ -331,7 +316,7 @@
     window.addEventListener("resize", ajustar);
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(ajustar);
 
-    // alterna caixa alta e mista a cada 3,2 s, uma letra por vez (70 ms entre elas)
+    // o nome alterna caixa alta e mista a cada 3,2 s, uma letra por vez (70 ms entre elas)
     var emAlta = true;
     function trocarCaixa() {
       emAlta = !emAlta;

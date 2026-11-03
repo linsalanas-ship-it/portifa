@@ -78,7 +78,7 @@ já endereçado para `contato.email` e com o assunto de `contato.assunto`. O tex
 
 ## Depois de mudar CSS ou JavaScript
 
-Os arquivos são carregados com um número de versão (`style.css?v=2026110314`) em
+Os arquivos são carregados com um número de versão (`style.css?v=2026110315`) em
 `index.html` e `projeto.html`. Ao alterar `css/` ou `js/`, troque esse número nos dois
 arquivos (por exemplo, pela data do dia) para os visitantes não verem a versão antiga
 guardada no navegador. Para editar só o `conteudo.js` não é preciso.
@@ -107,4 +107,4 @@ assets/img/       imagens (as "placeholder-*" são provisórias)
 assets/video/     vídeos das páginas de projeto
 ```
 
-A abertura (o lápis desenhando a bonequinha) aparece uma vez por visita; clique, role ou aperte uma tecla para pular.
+A abertura (a bonequinha balançando) aparece uma vez por visita; clique, role ou aperte uma tecla para pular.
