@@ -640,7 +640,7 @@ const SITE = {
   /* ---------- Seção Contato ---------- */
   contato: {
     titulo: "Vamos colaborar?",
-    descricao: "Envie seu alô para contatosalnstudio@gmail.com.", // o e-mail vira link
+    descricao: "envie seu alô para contatosalnstudio@gmail.com.", // o e-mail vira link
     email: "contatosalnstudio@gmail.com", // as mensagens do formulário vão para este e-mail
     // o botão abre o programa de e-mail da pessoa, já com o assunto preenchido
     botao: "fale comigo",
