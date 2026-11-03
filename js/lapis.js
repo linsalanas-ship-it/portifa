@@ -7,7 +7,8 @@
 
   var DURACAO = 2500; // ms até o traço sumir
   var ESPESSURA = 3; // px (espessura média; varia com a velocidade)
-  var COR_TRACO = "#0000EC"; // cor do traço
+  var COR_TRACO = "#0000EC"; // cor do traço sobre o papel cru
+  var COR_CLARA = "#FBF7EF"; // cor do traço sobre as seções azuis (.tema-azul)
 
   var temMouse = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
   var temToque = "ontouchstart" in window || navigator.maxTouchPoints > 0;
@@ -70,7 +71,14 @@
     if (padrao.setTransform && window.DOMMatrix) padrao.setTransform(new DOMMatrix().scale(1 / dpr));
     return padrao;
   }
-  var TINTA = grafite(COR_TRACO);
+  var TINTAS = {};
+  TINTAS[COR_TRACO] = grafite(COR_TRACO);
+  TINTAS[COR_CLARA] = grafite(COR_CLARA);
+  // sobre fundo azul o traço fica claro
+  function corEm(x, y) {
+    var el = document.elementFromPoint(x, y);
+    return el && el.closest && el.closest(".tema-azul") ? COR_CLARA : COR_TRACO;
+  }
 
   // Registra um ponto do traço. Mouse: pontos na página (o traço rola junto).
   // Toque: pontos na tela, porque ao arrastar o dedo a página rola junto com ele
@@ -100,15 +108,17 @@
       f1: 0.35 + Math.random() * 0.35,
       f2: -(0.35 + Math.random() * 0.35),
     };
-    // começa um traço novo se o mouse parou ou pulou
-    if (!atual || agora - ultimo > 120 || atual.naTela !== naTela) {
+    var cor = corEm(clientX, clientY);
+    // começa um traço novo se o mouse parou, pulou ou mudou de fundo
+    if (!atual || agora - ultimo > 120 || atual.naTela !== naTela || atual.cor !== cor) {
       // emenda com o traço anterior (no mouse, como sempre; no toque, só dentro do mesmo arraste)
       var emenda = atual ? atual.naTela === naTela : !naTela;
-      atual = { pontos: [], naTela: naTela };
+      var trocouCor = atual && atual.cor !== cor;
+      atual = { pontos: [], naTela: naTela, cor: cor };
       if (emenda && tracos.length && tracos[tracos.length - 1].pontos.length) {
         // emenda com o ponto anterior para não deixar buraco entre os traços
         var prev = tracos[tracos.length - 1].pontos;
-        if (agora - ultimo <= 120) atual.pontos.push(prev[prev.length - 1]);
+        if (agora - ultimo <= 120 && !trocouCor) atual.pontos.push(prev[prev.length - 1]);
       }
       tracos.push(atual);
     }
@@ -157,7 +167,8 @@
       // traço do mouse acompanha a página; traço do dedo fica fixo na tela
       if (tr.naTela) ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       else ctx.setTransform(dpr, 0, 0, dpr, -scrollX * dpr, -scrollY * dpr);
-      ctx.strokeStyle = TINTA;
+      var cor = tr.cor || COR_TRACO, tinta = TINTAS[cor];
+      ctx.strokeStyle = tinta;
       var pts = tr.pontos;
       for (var i = 1; i < pts.length; i++) {
         var a = pts[i - 1];
@@ -175,11 +186,11 @@
         var nx = -dy / len, ny = dx / len; // perpendicular ao traço
 
         // miolo denso (cor lisa, mais fino) + corpo granulado com bordas ásperas
-        ctx.strokeStyle = COR_TRACO;
+        ctx.strokeStyle = cor;
         ctx.globalAlpha = 0.7 * alfa;
         ctx.lineWidth = b.w * 0.45;
         curva(ini, b, fim, 0, 0);
-        ctx.strokeStyle = TINTA;
+        ctx.strokeStyle = tinta;
         ctx.globalAlpha = alfa;
         ctx.lineWidth = b.w;
         curva(ini, b, fim, 0, 0);

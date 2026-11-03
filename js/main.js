@@ -47,14 +47,35 @@
     if (v != null) el.innerHTML = formatar(v);
   });
 
+  // loja: sem link, o clique mostra "em breve" logo abaixo
   document.querySelectorAll("[data-loja]").forEach(function (el) {
-    el.href = SITE.lojaUrl || "#";
+    if (SITE.lojaUrl) { el.href = SITE.lojaUrl; return; }
+    el.removeAttribute("target");
+    el.setAttribute("aria-describedby", "loja-aviso");
+    var aviso = document.createElement("span");
+    aviso.className = "menu__aviso";
+    aviso.id = "loja-aviso";
+    aviso.setAttribute("role", "status");
+    el.appendChild(aviso);
+    var t;
+    el.addEventListener("click", function (e) {
+      e.preventDefault();
+      aviso.textContent = "em breve";
+      aviso.classList.add("menu__aviso--visivel");
+      clearTimeout(t);
+      t = setTimeout(function () { aviso.classList.remove("menu__aviso--visivel"); }, 2200);
+    });
   });
 
 
   // risco de lápis que aparece sob o título do card no hover (ver .risco no CSS)
   var RISCO = '<svg class="risco" viewBox="0 0 100 10" preserveAspectRatio="none" aria-hidden="true">' +
     '<path d="M1 6.2 C 22 4.6, 48 7.4, 70 5.4 S 92 4.4, 99 5.6"/><path d="M8 8.2 C 30 7, 60 8.6, 94 7.2"/></svg>';
+
+  // menu: sublinhado de lápis, o mesmo risco dos títulos dos projetos
+  document.querySelectorAll(".menu nav a").forEach(function (a) {
+    a.insertAdjacentHTML("beforeend", RISCO);
+  });
 
   // ---------- página inicial ----------
   if ($("grade-projetos")) {
@@ -81,11 +102,18 @@
 
     var c = SITE.contato;
     var links = [];
-    if (c.email) links.push('<a href="mailto:' + escapar(c.email) + '">' + escapar(c.email) + "</a>");
+    // o e-mail já aparece no subtítulo; aqui ficam só as redes (se houver)
+    if (c.email && !c.descricao) links.push('<a href="mailto:' + escapar(c.email) + '">' + escapar(c.email) + "</a>");
     (c.redes || []).forEach(function (r) {
       links.push('<a href="' + escapar(r.url) + '" target="_blank" rel="noopener">' + escapar(r.nome) + "</a>");
     });
     $("contato-links").innerHTML = links.join('<span class="sep" aria-hidden="true">·</span>');
+    // subtítulo do contato: o e-mail escrito nele vira link
+    if (c.descricao && $("contato-sub")) {
+      var sub = formatar(c.descricao);
+      if (c.email) sub = sub.replace(escapar(c.email), '<a href="mailto:' + escapar(c.email) + '">' + escapar(c.email) + "</a>");
+      $("contato-sub").innerHTML = sub;
+    }
 
     iniciarFormulario();
   }
@@ -363,6 +391,7 @@
     var escolhida = null;
     // o balão da descrição também é um obstáculo: as outras palavras desviam dele
     var balao = { fixa: true, ativo: false, x: 0, y: 0, w: 0, h: 0 };
+    var FOLGA = 10; // distância mínima entre as palavras e o balão aberto
     function parada(l) { return l === escolhida || l.fixa; }
 
     function medir() {
@@ -407,19 +436,23 @@
       for (var i = 0; i < corpos.length; i++) {
         for (var j = i + 1; j < corpos.length; j++) {
           var a = corpos[i], b = corpos[j];
-          var sx = Math.min(a.x + a.w, b.x + b.w) - Math.max(a.x, b.x);
-          var sy = Math.min(a.y + a.h, b.y + b.h) - Math.max(a.y, b.y);
-          if (sx > 0 && sy > 0) {
-            var empurra = (sy < sx ? 1 : 0);
+          if (parada(a) && parada(b)) continue;
+          // o balão e a palavra escolhida ganham uma margem: as outras passam longe
+          var m = parada(a) || parada(b) ? FOLGA : 0;
+          var sx = Math.min(a.x + a.w, b.x + b.w) - Math.max(a.x, b.x) + m;
+          var sy = Math.min(a.y + a.h, b.y + b.h) - Math.max(a.y, b.y) + m;
+          if (sx > m && sy > m || (m && sx > 0 && sy > 0)) {
+            // quem está parado não se mexe: a outra palavra sai inteira do caminho
+            var pa = parada(a) ? 0 : parada(b) ? 1 : 0.5, pb = 1 - pa;
             var dir;
-            if (empurra) {
+            if (sy < sx) {
               dir = a.y < b.y ? -1 : 1;
-              if (!parada(a)) { a.vy = dir * Math.abs(a.vy); a.y += dir * sy / 2; }
-              if (!parada(b)) { b.vy = -dir * Math.abs(b.vy); b.y -= dir * sy / 2; }
+              if (!parada(a)) { a.vy = dir * Math.abs(a.vy); a.y += dir * sy * pa; }
+              if (!parada(b)) { b.vy = -dir * Math.abs(b.vy); b.y -= dir * sy * pb; }
             } else {
               dir = a.x < b.x ? -1 : 1;
-              if (!parada(a)) { a.vx = dir * Math.abs(a.vx); a.x += dir * sx / 2; }
-              if (!parada(b)) { b.vx = -dir * Math.abs(b.vx); b.x -= dir * sx / 2; }
+              if (!parada(a)) { a.vx = dir * Math.abs(a.vx); a.x += dir * sx * pa; }
+              if (!parada(b)) { b.vx = -dir * Math.abs(b.vx); b.x -= dir * sx * pb; }
             }
           }
         }
@@ -643,17 +676,29 @@
       e.preventDefault();
       var dados = new FormData(form);
 
-      if (c.formspree) {
+      if (c.envio) {
+        // envio direto para o e-mail (FormSubmit); se falhar, oferece o e-mail
         status.textContent = "enviando…";
-        fetch(c.formspree, {
+        botao.disabled = true;
+        fetch(c.envio, {
           method: "POST",
-          body: dados,
-          headers: { Accept: "application/json" },
-        }).then(function (r) {
-          if (!r.ok) throw new Error();
+          headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: JSON.stringify({
+            nome: dados.get("nome"),
+            email: dados.get("email"),
+            mensagem: dados.get("mensagem"),
+            _replyto: dados.get("email"),
+            _subject: "Contato pelo site — " + dados.get("nome"),
+            _template: "table",
+            _captcha: "false",
+          }),
+        }).then(function (r) { return r.json(); }).then(function (j) {
+          botao.disabled = false;
+          if (String(j.success) !== "true") throw new Error(j.message);
           enviado();
         }).catch(function () {
-          status.textContent = "não consegui enviar. tente pelo e-mail abaixo.";
+          botao.disabled = false;
+          status.innerHTML = 'não consegui enviar. escreva direto para <a href="mailto:' + escapar(c.email) + '">' + escapar(c.email) + "</a>";
         });
         return;
       }

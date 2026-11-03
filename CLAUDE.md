@@ -6,8 +6,9 @@ Escreva para a Alana em português do Brasil, em linguagem simples.
 
 ## Identidade (não mudar sem pedido)
 
-- Cores: papel cru `#F1EBE1` em todo o site (sem alternância de fundos) e azul `#0000EC` para
-  texto, fios, bordas e botões. Rosinha `#F7D5DE` só no balão da sopa de letrinhas. Textura de
+- Cores: papel cru `#F1EBE1` e azul `#0000EC` para texto, fios, bordas e botões. Na home, da
+  sopa de letrinhas em diante (`.tema-azul`: sopa e contato) o fundo é azul com letras cru, e o
+  rastro do lápis fica claro (`#FBF7EF`) sobre ele. Rosinha `#F7D5DE` só no balão da sopa de letrinhas. Textura de
   papel na camada `.grao`, por cima de tudo e abaixo do canvas do lápis.
 - Fonte: só a Switzer (`assets/fonts/Switzer-200…800.woff2` e `Switzer-400-italic.woff2`), em vários pesos. Sem fonte pixelada;
   colchetes antigos em `conteudo.js` são apenas removidos pelo `formatar()`.
@@ -22,14 +23,17 @@ Escreva para a Alana em português do Brasil, em linguagem simples.
   `pontos` = bolinhas x, y, raio). Depois a folha sobe e o site sobe colado nela. Durante a abertura
   o rastro do `lapis.js` fica pausado.
 - Menu: "alana lins" à esquerda com a assinatura (a bonequinha como máscara do `rosto.png`, balança
-  no hover), links à direita.
+  no hover), links à direita com sublinhado de lápis no hover (o mesmo risco dos cards). Sem
+  `lojaUrl`, o clique em "loja" mostra "em breve".
 - Sobre: não é seção; abre como folha azul (texto cru, foto ao lado) por cima da página ao clicar
   em "sobre" no menu ou com `#sobre` na URL (fecha no ×, Esc ou clicando fora). Texto e redes em
   `sobre` no `conteudo.js`.
 - Sopa de letrinhas: cada serviço tem um `peso` de fonte (200–700) e vai a 800 no hover/seleção;
   a descrição abre num balão rosinha. Cards da grade: no hover a capa sobe 4px e um risco de lápis
   (SVG + filtro `#grafite`) se desenha sob o título. Cada seção sobe 70px→0 ao entrar na tela.
-- Contato: depois de enviar, os campos se dobram, um aviãozinho voa e aparece "Mensagem enviada!".
+- Contato: o formulário envia pelo FormSubmit (grátis, sem cadastro; `contato.envio`), que pede
+  ativação por e-mail na primeira mensagem. Depois de enviar, os campos se dobram, um aviãozinho
+  voa e aparece "Mensagem enviada!". Se o envio falhar, aparece o e-mail para escrever direto.
 - Páginas de projeto: mesmo papel cru. Nas páginas em revista não há rastro de lápis (o cursor de
   lápis continua); na mesa de folhas o rastro liga, mas não risca sobre folhas, fotos e textos nem
   durante o arrasto.

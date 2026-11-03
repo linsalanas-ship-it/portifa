@@ -6,7 +6,7 @@
   <title>Projeto — Alana Lins</title>
   <meta name="theme-color" content="#F1EBE1">
   <link rel="preload" href="assets/fonts/Switzer-400.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="css/style.css?v=2026110311">
+  <link rel="stylesheet" href="css/style.css?v=2026110312">
 </head>
 <body>
   <div class="grao" aria-hidden="true"></div>
@@ -16,7 +16,7 @@
       <a href="index.html#projetos">projetos</a>
       <a href="index.html#sobre">sobre</a>
       <a href="index.html#contato">contato</a>
-      <a href="#" data-loja target="_blank" rel="noopener">loja</a>
+      <a href="#" data-loja>loja</a>
     </nav>
   </header>
   <main class="secao projeto" id="projeto">
@@ -31,9 +31,19 @@
     <nav class="projeto__navegacao micro" id="projeto-navegacao" aria-label="Outros projetos"></nav>
   </main>
 
-  <script src="js/conteudo.js?v=2026110311"></script>
-  <script src="js/main.js?v=2026110311"></script>
-  <script src="js/mesa.js?v=2026110311"></script>
-  <script src="js/lapis.js?v=2026110311"></script>
+  <!-- Filtro de grafite para o risco de lápis do menu -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <filter id="grafite" x="-5%" y="-60%" width="110%" height="220%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="4" result="ruido"/>
+      <feDisplacementMap in="SourceGraphic" in2="ruido" scale="1.6" xChannelSelector="R" yChannelSelector="G" result="tremido"/>
+      <feColorMatrix in="ruido" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -0.9 1.35" result="graos"/>
+      <feComposite in="tremido" in2="graos" operator="in"/>
+    </filter>
+  </svg>
+
+  <script src="js/conteudo.js?v=2026110312"></script>
+  <script src="js/main.js?v=2026110312"></script>
+  <script src="js/mesa.js?v=2026110312"></script>
+  <script src="js/lapis.js?v=2026110312"></script>
 </body>
 </html>

@@ -7,7 +7,7 @@
   <meta name="description" content="Alana Lins: jornalista, estrategista e redatora. Estratégia de marca, identidade verbal, conteúdo e copywriting.">
   <meta name="theme-color" content="#F1EBE1">
   <link rel="preload" href="assets/fonts/Switzer-400.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="css/style.css?v=2026110311">
+  <link rel="stylesheet" href="css/style.css?v=2026110312">
   <script>
     // Decide antes de pintar a página se a abertura com o lápis vai rodar:
     // só na primeira visita da sessão e sem #âncora na URL.
@@ -26,7 +26,7 @@
       <a href="#projetos">projetos</a>
       <a href="#sobre" id="abrir-sobre" aria-haspopup="dialog">sobre</a>
       <a href="#contato">contato</a>
-      <a href="#" data-loja target="_blank" rel="noopener">loja</a>
+      <a href="#" data-loja>loja</a>
     </nav>
   </header>
 
@@ -51,15 +51,21 @@
       <ul class="grade" id="grade-projetos"></ul>
     </section>
 
-    <section class="secao servicos" id="servicos">
-      <div class="cab"><h2 class="titulo" data-campo="servicos.titulo"></h2></div>
+    <section class="secao servicos tema-azul" id="servicos">
+      <div class="cab">
+        <h2 class="titulo" data-campo="servicos.titulo"></h2>
+        <p class="subtitulo" data-campo="servicos.descricao"></p>
+      </div>
       <div class="sopa" id="sopa">
         <p class="sopa__descricao" id="sopa-descricao" aria-live="polite"></p>
       </div>
     </section>
 
-    <section class="secao contato" id="contato">
-      <div class="cab"><h2 class="titulo" data-campo="contato.titulo"></h2></div>
+    <section class="secao contato tema-azul" id="contato">
+      <div class="cab">
+        <h2 class="titulo" data-campo="contato.titulo"></h2>
+        <p class="subtitulo" id="contato-sub"></p>
+      </div>
       <form class="form" id="form-contato">
         <label class="campo">
           <span class="sr">nome</span>
@@ -120,9 +126,9 @@
     <canvas id="abertura-lapis" aria-hidden="true"></canvas>
   </div>
 
-  <script src="js/conteudo.js?v=2026110311"></script>
-  <script src="js/main.js?v=2026110311"></script>
-  <script src="js/abertura.js?v=2026110311"></script>
-  <script src="js/lapis.js?v=2026110311"></script>
+  <script src="js/conteudo.js?v=2026110312"></script>
+  <script src="js/main.js?v=2026110312"></script>
+  <script src="js/abertura.js?v=2026110312"></script>
+  <script src="js/lapis.js?v=2026110312"></script>
 </body>
 </html>

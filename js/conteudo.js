@@ -108,7 +108,7 @@
 
 const SITE = {
   /* ---------- Menu ---------- */
-  lojaUrl: "#", // troque pelo link da sua loja, ex.: "https://minhaloja.com"
+  lojaUrl: "", // link da loja, ex.: "https://minhaloja.com"; vazio = mostra "em breve" ao clicar
 
   /* ---------- Topo da página inicial ---------- */
   abertura: {
@@ -120,7 +120,7 @@ const SITE = {
   /* ---------- Seção Projetos ---------- */
   secaoProjetos: {
     titulo: "Dei a letra",
-    descricao: "projetos de estratégia, verbal e conteúdo",
+    descricao: "projetos de estratégia, identidade verbal e conteúdo",
   },
 
   projetos: [
@@ -592,6 +592,7 @@ const SITE = {
      Os nomes flutuam pela tela; ao clicar, aparece a descrição. */
   servicos: {
     titulo: "Sopa de letrinhas",
+    descricao: "conheça meus serviços",
     // peso: de 200 (fininho) a 800 (bem grosso); no hover todos vão a 800
     lista: [
       {
@@ -612,7 +613,7 @@ const SITE = {
       {
         nome: "planejamento de conteúdo",
         peso: 200,
-        descricao: "Linhas editoriais, pautas e calendário para a marca ter sempre o que dizer — e dizer com constância.",
+        descricao: "Linhas editoriais, pautas e calendário para a marca ter sempre o que dizer.",
       },
       {
         nome: "redação criativa",
@@ -622,7 +623,12 @@ const SITE = {
       {
         nome: "copywriting",
         peso: 700,
-        descricao: "Sites, e-mails, anúncios e lançamentos: palavras que convencem sem empurrar.",
+        descricao: "Sites, e-mails, anúncios e lançamentos: escrita que se conecta e persuade sem forçar a barra.",
+      },
+      {
+        nome: "estratégia de marketing",
+        peso: 400,
+        descricao: "Mensagem certa, na hora certa: público-alvo bem definido, jornada do cliente mapeada e funil de vendas que faz sentido.",
       },
     ],
   },
@@ -631,11 +637,13 @@ const SITE = {
   /* ---------- Seção Contato ---------- */
   contato: {
     titulo: "Vamos colaborar?",
+    descricao: "Envie seu alô para contatosalnstudio@gmail.com.", // o e-mail vira link
     email: "contatosalnstudio@gmail.com", // as mensagens do formulário vão para este e-mail
-    // Opcional: para o formulário enviar sem abrir o programa de e-mail,
-    // crie um formulário grátis em https://formspree.io e cole o link aqui
-    // (ex.: "https://formspree.io/f/abcdwxyz"). Vazio = abre o e-mail da pessoa.
-    formspree: "",
+    // O formulário envia pelo FormSubmit (grátis, sem cadastro): as mensagens chegam
+    // no e-mail acima. Na primeira mensagem, o FormSubmit manda um e-mail pedindo
+    // para ativar o formulário: é só clicar no link. Para desligar, deixe "" — aí o
+    // botão abre o programa de e-mail da pessoa.
+    envio: "https://formsubmit.co/ajax/contatosalnstudio@gmail.com",
     redes: [
       // { nome: "instagram", url: "https://instagram.com/seuperfil" },
       // { nome: "linkedin", url: "https://linkedin.com/in/seuperfil" },

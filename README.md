@@ -8,7 +8,7 @@ Site estático (HTML + CSS + JavaScript, sem instalação nem build).
 Abra no editor do GitHub (ícone de lápis), altere e salve (“Commit changes”).
 
 - **Quebra de linha** num título: `<br>`.
-- **Link da loja:** campo `lojaUrl`.
+- **Link da loja:** campo `lojaUrl` (vazio = o menu mostra "em breve").
 - **E-mail e redes:** bloco `contato`.
 
 ### Acrescentar um projeto
@@ -72,13 +72,14 @@ O texto, a foto e os links das redes ficam no bloco `sobre` do `conteudo.js`.
 
 ### Formulário de contato
 
-Sem configuração, o botão “enviar” abre o programa de e-mail da pessoa com a mensagem
-pronta para o endereço em `contato.email`. Para receber direto, sem abrir o e-mail,
-crie um formulário grátis em [formspree.io](https://formspree.io) e cole o link no campo `formspree`.
+O formulário envia as mensagens direto para o e-mail de `contato.email`, pelo
+[FormSubmit](https://formsubmit.co) (grátis, sem cadastro). Na primeira mensagem enviada pelo
+site, o FormSubmit manda um e-mail pedindo para **ativar o formulário**: é só clicar no link.
+Para desligar, deixe o campo `envio` vazio — aí o botão abre o programa de e-mail da pessoa.
 
 ## Depois de mudar CSS ou JavaScript
 
-Os arquivos são carregados com um número de versão (`style.css?v=2026110311`) em
+Os arquivos são carregados com um número de versão (`style.css?v=2026110312`) em
 `index.html` e `projeto.html`. Ao alterar `css/` ou `js/`, troque esse número nos dois
 arquivos (por exemplo, pela data do dia) para os visitantes não verem a versão antiga
 guardada no navegador. Para editar só o `conteudo.js` não é preciso.
