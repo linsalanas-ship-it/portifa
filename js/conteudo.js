@@ -67,26 +67,31 @@
          x, y e largura em frações da largura da mesa, giro (graus) e camada.
          meta: ["retranca · texto", "texto à direita"] é a linha pequena do alto.
        Tipos:
-         lide        texto (+ selos: "CI01")
+         lide        texto (+ selos: "CI01"), tamanho (opcional, em cqw)
          frase       texto, tamanho (opcional, em cqw); quadrada: true = post-it
          bilhete     titulo, itens (com clipe)
          tagline     texto, legenda
          manifesto   titulo, colunas: [[estrofes], [estrofes]], assinatura
-                     (use <br> para quebrar linha e <em>...</em> para itálico)
+                     (em qualquer texto: <br> quebra linha, <em>...</em> é itálico
+                     e <b>...</b> deixa o trecho em 600)
          video-youtube  url do YouTube, titulo
          texto       titulo, texto: [parágrafos], colunas: 2 (opcional; o texto corre
                      nas duas colunas), corpo (tamanho do texto, em cqw)
                      ou colunas: [[...], [...]] montadas à mão, com parágrafos e
                      { forte: "..." } (em 600), { destaque: "..." } (letra grande),
-                     { lista: ["...", "..."] } (com fio pontilhado)
+                     { lista: ["...", "..."] } (com fio pontilhado);
+                     no destaque, tamanho (cqw) e embaixo: true (alinhado no pé)
          formulario  titulo, subtitulo, colunas: ["a", "b"], linhas: [["...", "..."]], rodape
          tela        video, capa (1º quadro .jpg), link: { texto, url }
          passo       titulo (lugar), texto, foto, url (olho: "página de destino");
-                     retrato: true deixa a foto 4:5 no celular
+                     retrato: true deixa a foto 4:5 no celular; tamanho fixa a
+                     letra (cqw); posicao: "49% 30%" escolhe o enquadramento da foto
          foto-texto  foto (16:9 em cima), texto (frase no pé), tamanho
          personalidade  texto (destaque), legenda, foto (à direita)
+         naming      texto (o nome, enorme), legenda
+         janela      barra ("fifi diz:"), texto (janela de bate-papo antiga)
          lista       titulo, itens
-         creditos    pares: [["rótulo", "valor"]] (o link do próximo projeto é automático)
+         creditos    pares: [["rótulo", "valor"]] ou texto (o link do próximo projeto é automático)
          foto        src, alt, espaco (proporção do espaço reservado: largura ×
                      espaco define a área; a foto fica na proporção original)
        As fotos e vídeos entram no visor na ordem da lista, depois da abertura.
@@ -372,67 +377,99 @@ const SITE = {
       titulo: "Fifi",
       resumo: "naming e identidade verbal para marca de underwear",
       capa: "assets/img/fifi/capa-grade.jpg",
-      subtitulo: "naming e identidade verbal",
-      blocos: [
-        { tipo: "foto", src: "assets/img/fifi/logo.jpg" },
-        {
-          tipo: "lide",
-          texto: ["Fifi é uma marca de underwear básico pensada para o dia a dia real das mulheres."],
-        },
-        { tipo: "intertitulo", texto: "DESAFIO" },
-        {
-          tipo: "texto",
-          texto: [
-            "Criar naming e identidade verbal que fugissem do clichê da lingerie sensual e performática, ou da beleza associada ao bem-estar. A ideia era abrir espaço para falar da relação das mulheres com suas roupas íntimas, sobretudo as que realmente acompanham o dia a dia, sem olhares externos ou pressões estéticas.",
-          ],
-        },
-        { tipo: "intertitulo", texto: "ESTRATÉGIA" },
-        {
-          tipo: "texto",
-          texto: [
-            "O ponto de partida foi pensar quais caminhos se abrem quando pensamos intimidade a partir do olhar feminino. A sensualidade ainda existe, mas não é a única associação possível.",
-            "É preciso concordar que não é a lingerie sexy que acompanha as mulheres nos melhores e piores momentos, enquanto crescem e amadurecem no decorrer dos anos. Que tipo de intimidade se revela nessa peça de roupa que está com a gente quase o tempo todo de nossas vidas?",
-            "Essa intimidade tem nome: amizade — mais especificamente, amizade feminina.",
-            "Rir de si mesmas e dos perrengues. Ver um filme largadas no sofá. Acompanhar numa consulta. Ouvir as reclamações durante a TPM. Fazer nada juntas. Essas são as melhores amizades, as que não precisam ser impressionadas para permanecerem.",
-            "E se tem uma peça de roupa com alma e jeito de melhor amiga, é a calcinha.",
-          ],
-        },
-        { tipo: "foto", largura: "wide", src: "assets/img/fifi/territorios.jpg" },
-        { tipo: "intertitulo", texto: "NAMING" },
-        {
-          tipo: "texto",
-          texto: [
-            "Fifi é curto, memorável e carrega camadas de sentido. A repetição traz um quê de familiaridade, intimidade, carinho — poderia facilmente ser o apelido de uma amiga querida.",
-            "Em alguns contextos, fifi também é um sinônimo para aquela fofoca despretensiosa e sem maldade que acontece em todo grupo de amigas(os) fiéis, onde se compartilha segredos e não é preciso fingir.",
-            "Com essa escolha, a marca se torna próxima, quase personificada. Fifi é a amiga confiável, divertida e de boas que toda mulher precisa ter.",
-          ],
-        },
-        { tipo: "foto", largura: "wide", src: "assets/img/fifi/sem-cerimonia.jpg" },
-        { tipo: "foto", largura: "wide", src: "assets/img/fifi/confiavel.jpg" },
-        { tipo: "intertitulo", texto: "IDENTIDADE VERBAL" },
-        {
-          tipo: "texto",
-          texto: [
-            "Se Fifi é como uma melhor amiga, ela precisa soar como uma. Por isso, ela escreve em minúsculas e usa emojis (coisas de quem é íntima) e até resgata certa nostalgia da forma como nos comunicávamos “no início da internet” — em comunidades, blogs, depoimentos e apps de mensagens.",
-            "Seu tom de voz é um equilíbrio entre o carinho e a irreverência. Uma voz direto ao ponto sem ser seca, divertida sem forçar a barra. Fifi acolhe, encoraja e faz rir com sua acidez na medida.",
-            "Nada de floreios, eufemismos ou palavras “fantasiadas”. Aqui, calcinha é calcinha. E às vezes é tudo que a gente precisa.",
-          ],
-        },
-        { tipo: "foto", largura: "wide", src: "assets/img/fifi/melhor-amiga.jpg" },
-        { tipo: "foto", largura: "wide", src: "assets/img/fifi/suporte-emocional.jpg" },
-        { tipo: "foto", largura: "wide", src: "assets/img/fifi/so-vou-se-voce-for.jpg" },
-        { tipo: "foto", largura: "wide", src: "assets/img/fifi/female-gaze.jpg" },
-        { tipo: "foto", largura: "wide", src: "assets/img/fifi/lingerie-nao.jpg" },
-        { tipo: "foto", largura: "wide", src: "assets/img/fifi/ninguem-tirar.jpg" },
-        {
-          tipo: "texto",
-          texto: ["Exercício de identidade verbal realizado no curso Desenhando com Palavras, ministrado por Fernando Andreazi, na Aprender Design."],
-        },
-      ],
+      mesa: {
+        ficha: [
+          ["cliente", "projeto pessoal"],
+          ["trabalho", "estratégia de marca, naming e identidade verbal"],
+          ["entrega", "apresentação de marca"],
+        ],
+        abertura: { src: "assets/img/fifi/abertura.jpg", alt: "Logo da Fifi sobre a foto de uma modelo de tranças, de costas" },
+        // a marca escreve em minúsculas: as frases de copywriting ficam assim mesmo
+        folhas: [
+          // ---------- apresentação ----------
+          { id: "lide", tipo: "lide", nome: "apresentação", fundo: "pagina", proporcao: 1.6, tamanho: 6.4,
+            x: 0.03, y: 0.02, largura: 0.4, giro: 1.5, camada: 2,
+            meta: ["fifi · underwear básico", "folha 01"], selos: "FI03",
+            texto: "Fifi é uma marca de underwear básico pensada para o dia a dia real das mulheres." },
+          { id: "gaze", tipo: "frase", nome: "frase: underwear no female gaze", fundo: "azul", proporcao: 1.45, tamanho: 9.6,
+            x: 0.445, y: 0, largura: 0.28, giro: -2.5, camada: 6,
+            meta: ["copywriting", "fifi"], texto: "underwear no female gaze" },
+          { id: "criando", tipo: "texto", nome: "criando do zero", fundo: "rosinha", proporcao: 1.25, corpo: 3.05,
+            x: 0.03, y: 0.32, largura: 0.44, giro: -1, camada: 4,
+            meta: ["origem da marca", "folha 02"], titulo: "Criando do zero",
+            texto: [
+              "Vamos pensar lingerie sem cair no clichê da lingerie sensual e performática? Não é a lingerie sexy que acompanha as mulheres nos melhores e piores momentos, enquanto crescem e amadurecem no decorrer dos anos. É a calcinha — aquela básica, normalzinha.",
+              "É ela que está com as mulheres enquanto elas veem um filme largadas no sofá, vão a uma consulta, correm atrás do ônibus ou passam pelo período menstrual. <b>E essa intimidade tem nome: amizade.</b>",
+            ] },
+          { id: "cacheada", tipo: "foto", nome: "modelo de cabelo cacheado", src: "assets/img/fifi/cacheada.jpg", alt: "Mulher de cabelo cacheado sorrindo, de regata branca e calcinha rosa e laranja",
+            espaco: 1.833, x: 0.53, y: 0.172, largura: 0.46, giro: 1.5, camada: 5 },
+          { id: "amiga", tipo: "frase", nome: "conceito: alma de melhor amiga", fundo: "amarelo", proporcao: 1.5, tamanho: 6.6,
+            x: 0.55, y: 0.55, largura: 0.36, giro: -2, camada: 6,
+            meta: ["conceito", "folha 03"], texto: "Se tem uma peça de roupa com alma e jeito de melhor amiga, é a calcinha." },
+          // ---------- naming ----------
+          { id: "naming", tipo: "naming", nome: "naming", fundo: "lilas", proporcao: 1.3,
+            x: 0.04, y: 0.76, largura: 0.46, giro: 1.2, camada: 7,
+            meta: ["naming", "folha 04"], texto: "Fifi",
+            legenda: "Curto, memorável e com camadas de sentido. A repetição traz um quê de familiaridade, intimidade e carinho — poderia ser o apelido de uma amiga querida. Em alguns contextos, fifi também é um sinônimo para aquela fofoca despretensiosa e sem maldade que acontece em todo grupo de amigas(os) fiéis, onde se compartilha segredos e não é preciso fingir. Com essa escolha, a marca se torna próxima, quase personificada." },
+          { id: "fr-confiavel", tipo: "frase", quadrada: true, nome: "frase: confiável, divertida, de boas", fundo: "rosa", proporcao: 1, tamanho: 11,
+            x: 0.515, y: 0.88, largura: 0.16, giro: 4, camada: 8,
+            texto: "confiável, divertida, de boas." },
+          { id: "ps-suporte", tipo: "foto-texto", nome: "sua calcinha de suporte emocional", fundo: "pagina", proporcao: 1.12, tamanho: 7.4,
+            x: 0.69, y: 0.83, largura: 0.3, giro: -1.5, camada: 9,
+            foto: "assets/img/fifi/costas.jpg", alt: "Mulher de tranças, de costas, olhando por cima do ombro, de regata rosa e calcinha azul",
+            meta: ["copywriting", "fifi"], texto: "sua calcinha de suporte emocional" },
+          // ---------- tom de voz ----------
+          { id: "tom", tipo: "texto", nome: "tom de voz", fundo: "salvia", proporcao: 1.5,
+            x: 0.03, y: 1.16, largura: 0.5, giro: -1, camada: 10,
+            meta: ["tom de voz", "folha 05"],
+            colunas: [
+              [{ destaque: "direta ao ponto sem ser seca,<br>divertida sem forçar a barra", tamanho: 5.4, embaixo: true }],
+              [
+                "Seu tom de voz é um equilíbrio entre o carinho e a irreverência. Uma voz direta ao ponto sem ser seca, divertida sem forçar a barra. Fifi acolhe, encoraja e faz rir com sua acidez na medida.",
+                "Nada de floreios, eufemismos ou palavras “fantasiadas”. Aqui, calcinha é calcinha. <b>E às vezes é tudo que a gente precisa.</b>",
+              ],
+            ] },
+          { id: "fr-svezes", tipo: "frase", nome: "frase: só quer uma calcinha", fundo: "amarelo", proporcao: 1.3, tamanho: 8.4,
+            x: 0.58, y: 1.12, largura: 0.3, giro: 2, camada: 11,
+            meta: ["copywriting", "folha 06"], texto: "às vezes a gente só quer uma calcinha :)" },
+          { id: "minusculas", tipo: "janela", nome: "minúsculas e emojis", fundo: "pagina", proporcao: 1.5,
+            x: 0.56, y: 1.38, largura: 0.4, giro: -1.2, camada: 12,
+            barra: "fifi diz:", meta: ["identidade verbal", "folha 07"],
+            texto: "Fifi escreve em minúsculas e usa emojis (coisas de quem é íntima) e até resgata certa nostalgia da forma como nos comunicávamos “no início da internet” (em comunidades, blogs, depoimentos e apps de mensagens)." },
+          { id: "ps-lingerie", tipo: "foto-texto", nome: "lingerie não, calcinha ;)", fundo: "rosinha", proporcao: 1.12, tamanho: 8,
+            x: 0.08, y: 1.53, largura: 0.34, giro: 1.5, camada: 13,
+            foto: "assets/img/fifi/cores.jpg", alt: "Calcinhas básicas coloridas sobre fundo azul, uma delas segurada por uma mão",
+            meta: ["copywriting", "fifi"], texto: "lingerie não, calcinha ;)" },
+          // ---------- copywriting ----------
+          { id: "fr-casamento", tipo: "frase", nome: "frase: pro casamento da sua irmã", fundo: "pagina", proporcao: 1.4, tamanho: 5.6,
+            x: 0.5, y: 1.7, largura: 0.36, giro: 1.5, camada: 14,
+            meta: ["copywriting", "folha 08"], texto: "pro casamento da sua irmã, todas as suas tpms, todos os esportes que você começa e pra fazer nada no sofá." },
+          { id: "ps-bem", tipo: "passo", retrato: true, nome: "pra você se sentir bem (não eles)", fundo: "rosa", proporcao: 1.3, tamanho: 6.4,
+            x: 0.04, y: 1.92, largura: 0.44, giro: -1.2, camada: 15,
+            olho: "copywriting", titulo: "female gaze", texto: "pra você se sentir bem (não eles)",
+            foto: "assets/img/fifi/madura.jpg", posicao: "49% 30%", alt: "Mulher madura rindo, de regata laranja e calcinha rosa de cintura alta" },
+          { id: "fr-intimidade", tipo: "frase", quadrada: true, nome: "frase: só vou se você for", fundo: "rosinha", proporcao: 1, tamanho: 10,
+            x: 0.52, y: 2, largura: 0.19, giro: -3.5, camada: 16,
+            texto: "intimidade é: só vou se você for" },
+          { id: "fr-tirar", tipo: "frase", nome: "frase: ninguém tirar", fundo: "azul", proporcao: 1.2, tamanho: 8,
+            x: 0.72, y: 2.09, largura: 0.23, giro: 2.5, camada: 21,
+            meta: ["copywriting", "folha 09"], texto: "essa não é pra ninguém tirar, mas se quiser pode!" },
+          { id: "neutros", tipo: "foto", nome: "calcinhas em tons neutros", src: "assets/img/fifi/neutros.jpg", alt: "Calcinhas básicas em tons de nude, marrom e verde-oliva sobre fundo rosa",
+            espaco: 1.5, x: 0.5, y: 2.25, largura: 0.42, giro: 1.2, camada: 18 },
+          { id: "sem", tipo: "frase", quadrada: true, nome: "frase: sem cerimônia", fundo: "lilas", proporcao: 1, tamanho: 10.5,
+            x: 0.1, y: 2.32, largura: 0.28, giro: -2, camada: 19,
+            texto: "sem cerimônia.<br>sem desconforto.<br>sem fantasia." },
+          // ---------- fechamento ----------
+          { id: "creditos", tipo: "creditos", nome: "créditos", fundo: "pagina", proporcao: 2.2,
+            x: 0.5, y: 2.58, largura: 0.38, giro: 1, camada: 20,
+            meta: ["créditos", "folha 11"],
+            texto: "Exercício de identidade verbal realizado por Alana Lins no curso <em>Desenhando com Palavras</em>, ministrado por Fernando Andreazi, na Aprender Design." },
+        ],
+      },
     },
     {
       id: "oito-vidas-de-um-vestido",
-      titulo: "OITO VIDAS DE UM VESTIDO",
+      titulo: "Oito vidas de um vestido",
       resumo: "livro-reportagem sobre a história de uma peça de roupa",
       capa: "assets/img/oito-vidas/capa-grade.jpg",
       subtitulo: "livro-reportagem · trabalho de conclusão de curso em Jornalismo, UFC",

@@ -1095,7 +1095,7 @@ input, textarea { cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/
 .folha .empurra { margin-top: auto; }
 
 /* lide */
-.f-lide .lide { font-size: 4.15cqw; line-height: 1.12; letter-spacing: -0.01em; text-wrap: pretty; }
+.f-lide .lide { font-size: var(--fs, 4.15cqw); line-height: 1.12; letter-spacing: -0.01em; text-wrap: pretty; }
 .selos { display: grid; grid-template-columns: repeat(2, 7cqw); gap: 0.6cqw; }
 .selos span { width: 7cqw; aspect-ratio: 1; border-radius: 50%; background: var(--azul); color: var(--f-pagina); display: flex; align-items: center; justify-content: center; font-size: 3.6cqw; font-weight: 500; }
 
@@ -1158,7 +1158,24 @@ input, textarea { cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/
 .f-texto .corrido { font-size: var(--corpo, 2.2cqw); }
 .duas { display: grid; grid-template-columns: 1fr 1fr; gap: 0 4cqw; align-items: start; }
 .duas > div { display: flex; flex-direction: column; gap: 0.8em; min-width: 0; }
-.forte { font-weight: 600; }
+.forte, .folha b { font-weight: 600; }
+.duas--cheia { flex: 1 1 auto; align-items: stretch; }
+.duas .no-pe { justify-content: flex-end; }
+
+/* naming: o nome enorme e a legenda no pé */
+.f-naming .nome-marca { font-size: 30cqw; line-height: 0.82; letter-spacing: -0.05em; }
+.f-naming .leg { font-size: 2.7cqw; line-height: 1.34; }
+
+/* janela de mensagem, como os bate-papos do início da internet */
+.f-janela { display: flex; flex-direction: column; }
+.folha .janela__barra { flex: none; display: flex; align-items: center; gap: 2cqw; margin: 0; padding: 1.6cqw 3cqw; background: var(--azul); color: var(--f-pagina); font-size: 2.2cqw; letter-spacing: 0.02em; }
+.janela__pontos { display: flex; gap: 0.9cqw; }
+.janela__pontos i { width: 1.5cqw; height: 1.5cqw; border-radius: 50%; border: 1px solid currentColor; }
+.f-janela .pad { flex: 1 1 auto; height: auto; min-height: 0; }
+.folha .janela__texto { margin-top: auto; font-size: 4.3cqw; line-height: 1.16; letter-spacing: -0.012em; text-wrap: pretty; }
+
+/* créditos em texto corrido */
+.credito-txt { font-size: 3.1cqw; line-height: 1.3; }
 .historias { list-style: none; margin: 0; padding: 0; }
 .historias li { padding: 0.45em 0; border-top: 1px dashed currentColor; }
 .destaque-in { font-size: 3.9cqw; line-height: 1.08; letter-spacing: -0.015em; margin-bottom: 0.4em !important; text-wrap: balance; }
@@ -1180,7 +1197,7 @@ input, textarea { cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/
 .passo__olho { font-size: 1.6cqw; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.8; }
 .passo__titulo { font-size: 2.1cqw; font-weight: 600; line-height: 1.1; letter-spacing: 0.08em; text-transform: uppercase; }
 .passo__marca { flex: none; width: 1.1cqw; height: 1.1cqw; background: currentColor; transform: rotate(45deg); margin: 0.6cqw 0 0.4cqw 0.25cqw; }
-.passo__texto { flex: 1 1 auto; min-height: 0; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; font-size: 4.4cqw; font-weight: 400; line-height: 1.16; letter-spacing: -0.012em; text-wrap: pretty; }
+.passo__texto { flex: 1 1 auto; min-height: 0; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; font-size: var(--fs, 4.4cqw); font-weight: 400; line-height: 1.16; letter-spacing: -0.012em; text-wrap: pretty; }
 .passo__link { flex: none; display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; width: 100%; padding-top: 1.3cqw; border-top: 1px solid currentColor; font-size: 1.75cqw; font-weight: 500; text-decoration: none; }
 .passo__link:hover { text-decoration: underline; text-underline-offset: 0.2em; }
 
@@ -1330,7 +1347,7 @@ html.visor-aberto { overflow: hidden; }
 .pilha .versos { grid-template-columns: 1fr; gap: 1em; font-size: 1.0625rem; }
 .pilha .frase { font-size: 1.75rem; }
 .pilha .f-quadrada { width: 70% !important; align-self: flex-start; }
-.pilha .f-quadrada .pad { padding: 1.5rem; }
+.pilha .f-quadrada .pad { padding: 1.5rem 1.5rem 2.5rem; }
 .pilha .f-passo { grid-template-columns: 1fr; }
 .pilha .f-passo .lado { padding: 1.25rem; gap: 0.6rem; }
 .pilha .f-passo .midia { aspect-ratio: 4 / 3; }
@@ -1352,6 +1369,14 @@ html.visor-aberto { overflow: hidden; }
 .pilha .f-perso-foto .tag-grande { font-size: 2.4rem; }
 .pilha .f-perso-foto .leg { font-size: 1rem; }
 .pilha .f-perso-foto .midia, .pilha .f-retrato .midia { aspect-ratio: 4 / 5; }
+.pilha .f-naming .nome-marca { font-size: 6rem; }
+.pilha .f-naming .leg { font-size: 1rem; }
+.pilha .folha .janela__barra { font-size: 0.8rem; padding: 0.5rem 1rem; gap: 0.7rem; }
+.pilha .janela__pontos { gap: 0.3rem; }
+.pilha .janela__pontos i { width: 0.55rem; height: 0.55rem; }
+.pilha .folha .janela__texto { font-size: 1.3rem; margin-top: 0.4rem; }
+.pilha .credito-txt { font-size: 1rem; }
+.pilha .destaque-in { font-size: 1.5rem !important; }
 .pilha .midia, .pilha .heroi { cursor: zoom-in; }
 
 @media (prefers-reduced-motion: reduce) {

@@ -24,9 +24,9 @@
   function esc(t) {
     return String(t == null ? "" : t).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
   }
-  // permite só <br>, <em> e </em>
+  // permite só <br>, <em> (itálico) e <b> (em 600)
   function fmt(t) {
-    return esc(t).replace(/&lt;br\s*\/?&gt;/gi, "<br>").replace(/&lt;(\/?)em&gt;/gi, "<$1em>");
+    return esc(t).replace(/&lt;br\s*\/?&gt;/gi, "<br>").replace(/&lt;(\/?)(em|b)&gt;/gi, "<$1$2>");
   }
   function puro(t) { return String(t == null ? "" : t).replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim(); }
   function dois(n) { return (n < 10 ? "0" : "") + n; }
@@ -49,9 +49,9 @@
       ' muted loop autoplay playsinline preload="metadata" aria-label="' + esc(rotulo) + '"></video>';
   }
 
-  function figura(src, alt, nome, classe) {
+  function figura(src, alt, nome, classe, posicao) {
     return '<figure class="midia' + (classe ? " " + classe : "") + '" data-nome="' + esc(puro(nome)) + '"><img src="' + esc(src) +
-      '" alt="' + esc(alt || "") + '" draggable="false"></figure>';
+      '" alt="' + esc(alt || "") + '"' + (posicao ? ' style="object-position:' + esc(posicao) + '"' : "") + ' draggable="false"></figure>';
   }
 
   // ---------- cada tipo de folha ----------
@@ -93,11 +93,13 @@
       var corpo;
       if (Array.isArray(f.colunas)) {
         // duas colunas montadas à mão: cada item é um parágrafo, { forte }, { destaque } ou { lista }
-        corpo = '<div class="corrido duas">' + f.colunas.map(function (c) {
-          return "<div>" + c.map(function (it) {
+        var embaixo = f.colunas.some(function (c) { return c.some(function (it) { return it && it.embaixo; }); });
+        corpo = '<div class="corrido duas' + (embaixo ? " duas--cheia" : "") + '">' + f.colunas.map(function (c) {
+          var noPe = c.some(function (it) { return it && it.embaixo; });
+          return "<div" + (noPe ? ' class="no-pe"' : "") + ">" + c.map(function (it) {
             if (typeof it === "string") return "<p>" + fmt(it) + "</p>";
             if (it.lista) return '<ul class="historias">' + it.lista.map(function (t) { return "<li>" + fmt(t) + "</li>"; }).join("") + "</ul>";
-            if (it.destaque) return '<p class="destaque-in">' + fmt(it.destaque) + "</p>";
+            if (it.destaque) return '<p class="destaque-in"' + (it.tamanho ? ' style="font-size:' + it.tamanho + 'cqw"' : "") + ">" + fmt(it.destaque) + "</p>";
             return '<p class="forte">' + fmt(it.forte || it.texto) + "</p>";
           }).join("") + "</div>";
         }).join("") + "</div>";
@@ -127,7 +129,16 @@
         '<span class="passo__marca" aria-hidden="true"></span>' +
         '<p class="passo__texto">' + fmt(f.texto) + "</p>" +
         (f.url ? link(f.link || "ver a página no site", f.url) : "") + "</div>" +
-        figura(f.foto, f.alt || puro(f.titulo), f.nome || f.titulo);
+        figura(f.foto, f.alt || puro(f.titulo), f.nome || f.titulo, "", f.posicao);
+    },
+    naming: function (f) {
+      return '<div class="pad">' + meta(f.meta) + '<p class="nome-marca">' + fmt(f.texto) + "</p>" +
+        (f.legenda ? '<p class="leg empurra">' + fmt(f.legenda) + "</p>" : "") + "</div>";
+    },
+    janela: function (f) {
+      return '<p class="janela__barra"><span class="janela__pontos" aria-hidden="true"><i></i><i></i><i></i></span><span>' +
+        fmt(f.barra || "") + "</span></p>" +
+        '<div class="pad">' + meta(f.meta) + '<p class="janela__texto">' + fmt(f.texto) + "</p></div>";
     },
     "foto-texto": function (f) {
       return figura(f.foto, f.alt, f.nome) +
@@ -143,8 +154,10 @@
         (f.itens || []).map(function (t) { return "<li>" + fmt(t) + "</li>"; }).join("") + "</ul></div>";
     },
     creditos: function (f) {
-      return '<div class="pad">' + meta(f.meta) + '<dl class="creditos">' +
-        (f.pares || []).map(function (p) { return "<dt>" + fmt(p[0]) + "</dt><dd>" + fmt(p[1]) + "</dd>"; }).join("") + "</dl>" +
+      return '<div class="pad">' + meta(f.meta) +
+        (f.texto ? '<p class="credito-txt">' + fmt(f.texto) + "</p>" : "") +
+        (f.pares ? '<dl class="creditos">' +
+          f.pares.map(function (p) { return "<dt>" + fmt(p[0]) + "</dt><dd>" + fmt(p[1]) + "</dd>"; }).join("") + "</dl>" : "") +
         (proximo && proximo !== projeto ? '<a class="proximo empurra" href="projeto.html?p=' + encodeURIComponent(proximo.id) + '"><span>próximo projeto: ' +
           esc(puro(proximo.titulo)) + '</span><span aria-hidden="true">→</span></a>' : "") + "</div>";
     },
@@ -156,7 +169,7 @@
     lide: "f-lide", frase: "f-frase", bilhete: "f-achados", tagline: "f-tag", manifesto: "f-manifesto",
     "video-youtube": "f-video", texto: "f-texto", formulario: "f-pilares", tela: "f-tela", passo: "f-passo",
     lista: "f-pratica f-entrega", creditos: "f-creditos", foto: "f-foto",
-    "foto-texto": "f-fototexto", personalidade: "f-tag f-perso-foto"
+    "foto-texto": "f-fototexto", personalidade: "f-tag f-perso-foto", naming: "f-naming", janela: "f-janela"
   };
   var FUNDOS = { pagina: 1, azul: 1, rosinha: 1, rosa: 1, lilas: 1, amarelo: 1, salvia: 1 };
 
@@ -440,6 +453,7 @@
   // ---------- copy dos destinos: o maior tamanho que cabe (de 4,4 a 1,9cqw) ----------
   function ajustarCopys() {
     $$(".passo__texto", mesa).forEach(function (p) {
+      if (p.closest(".folha").style.getPropertyValue("--fs")) return; // tamanho escolhido no conteudo.js
       if (modoPilha()) { p.style.fontSize = ""; return; }
       var fs = 4.4;
       p.style.justifyContent = "flex-start";
