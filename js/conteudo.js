@@ -1,8 +1,6 @@
 /* =====================================================================
    CONTEÚDO DO SITE — este é o único arquivo que você precisa editar.
 
-   • Letras entre colchetes viram a letra pixelada (fonte Retrogression):
-     "AL[A]NA LINS"  →  a letra entre colchetes fica pixelada.
    • Imagens ficam na pasta assets/img/ (ex.: "assets/img/cieli-capa.jpg").
    • Para ACRESCENTAR um projeto: copie um bloco { ... } da lista
      "projetos", cole logo abaixo (não esqueça a vírgula entre os blocos)
@@ -55,7 +53,37 @@
      { tipo: "botao", texto: "ler o livro", url: "https://..." }
          botão com link (abre em outra aba)
 
-   Projetos sem "blocos" usam o modelo simples: banner + "texto".
+
+   PÁGINA DO PROJETO EM MESA DE FOLHAS (como a Cieli)
+   Em vez de "blocos", o projeto pode ter "mesa": { ficha, abertura, folhas }.
+     ficha: [["cliente", "..."], ["trabalho", "..."], ["entrega", "..."]]
+         (a linha "projeto 01 de 04" é calculada pela ordem da lista)
+     abertura: { src: "assets/img/....jpg", alt: "..." }
+         imagem de destaque no topo, inclinada; com video: "....mp4" vira vídeo
+     folhas: lista de folhas soltas. Toda folha tem:
+         id (único), tipo, nome (aparece no visor e para leitores de tela),
+         fundo ("pagina", "azul", "rosinha", "rosa", "lilas", "amarelo",
+         "salvia"), proporcao (largura ÷ altura) e o lugar inicial na mesa:
+         x, y e largura em frações da largura da mesa, giro (graus) e camada.
+         meta: ["retranca · texto", "texto à direita"] é a linha pequena do alto.
+       Tipos:
+         lide        texto (+ selos: "CI01")
+         frase       texto, tamanho (opcional, em cqw); quadrada: true = post-it
+         bilhete     titulo, itens (com clipe)
+         tagline     texto, legenda
+         manifesto   titulo, colunas: [[estrofes], [estrofes]], assinatura
+                     (use <br> para quebrar linha e <em>...</em> para itálico)
+         video-youtube  url do YouTube, titulo
+         texto       titulo, texto: [parágrafos], colunas: 2 (opcional)
+         formulario  titulo, subtitulo, colunas: ["a", "b"], linhas: [["...", "..."]], rodape
+         tela        video, capa (1º quadro .jpg), link: { texto, url }
+         passo       titulo (lugar), texto, foto, url (olho: "página de destino")
+         lista       titulo, itens
+         creditos    pares: [["rótulo", "valor"]] (o link do próximo projeto é automático)
+         foto        src, alt
+       As fotos e vídeos entram no visor na ordem da lista, depois da abertura.
+
+   Projetos sem "blocos" nem "mesa" usam o modelo simples: banner + "texto".
    ===================================================================== */
 
 const SITE = {
@@ -77,8 +105,135 @@ const SITE = {
 
   projetos: [
     {
+      id: "cieli",
+      titulo: "Cieli",
+      resumo: "expressão verbal, arquitetura de conteúdo e copywriting para agência de viagens de luxo",
+      capa: "assets/img/cieli/capa-grade.jpg", // imagem horizontal, 3:2 (grade de projetos)
+      // Página em "mesa de folhas" (tipos de folha explicados no topo deste arquivo)
+      mesa: {
+        ficha: [
+          ["cliente", "agência de viagens de luxo"],
+          ["trabalho", "expressão verbal, arquitetura de conteúdo para site e copywriting"],
+          ["entrega", "tagline principal, manifesto, arquitetura das páginas e conteúdo em texto para o site"],
+        ],
+        abertura: { src: "assets/img/cieli/abertura.jpg", alt: "Paisagem da Toscana com a assinatura Cieli" },
+        folhas: [
+          // ---------- apresentação ----------
+          { id: "lide", tipo: "lide", nome: "apresentação", fundo: "pagina", proporcao: 1.32,
+            x: 0.03, y: 0.02, largura: 0.42, giro: 1.5, camada: 2,
+            meta: ["Cieli · agência de viagens de luxo", "folha 01"], selos: "CI01",
+            texto: "A Cieli é uma agência ítalo-brasileira especialista em roteiros feitos sob medida. Apaixonada por descobrir o mundo, ela cria itinerários que vão além dos guias tradicionais e que acolhem os desejos, o tempo, o ritmo e a personalidade dos viajantes." },
+          { id: "fr-2012", tipo: "frase", quadrada: true, nome: "frase: desde 2012", fundo: "amarelo", proporcao: 1, tamanho: 11.5,
+            x: 0.47, y: 0.05, largura: 0.15, giro: -5, camada: 3,
+            texto: "Explorando o infinito do mundo desde 2012" },
+          { id: "objetivos", tipo: "bilhete", nome: "principais objetivos", fundo: "amarelo", proporcao: 0.82,
+            x: 0.67, y: 0, largura: 0.2, giro: 5, camada: 4,
+            titulo: "Principais objetivos",
+            itens: ["posicionar a marca no mercado de luxo", "apresentar o serviço com mais clareza", "criar páginas para captação de leads com sofisticação", "gerar desejo no visitante do site"] },
+          // ---------- marca ----------
+          { id: "tagline", tipo: "tagline", nome: "tagline principal", fundo: "azul", proporcao: 1.45,
+            x: 0.56, y: 0.28, largura: 0.36, giro: -2, camada: 5,
+            meta: ["tagline principal", "Cieli"], texto: "Destinos Infinitos",
+            legenda: "Reflete a personalidade apaixonada e exploradora da marca, que encontra as diferentes facetas e segredos de cada lugar, abrindo possibilidades infinitas para seus viajantes." },
+          { id: "manifesto", tipo: "manifesto", nome: "manifesto", fundo: "lilas", proporcao: 0.98,
+            x: 0.03, y: 0.4, largura: 0.42, giro: -1.2, camada: 6,
+            meta: ["manifesto", "folha 02"], titulo: "Quem tem paixão vive o infinito.",
+            colunas: [
+              [
+                "Todo coração vasto desbrava o profundo do mundo:<br>perde-se pelas ruelas de pedra,<br>saboreia o sagrado no prato,<br>é seduzido pelo estrondo dos mares.",
+                "Cada lugar que existe guarda incontáveis destinos.<br>E é possível traçar caminhos únicos até o seu.<br>Por isso, vamos sempre além<br>— além-fronteiras, além-rotas, além-óbvio.<br>Para decifrar os segredos que se revelam apenas a olhares atentos.",
+              ],
+              [
+                "Como verdadeiros <em>apassionati</em> por viagens,<br>desenhamos roteiros com cuidado e intenção.<br>E como bons anfitriões, falamos a mesma língua<br>e <em>compartilhamos as belezas secretas</em>.",
+                "Em nosso mapa, a arte, os sabores e os cenários são mais do que uma foto.<br>São vivências genuínas que te fazem sentir o tempo e tocar o céu.",
+              ],
+            ],
+            assinatura: "Cieli<br>Destinos infinitos" },
+          { id: "video", tipo: "video-youtube", nome: "vídeo", fundo: "azul", proporcao: 1.45,
+            x: 0.49, y: 0.57, largura: 0.38, giro: 1.5, camada: 7,
+            meta: ["vídeo", "Cieli"], url: "https://www.youtube.com/watch?v=zt_v6TOYiZA", titulo: "Vídeo da Cieli" },
+          { id: "fr-alem", tipo: "frase", nome: "frase: ir mais além", fundo: "pagina", proporcao: 1.5, tamanho: 8.6,
+            x: 0.72, y: 0.84, largura: 0.2, giro: 3, camada: 8,
+            meta: ["copywriting", "folha 03"], texto: "Cieli tem paixão por ir mais além" },
+          // ---------- site ----------
+          { id: "arquitetura", tipo: "texto", nome: "arquitetura de conteúdo e copywriting", fundo: "salvia", proporcao: 1.15,
+            x: 0.52, y: 0.98, largura: 0.44, giro: 1.2, camada: 9,
+            meta: ["arquitetura de conteúdo e copywriting", "folha 04"], titulo: "Arquitetura de conteúdo e copywriting",
+            colunas: 2, // o texto corre em duas colunas
+            texto: [
+              "O site da Cieli precisava conciliar três demandas que costumam competir entre si: um tom sofisticado, simples e poético; textos otimizados para busca; e informações práticas que o visitante precisava entender antes de contratar.",
+              "Para organizar tudo isso, estruturei o site em três camadas com funções distintas. A homepage apresenta a marca e seu modo de trabalhar, com diferenciais e depoimentos. As páginas de cada destino funcionam como landing pages: despertam desejo e captam buscas orgânicas, todas com o mesmo esqueleto: abertura, exemplo de roteiro dia a dia, experiências e FAQ. Já as páginas institucionais aprofundam a confiança e a autoridade.",
+              "Mas informar não bastava: o visitante precisava captar a essência de cada lugar e se imaginar vivendo a viagem. Para isso, construí um campo semântico cinematográfico e literário, por exemplo: depoimentos semelhantes a reviews de cinema na homepage; linha narrativa própria para cada destino; citações literárias; e roteiros escritos como sequências de cenas.",
+            ] },
+          { id: "camadas", tipo: "formulario", nome: "três camadas do site", fundo: "pagina", proporcao: 1.2,
+            x: 0.04, y: 1, largura: 0.4, giro: -1, camada: 10,
+            titulo: "Três camadas", subtitulo: "Cieli · arquitetura do site", colunas: ["camada", "função"],
+            linhas: [
+              ["Homepage", "Apresenta a marca e seu modo de trabalhar, com diferenciais e depoimentos."],
+              ["Destinos", "Funcionam como landing pages: despertam desejo e captam buscas orgânicas. Abertura, exemplo de roteiro dia a dia, experiências e FAQ."],
+              ["Institucionais", "Aprofundam a confiança e a autoridade."],
+            ],
+            rodape: ["folha 05", "arquitetura de conteúdo"] },
+          { id: "site-home", tipo: "tela", nome: "site da Cieli: homepage", fundo: "pagina", proporcao: 1.5,
+            x: 0.5, y: 1.4, largura: 0.44, giro: -1, camada: 11,
+            meta: ["site · homepage", "cielitravel.com"],
+            video: "assets/video/cieli/home.mp4", capa: "assets/video/cieli/home.jpg",
+            link: { texto: "ver o site", url: "https://cielitravel.com/" } },
+          // ---------- destinos ----------
+          { id: "fr-historia", tipo: "frase", nome: "frase: sentidos atentos", fundo: "azul", proporcao: 1.6, tamanho: 6.6,
+            x: 0.08, y: 1.4, largura: 0.32, giro: 2, camada: 12,
+            meta: ["copywriting", "folha 07"], texto: "Todo lugar do mundo conta uma história para quem tem sentidos atentos." },
+          { id: "sardenha", tipo: "passo", nome: "Sardenha", fundo: "pagina", proporcao: 1.8,
+            x: 0.03, y: 1.76, largura: 0.46, giro: -1.5, camada: 13,
+            titulo: "Sardenha", foto: "assets/img/cieli/sardenha.jpg", url: "https://cielitravel.com/sardenha/",
+            texto: "A Sardenha desafia a lei natural. Nela, as melhores coisas da vida ocupam o mesmo lugar." },
+          { id: "provenca", tipo: "passo", nome: "Provence", fundo: "lilas", proporcao: 1.6,
+            x: 0.51, y: 1.79, largura: 0.46, giro: 1.5, camada: 14,
+            titulo: "Provence", foto: "assets/img/cieli/provence.jpg", url: "https://cielitravel.com/provence/",
+            texto: "Aix-en-Provence, Saint-Rémy-de-Provence, Avignon e outros vilarejos exalam a boa vida de um jeito diferente de Paris: no amor pela terra, no equilíbrio da vida rural, no preparo das refeições e no aroma inconfundível dos campos de lavanda." },
+          { id: "italia", tipo: "passo", nome: "Verão na Itália", fundo: "amarelo", proporcao: 1.8,
+            x: 0.03, y: 2.1, largura: 0.46, giro: 1, camada: 15,
+            titulo: "Verão na Itália", foto: "assets/img/cieli/italia.jpg", url: "https://cielitravel.com/verao-na-italia/",
+            texto: "Dizem que amores de verão não duram. Mas o romance que você vive com o verão da Itália dura pra sempre." },
+          { id: "fr-estacao", tipo: "frase", nome: "frase: Itália", fundo: "rosinha", proporcao: 1.4, tamanho: 7.4,
+            x: 0.3, y: 2.38, largura: 0.22, giro: -3, camada: 16,
+            meta: ["copywriting", "folha 06"], texto: "Não existe estação ruim para ser feliz na Itália." },
+          { id: "site-toscana", tipo: "tela", nome: "site da Cieli: página de destino", fundo: "pagina", proporcao: 1.5,
+            x: 0.53, y: 2.14, largura: 0.42, giro: -1.5, camada: 17,
+            meta: ["site · página de destino", "cielitravel.com"],
+            video: "assets/video/cieli/toscana.mp4", capa: "assets/video/cieli/toscana.jpg",
+            link: { texto: "ver a página no site", url: "https://cielitravel.com/toscana/" } },
+          { id: "cote", tipo: "passo", nome: "Côte d’Azur", fundo: "salvia", proporcao: 1.55,
+            x: 0.51, y: 2.5, largura: 0.47, giro: -1.2, camada: 18,
+            titulo: "Côte d’Azur", foto: "assets/img/cieli/cote-dazur.jpg", url: "https://cielitravel.com/cote-dazur/",
+            texto: "Há um imaginário sobre a Côte d’Azur que nenhuma outra região da França consegue replicar. Brigitte Bardot em Saint-Tropez. Grace Kelly cruzando as Corniches rumo a Mônaco. Os iates de Monte-Carlo. O Festival de Cinema de Cannes. Grasse, a capital do perfume. Você já conhece esse cenário, agora é hora de ser o protagonista." },
+          { id: "veneza", tipo: "passo", nome: "Veneza e Verona", fundo: "rosinha", proporcao: 1.5,
+            x: 0.03, y: 2.6, largura: 0.46, giro: 1.5, camada: 19,
+            titulo: "Veneza e Verona", foto: "assets/img/cieli/veneza.jpg", url: "https://cielitravel.com/veneza-e-verona/",
+            texto: "Veneza é uma história de amor improvável: transformou a relação com as enchentes do Grande Canal em sua maior beleza, tornando-se “a cidade flutuante”. Já Verona é a cidade onde Shakespeare escolheu ambientar a tragédia de amor mais famosa do mundo. Juntas, elas formam um roteiro que atravessa gerações e nunca envelhece, como todo bom romance." },
+          { id: "fr-tempo", tipo: "frase", nome: "frase: métrica da felicidade", fundo: "amarelo", proporcao: 1.3, tamanho: 8.4,
+            x: 0.55, y: 2.84, largura: 0.21, giro: 3, camada: 20,
+            meta: ["copywriting", "folha 09"], texto: "Conte o tempo na métrica da felicidade." },
+          // ---------- fechamento ----------
+          { id: "entrega", tipo: "lista", nome: "entrega", fundo: "rosa", proporcao: 1,
+            x: 0.12, y: 3.04, largura: 0.24, giro: -3, camada: 21,
+            titulo: "Entrega",
+            itens: ["Manifesto", "Tagline principal", "Arquitetura de conteúdo do site", "Copywriting da homepage", "Copywriting das páginas institucionais", "Copywriting de 16 páginas de destinos", "Reescrita da FAQ"] },
+          { id: "creditos", tipo: "creditos", nome: "créditos", fundo: "pagina", proporcao: 1.6,
+            x: 0.46, y: 3.07, largura: 0.3, giro: 1, camada: 22,
+            meta: ["créditos", "folha 08"],
+            pares: [
+              ["Projeto desenvolvido com", "Cluster Design & Branding"],
+              ["Coordenação do projeto", "Rodrigo Meireles"],
+              ["Design gráfico", "Roger Almeida"],
+              ["Conteúdo e copywriting", "Alana Lins"],
+            ] },
+        ],
+      },
+    },
+    {
       id: "purpose-paper",
-      titulo: "PURPOSE PAPER",
+      titulo: "Purpose Paper",
       resumo: "estratégia de marca e identidade verbal para papelaria e editora",
       capa: "assets/img/purpose-paper/capa-grade.jpg",
       subtitulo: "estratégia de marca e identidade verbal",
@@ -325,32 +480,6 @@ const SITE = {
         },
         { tipo: "botao", texto: "folhear o livro", url: "https://online.fliphtml5.com/ejvpj/rebh/index.html" },
       ],
-    },
-    {
-      id: "cieli",
-      titulo: "CIELI",
-      resumo: "copywriting e redação criativa para agência de viagens de luxo",
-      capa: "assets/img/placeholder-capa-horizontal.jpg", // imagem horizontal, 3:2 (grade de projetos)
-      banner: "assets/img/placeholder-banner.jpg", // imagem larga (topo da página do projeto)
-      texto: [
-        "Lorem ipsum dolor sit amet consectetur. Interdum tincidunt elit ut non phasellus. Consequat est diam fermentum aliquam amet nibh. Maecenas porttitor morbi nunc sit risus. Morbi id morbi leo urna id pharetra. Blandit ut est non cras lectus viverra tellus elementum. Mauris nunc bibendum senectus blandit eu lorem. Molestie tortor dui at nisl malesuada commodo viverra. Lacus ornare dictum faucibus sed sit vitae in.",
-        "Quis ultricies et mi diam ac. Odio tellus pulvinar neque bibendum senectus pellentesque nisl proin. Ullamcorper laoreet tincidunt vel urna sit diam nibh vitae. Ut tristique nisi orci adipiscing dictumst faucibus elementum. Posuere potenti id curabitur sem. Neque augue non non aenean euismod adipiscing mollis rhoncus blandit. Aenean id auctor fermentum nibh sed consectetur cursus. Vitae venenatis scelerisque sed quis fames nisl. Mauris duis sit cursus sed pellentesque enim faucibus elit. Posuere id odio sed orci hendrerit neque sed et tincidunt. Vestibulum ultricies nibh quis id arcu amet montes sodales. Nisl ac erat amet nulla sed. Convallis ridiculus vel maecenas pulvinar sit nunc.",
-        "Vel at nullam urna felis gravida erat porta. Leo vitae nibh mauris felis sed pretium. Ornare tristique feugiat a diam erat. In.",
-      ],
-      galeria: [], // opcional: ["assets/img/cieli-1.jpg", "assets/img/cieli-2.jpg"]
-    },
-    {
-      id: "j-simoes",
-      titulo: "J. SIMÕES",
-      resumo: "produção de conteúdo para lançamento comercial",
-      capa: "assets/img/placeholder-capa-horizontal.jpg",
-      banner: "assets/img/placeholder-banner.jpg",
-      texto: [
-        "Lorem ipsum dolor sit amet consectetur. Interdum tincidunt elit ut non phasellus. Consequat est diam fermentum aliquam amet nibh. Maecenas porttitor morbi nunc sit risus. Morbi id morbi leo urna id pharetra. Blandit ut est non cras lectus viverra tellus elementum. Mauris nunc bibendum senectus blandit eu lorem.",
-        "Quis ultricies et mi diam ac. Odio tellus pulvinar neque bibendum senectus pellentesque nisl proin. Ullamcorper laoreet tincidunt vel urna sit diam nibh vitae. Ut tristique nisi orci adipiscing dictumst faucibus elementum. Posuere potenti id curabitur sem. Neque augue non non aenean euismod adipiscing mollis rhoncus blandit.",
-        "Vel at nullam urna felis gravida erat porta. Leo vitae nibh mauris felis sed pretium. Ornare tristique feugiat a diam erat. In.",
-      ],
-      galeria: [],
     },
   ],
 

@@ -1,7 +1,7 @@
 # Portfólio Alana Lins — guia para o Claude
 
 Site estático (HTML + CSS + JS puro, sem build). Conteúdo editável só em `js/conteudo.js`;
-`js/main.js` monta as páginas; `css/style.css` tem tokens e layout; `js/lapis.js` é o cursor/rastro.
+`js/main.js` monta as páginas; `js/mesa.js` monta as páginas de projeto em mesa de folhas; `css/style.css` tem tokens e layout; `js/lapis.js` é o cursor/rastro.
 Escreva para a Alana em português do Brasil, em linguagem simples.
 
 ## Identidade (não mudar sem pedido)
@@ -9,7 +9,7 @@ Escreva para a Alana em português do Brasil, em linguagem simples.
 - Cores: papel cru `#F1EBE1` em todo o site (sem alternância de fundos) e azul `#0000EC` para
   texto, fios, bordas e botões. Rosinha `#F7D5DE` só no balão da sopa de letrinhas. Textura de
   papel na camada `.grao`, por cima de tudo e abaixo do canvas do lápis.
-- Fonte: só a Switzer (`assets/fonts/Switzer-200…800.woff2`), em vários pesos. Sem fonte pixelada;
+- Fonte: só a Switzer (`assets/fonts/Switzer-200…800.woff2` e `Switzer-400-italic.woff2`), em vários pesos. Sem fonte pixelada;
   colchetes antigos em `conteudo.js` são apenas removidos pelo `formatar()`.
 - Página inicial: o nome (`abertura.nome`) é gigante, em duas linhas que enchem a largura (tamanho
   calculado no `main.js`), com o post-it azul arrastável (`abertura.etiqueta`). O nome e os títulos
@@ -30,11 +30,31 @@ Escreva para a Alana em português do Brasil, em linguagem simples.
   a descrição abre num balão rosinha. Cards da grade: no hover a capa sobe 4px e um risco de lápis
   (SVG + filtro `#grafite`) se desenha sob o título. Cada seção sobe 70px→0 ao entrar na tela.
 - Contato: depois de enviar, os campos se dobram, um aviãozinho voa e aparece "Mensagem enviada!".
-- Páginas de projeto: mesmo papel cru, sem rastro de lápis (o cursor de lápis continua).
+- Páginas de projeto: mesmo papel cru. Nas páginas em revista não há rastro de lápis (o cursor de
+  lápis continua); na mesa de folhas o rastro liga, mas não risca sobre folhas, fotos e textos nem
+  durante o arrasto.
 - Rastro de lápis (`js/lapis.js`): no computador segue o mouse (pontos na página); no celular segue
   o dedo (pontos na tela, porque arrastar rola a página). Não mudar o comportamento do computador.
 
-## Modelo da página de projeto (referência: "Oito vidas de um vestido")
+## Página de projeto em mesa de folhas (referência: Cieli)
+
+Formato novo, que vai substituir a revista projeto a projeto (próxima: Purpose Paper). O projeto tem
+`mesa: { ficha, abertura, folhas }` no `conteudo.js` (tipos de folha documentados no topo do arquivo).
+
+- **Imagem de destaque** (vale para todos os projetos): `abertura` fica fora da mesa, logo abaixo do
+  cabeçalho, na largura do conteúdo (até 84rem), `rotate(-1.2deg)`, sem moldura, inteira (max-height
+  82svh). Vídeo toca em loop sem som. É a 1ª imagem do visor e mostra o "↗" no hover.
+- **Cabeçalho**: título grande à esquerda e ficha à direita (cliente, trabalho, entrega; "projeto
+  01 de 04" é calculado pela ordem da lista); valores com no máximo 19rem.
+- **Folhas**: cada uma com `x`, `y`, `largura` (frações da largura da mesa), `giro`, `camada`,
+  `proporcao` e `fundo`. A mesa é lida de cima para baixo em blocos; no arranjo inicial nenhuma
+  folha cobre o texto de outra. Arrastáveis (mouse e teclado), botão "reorganizar", visor com setas
+  (fotos e vídeos na ordem da lista). Abaixo de 760px ou com menos movimento, viram pilha.
+- Links dentro das folhas abrem num clique, mas não depois de arrastar a folha.
+- Vídeos de tela: `assets/video/<id>/`, .mp4 H.264, 1600px, 30 fps, CRF 21, sem áudio, faststart,
+  com um .jpg do primeiro quadro como `capa`.
+
+## Modelo da página de projeto em revista (referência: "Oito vidas de um vestido")
 
 É um **modelo de ritmo, não um gabarito**. Cada projeto deve ganhar sua própria sequência de blocos
 a partir do material que tiver (quantidade de texto, número e formato das fotos). Os tipos de bloco

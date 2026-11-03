@@ -13,6 +13,17 @@
   var temToque = "ontouchstart" in window || navigator.maxTouchPoints > 0;
   var menosMovimento = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if ((!temMouse && !temToque) || menosMovimento) return;
+  // nas páginas de projeto, o rastro só aparece na mesa de folhas (js/mesa.js)
+  var naMesa = document.documentElement.classList.contains("com-mesa");
+  if (document.getElementById("projeto") && !naMesa) return;
+  // na mesa, o lápis não risca em cima de folhas, fotos e textos, nem durante o arrasto
+  var SOBRE_CONTEUDO = ".folha, .heroi, img, video, iframe, h1, h2, h3, p, a, button, li, dt, dd, .acoes, .menu, .visor";
+  function sobreConteudo(x, y) {
+    if (!naMesa) return false;
+    if (document.documentElement.classList.contains("arrastando")) return true;
+    var el = document.elementFromPoint(x, y);
+    return !!(el && el.closest && el.closest(SOBRE_CONTEUDO));
+  }
 
   var canvas = document.createElement("canvas");
   canvas.className = "rastro";
@@ -67,6 +78,7 @@
   function registrar(clientX, clientY, naTela) {
     // durante a abertura quem risca é o lápis dela (js/abertura.js)
     if (document.documentElement.classList.contains("com-abertura")) return;
+    if (sobreConteudo(clientX, clientY)) { atual = null; return; }
     var ox = naTela ? 0 : scrollX;
     var oy = naTela ? 0 : scrollY;
     var agora = performance.now();

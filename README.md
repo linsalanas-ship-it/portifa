@@ -40,6 +40,14 @@ na largura toda; `colunas: 2` só para listas), `foto` (de ponta a ponta, ou na 
 `destaque` (frase grande, como olho de revista), `intertitulo` (título de seção), `itens` (lista em grade com título e texto), `topico` (subtópico com frases ou palavras em destaque), `video` (YouTube), `galeria` (peças verticais lado a lado, carrossel no celular) e `botao` (link). Os exemplos de cada
 tipo estão no topo de `js/conteudo.js`, e os projetos "Oito vidas de um vestido" e "Purpose Paper" servem de exemplo.
 
+### Página do projeto em mesa de folhas
+
+Um projeto pode ter `mesa` em vez de `blocos` (veja a Cieli): as folhas ficam espalhadas sobre o
+papel, podem ser arrastadas, e o botão "reorganizar" volta ao arranjo inicial. Fotos e vídeos abrem
+num visor com setas. No celular, as folhas viram uma pilha. A primeira imagem (`abertura`) aparece
+em destaque no topo, levemente inclinada. Os tipos de folha estão explicados no topo de
+`js/conteudo.js`. Vídeos ficam em `assets/video/<id-do-projeto>/`.
+
 ### Dicas para montar a página de um projeto
 
 O "Oito vidas de um vestido" serve de modelo de ritmo, mas cada projeto pode ter a sua ordem:
@@ -70,7 +78,7 @@ crie um formulário grátis em [formspree.io](https://formspree.io) e cole o lin
 
 ## Depois de mudar CSS ou JavaScript
 
-Os arquivos são carregados com um número de versão (`style.css?v=2026110305`) em
+Os arquivos são carregados com um número de versão (`style.css?v=2026110306`) em
 `index.html` e `projeto.html`. Ao alterar `css/` ou `js/`, troque esse número nos dois
 arquivos (por exemplo, pela data do dia) para os visitantes não verem a versão antiga
 guardada no navegador. Para editar só o `conteudo.js` não é preciso.
@@ -90,9 +98,13 @@ index.html        página única (nome, projetos, sopa de letrinhas, contato; o 
 projeto.html      modelo da página interna de cada projeto
 js/conteudo.js    ← conteúdo editável
 js/main.js        monta as páginas a partir do conteúdo
+js/mesa.js        monta as páginas de projeto em mesa de folhas
+js/lapis.js       rastro de lápis
+js/abertura.js    abertura com o lápis desenhando a bonequinha
 css/style.css     cores, tipografia e layout responsivo
 assets/fonts/     Switzer (vários pesos)
 assets/img/       imagens (as "placeholder-*" são provisórias)
+assets/video/     vídeos das páginas de projeto
 ```
 
 A abertura (o lápis desenhando a bonequinha) aparece uma vez por visita; clique, role ou aperte uma tecla para pular.

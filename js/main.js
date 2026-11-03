@@ -105,7 +105,11 @@
     document.title = textoPuro(p.titulo) + " — Alana Lins";
     $("projeto-titulo").innerHTML = formatar(p.titulo);
     $("projeto-resumo").innerHTML = formatar(p.subtitulo || p.resumo);
-    if (p.blocos) {
+    if (p.mesa) {
+      // mesa de folhas: quem monta é o js/mesa.js
+      ["projeto-banner", "projeto-texto", "projeto-galeria", "projeto-blocos", "projeto-navegacao"].forEach(function (el) { $(el).remove(); });
+      return;
+    } else if (p.blocos) {
       // diagramação de revista, montada bloco a bloco
       $("projeto").classList.add("projeto--revista");
       ["projeto-banner", "projeto-texto", "projeto-galeria"].forEach(function (el) { $(el).remove(); });
