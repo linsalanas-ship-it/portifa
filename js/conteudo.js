@@ -65,13 +65,14 @@ const SITE = {
   /* ---------- Header 1, 2 e 3 ---------- */
   abertura: {
     frase: "TUDO COMEÇA<br>COM A [E]SCRITA", // <br> = quebra de linha
-    nome: "AL[A]NA LINS",
+    nome: "Alana Lins", // vira o nome gigante: 1ª palavra à esquerda, 2ª à direita
+    etiqueta: "jornalista,<br>estrategista<br>e redatora", // texto do post-it azul
     descricao: "jornalista, estrategista e redatora",
   },
 
   /* ---------- Seção Projetos ---------- */
   secaoProjetos: {
-    titulo: "DEI A LET[R]A",
+    titulo: "Dei a letra",
     descricao: "projetos de estratégia, verbal e conteúdo",
   },
 
@@ -356,7 +357,7 @@ const SITE = {
 
   /* ---------- Seção Sobre mim ---------- */
   sobre: {
-    titulo: "ALANA, LANA, LANIN[H]A",
+    titulo: "Alana, Lana, Laninha",
     foto: "assets/img/placeholder-sobre.jpg", // imagem vertical ao lado do texto
     texto: [
       "Lorem ipsum dolor sit amet consectetur. Interdum tincidunt elit ut non phasellus. Consequat est diam fermentum aliquam amet nibh. Maecenas porttitor morbi nunc sit risus. Morbi id morbi leo urna id pharetra. Blandit ut est non cras lectus viverra tellus elementum. Mauris nunc bibendum senectus blandit eu lorem. Molestie tortor dui at nisl malesuada commodo viverra. Lacus ornare dictum faucibus sed sit vitae in.",
@@ -368,7 +369,7 @@ const SITE = {
   /* ---------- Seção Sopa de letrinhas (o que eu faço) ----------
      Os nomes flutuam pela tela; ao clicar, aparece a descrição. */
   servicos: {
-    titulo: "SOPA DE L[E]TRINHAS",
+    titulo: "Sopa de letrinhas",
     lista: [
       {
         nome: "estratégia de marca",
@@ -396,7 +397,7 @@ const SITE = {
 
   /* ---------- Seção Contato ---------- */
   contato: {
-    titulo: "VAMOS COLAB[O]RAR?",
+    titulo: "Vamos colaborar?",
     email: "seuemail@exemplo.com", // troque pelo seu e-mail — as mensagens do formulário vão para este e-mail
     // Opcional: para o formulário enviar sem abrir o programa de e-mail,
     // crie um formulário grátis em https://formspree.io e cole o link aqui

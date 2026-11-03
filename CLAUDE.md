@@ -11,7 +11,11 @@ Escreva para a Alana em português do Brasil, em linguagem simples.
   papel na camada `.grao`, por cima de tudo e abaixo do canvas do lápis.
 - Fonte: só a Switzer (`assets/fonts/Switzer-200…800.woff2`), em vários pesos. Sem fonte pixelada;
   colchetes antigos em `conteudo.js` são apenas removidos pelo `formatar()`.
-- Títulos em caixa alta; menus, subtítulos e textos em caixa baixa.
+- Página inicial: o nome (`abertura.nome`) é gigante, em duas linhas que enchem a largura (tamanho
+  calculado no `main.js`), com o post-it azul arrastável (`abertura.etiqueta`). O nome e os títulos
+  de seção alternam caixa alta e caixa mista letra a letra a cada 3,2 s; na caixa mista os títulos
+  ficam como estão escritos no `conteudo.js` (por isso lá eles são escritos em caixa mista).
+  Menus, subtítulos e textos em caixa baixa.
 - Páginas de projeto: mesmo papel cru, sem rastro de lápis (o cursor de lápis continua).
 - Rastro de lápis (`js/lapis.js`): no computador segue o mouse (pontos na página); no celular segue
   o dedo (pontos na tela, porque arrastar rola a página). Não mudar o comportamento do computador.

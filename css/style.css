@@ -170,7 +170,6 @@ p { margin: 0; }
   scroll-margin-top: 0;
 }
 
-.hero,
 .servicos,
 .contato {
   min-height: 100vh;
@@ -181,7 +180,54 @@ p { margin: 0; }
   align-items: center;
 }
 
-/* Header 3 */
+/* Header 3: o nome gigante, ALANA à esquerda e LINS à direita */
+.hero {
+  position: relative;
+  padding-top: calc(var(--menu-h) + 1.5rem);
+  padding-bottom: clamp(3rem, 7vw, 6rem);
+}
+.nome {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: clamp(1rem, 3vw, 2.5rem) 0 0;
+  font-weight: 400;
+  font-size: 18vw; /* valor provisório; o main.js ajusta para encher a largura */
+  line-height: 0.8;
+  letter-spacing: -0.03em;
+  white-space: nowrap;
+}
+.nome .linha { display: block; }
+.nome .linha--2 { align-self: flex-end; }
+.nome .l,
+.titulo .l { display: inline-block; }
+.titulo .palavra { display: inline-block; white-space: nowrap; }
+
+/* post-it azul por cima do nome; pode ser arrastado */
+.etiqueta {
+  position: absolute;
+  z-index: 2;
+  right: 16%;
+  top: 46%;
+  width: clamp(11rem, 16vw, 14rem);
+  aspect-ratio: 1;
+  max-width: 100%;
+  padding: 1.25rem;
+  background: var(--azul);
+  color: var(--cru);
+  transform: translate(var(--dx, 0px), var(--dy, 0px)) rotate(-12deg);
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: grab;
+}
+.etiqueta.arrastando { cursor: grabbing; }
+.etiqueta__texto {
+  margin: 0;
+  font-size: clamp(1.15rem, 0.85rem + 0.8vw, 1.5rem);
+  font-weight: 500;
+  line-height: 1.12;
+}
 
 /* Projetos */
 .projetos { padding-top: calc(var(--menu-h) + 3.5rem); }
@@ -709,15 +755,17 @@ body { overflow-x: clip; } /* fotos de ponta a ponta não criam rolagem lateral 
 }
 
 /* Header 3: o título e depois o menu aparecem quando a abertura termina */
-.com-intro .hero > *,
+.com-intro .hero > .nome,
 .com-intro .menu {
   opacity: 0;
   transform: translateY(0.6rem);
-  transition: opacity 0.8s ease, transform 0.8s ease, background-color 0.3s, color 0.3s;
+  transition: opacity 0.8s ease, transform 0.8s ease;
 }
-.com-intro .hero .subtitulo { transition-delay: 0.25s; }
-.com-intro.hero-visivel .hero > *,
+/* o post-it só aparece (sem mexer no giro dele) */
+.com-intro .hero > .etiqueta { opacity: 0; transition: opacity 0.8s ease 0.25s; }
+.com-intro.hero-visivel .hero > .nome,
 .com-intro.menu-visivel .menu { opacity: 1; transform: none; }
+.com-intro.hero-visivel .hero > .etiqueta { opacity: 1; }
 
 /* ===================== Lápis ===================== */
 /* Cursor em forma de lápis; a ponta (canto inferior esquerdo) é o ponto do clique */
@@ -760,6 +808,7 @@ input, textarea { cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/
 
 /* ===================== Responsivo ===================== */
 @media (max-width: 700px) {
+  .etiqueta { position: relative; right: auto; top: auto; margin: 2rem 1rem 0 auto; }
   .cab { grid-template-columns: 1fr; }
   .cab .subtitulo { text-align: left; }
 }

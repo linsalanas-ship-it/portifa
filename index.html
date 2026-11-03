@@ -7,7 +7,7 @@
   <meta name="description" content="Alana Lins: jornalista, estrategista e redatora. Estratégia de marca, identidade verbal, conteúdo e copywriting.">
   <meta name="theme-color" content="#F1EBE1">
   <link rel="preload" href="assets/fonts/Switzer-400.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="css/style.css?v=2026110302">
+  <link rel="stylesheet" href="css/style.css?v=2026110303">
   <script>
     // Decide antes de pintar a página se a abertura (headers 1 e 2) deve rodar.
     try {
@@ -49,8 +49,14 @@
   <main>
     <!-- Header 3 -->
     <header class="secao hero" id="inicio">
-      <h1 class="titulo" data-campo="abertura.nome"></h1>
-      <p class="subtitulo" data-campo="abertura.descricao"></p>
+      <!-- as letras do nome são montadas pelo main.js a partir de abertura.nome -->
+      <h1 class="nome" id="nome" aria-label="Alana Lins">
+        <span class="linha linha--1" aria-hidden="true"></span>
+        <span class="linha linha--2" aria-hidden="true"></span>
+      </h1>
+      <div class="etiqueta" id="etiqueta">
+        <p class="etiqueta__texto" data-campo="abertura.etiqueta"></p>
+      </div>
     </header>
 
     <section class="secao projetos" id="projetos">
@@ -100,8 +106,8 @@
     </section>
   </main>
 
-  <script src="js/conteudo.js?v=2026110302"></script>
-  <script src="js/main.js?v=2026110302"></script>
-  <script src="js/lapis.js?v=2026110302"></script>
+  <script src="js/conteudo.js?v=2026110303"></script>
+  <script src="js/main.js?v=2026110303"></script>
+  <script src="js/lapis.js?v=2026110303"></script>
 </body>
 </html>

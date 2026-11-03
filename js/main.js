@@ -74,6 +74,7 @@
     else $("sobre-foto").remove();
 
     iniciarSopa();
+    iniciarNome();
 
     var c = SITE.contato;
     var links = [];
@@ -271,6 +272,112 @@
     depois(7000, function () { encerrar(false); });
     eventos.forEach(function (ev) {
       window.addEventListener(ev, pular, { passive: true });
+    });
+  }
+
+  // ---------- nome gigante, títulos letra a letra e post-it ----------
+  function iniciarNome() {
+    var nome = $("nome");
+    var palavras = textoPuro(SITE.abertura.nome).trim().split(/\s+/);
+    var grupos = [];
+
+    // cada letra vira um span com as duas versões guardadas
+    function letra(alta, mista) {
+      var l = document.createElement("span");
+      l.className = "l";
+      l.setAttribute("data-alta", alta);
+      l.setAttribute("data-mista", mista);
+      l.textContent = alta;
+      return l;
+    }
+
+    // nome: 1ª palavra na linha de cima, o resto na de baixo
+    var linhas = nome.querySelectorAll(".linha");
+    var letrasNome = [];
+    [palavras[0], palavras.slice(1).join(" ")].forEach(function (pal, n) {
+      for (var i = 0; i < pal.length; i++) {
+        var mista = i === 0 ? pal[i].toUpperCase() : pal[i].toLowerCase();
+        var l = letra(pal[i].toUpperCase(), mista);
+        linhas[n].appendChild(l);
+        letrasNome.push(l);
+      }
+    });
+    nome.setAttribute("aria-label", palavras.join(" "));
+    grupos.push(letrasNome);
+
+    // títulos de seção: mesmas letras soltas; na caixa mista ficam como no conteudo.js
+    document.querySelectorAll("#projetos .titulo, #servicos .titulo, #contato .titulo").forEach(function (h) {
+      var txt = h.textContent.trim(), grupo = [];
+      h.setAttribute("aria-label", txt);
+      h.innerHTML = "";
+      txt.split(" ").forEach(function (w, wi, todas) {
+        var pal = document.createElement("span");
+        pal.className = "palavra";
+        pal.setAttribute("aria-hidden", "true");
+        for (var i = 0; i < w.length; i++) {
+          var l = letra(w[i].toUpperCase(), w[i]);
+          pal.appendChild(l);
+          grupo.push(l);
+        }
+        h.appendChild(pal);
+        if (wi < todas.length - 1) h.appendChild(document.createTextNode(" "));
+      });
+      grupos.push(grupo);
+    });
+
+    // tamanho: a palavra mais larga (em caixa alta ou mista) enche a largura
+    var medidor = document.createElement("span");
+    medidor.setAttribute("aria-hidden", "true");
+    medidor.style.cssText = "position:absolute;left:-9999px;top:0;visibility:hidden;white-space:nowrap;font-size:100px;letter-spacing:-0.03em";
+    document.body.appendChild(medidor);
+    function largura(texto) {
+      medidor.style.fontWeight = getComputedStyle(nome).fontWeight;
+      medidor.textContent = texto;
+      return medidor.getBoundingClientRect().width;
+    }
+    function ajustar() {
+      var maior = 0;
+      [palavras[0], palavras.slice(1).join(" ")].forEach(function (pal) {
+        var mista = pal.charAt(0).toUpperCase() + pal.slice(1).toLowerCase();
+        maior = Math.max(maior, largura(pal.toUpperCase()), largura(mista));
+      });
+      if (maior) nome.style.fontSize = (100 * nome.clientWidth * 0.99 / maior).toFixed(1) + "px";
+    }
+    ajustar();
+    window.addEventListener("resize", ajustar);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(ajustar);
+
+    // alterna caixa alta e mista a cada 3,2 s, uma letra por vez (70 ms entre elas)
+    var emAlta = true;
+    function trocarCaixa() {
+      emAlta = !emAlta;
+      grupos.forEach(function (g) {
+        g.forEach(function (l, i) {
+          setTimeout(function () {
+            l.textContent = l.getAttribute(emAlta ? "data-alta" : "data-mista");
+          }, i * 70);
+        });
+      });
+    }
+    if (!menosMovimento) {
+      setInterval(function () { if (!document.hidden) trocarCaixa(); }, 3200);
+    }
+
+    // post-it arrastável com mouse ou dedo (a posição não é salva)
+    var etq = $("etiqueta"), arrasto = null, desloc = { x: 0, y: 0 };
+    etq.addEventListener("pointerdown", function (e) {
+      arrasto = { x: e.clientX - desloc.x, y: e.clientY - desloc.y };
+      etq.setPointerCapture(e.pointerId);
+      etq.classList.add("arrastando");
+    });
+    etq.addEventListener("pointermove", function (e) {
+      if (!arrasto) return;
+      desloc = { x: e.clientX - arrasto.x, y: e.clientY - arrasto.y };
+      etq.style.setProperty("--dx", desloc.x + "px");
+      etq.style.setProperty("--dy", desloc.y + "px");
+    });
+    ["pointerup", "pointercancel"].forEach(function (t) {
+      etq.addEventListener(t, function () { arrasto = null; etq.classList.remove("arrastando"); });
     });
   }
 
