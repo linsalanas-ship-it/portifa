@@ -16,6 +16,13 @@ Escreva para a Alana em português do Brasil, em linguagem simples.
   de seção alternam caixa alta e caixa mista letra a letra a cada 3,2 s; na caixa mista os títulos
   ficam como estão escritos no `conteudo.js` (por isso lá eles são escritos em caixa mista).
   Menus, subtítulos e textos em caixa baixa.
+- Abertura (`js/abertura.js`, só na 1ª visita da sessão e sem #âncora): folha cru com um lápis
+  mínimo (contorno azul, miolo cru) que desenha a bonequinha a partir de
+  `assets/img/rosto-tracos.json` (linha central dos traços do `rosto.png`, em coordenadas 737×800,
+  `pontos` = bolinhas x, y, raio). Depois a folha sobe e o site sobe colado nela. Durante a abertura
+  o rastro do `lapis.js` fica pausado.
+- Menu: "alana lins" à esquerda com a assinatura (a bonequinha como máscara do `rosto.png`, balança
+  no hover), links à direita.
 - Páginas de projeto: mesmo papel cru, sem rastro de lápis (o cursor de lápis continua).
 - Rastro de lápis (`js/lapis.js`): no computador segue o mouse (pontos na página); no celular segue
   o dedo (pontos na tela, porque arrastar rola a página). Não mudar o comportamento do computador.

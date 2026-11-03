@@ -65,6 +65,8 @@
   // Toque: pontos na tela, porque ao arrastar o dedo a página rola junto com ele
   // e, na página, o traço viraria um ponto só.
   function registrar(clientX, clientY, naTela) {
+    // durante a abertura quem risca é o lápis dela (js/abertura.js)
+    if (document.documentElement.classList.contains("com-abertura")) return;
     var ox = naTela ? 0 : scrollX;
     var oy = naTela ? 0 : scrollY;
     var agora = performance.now();

@@ -62,9 +62,8 @@ const SITE = {
   /* ---------- Menu ---------- */
   lojaUrl: "#", // troque pelo link da sua loja, ex.: "https://minhaloja.com"
 
-  /* ---------- Header 1, 2 e 3 ---------- */
+  /* ---------- Topo da página inicial ---------- */
   abertura: {
-    frase: "TUDO COMEÇA<br>COM A [E]SCRITA", // <br> = quebra de linha
     nome: "Alana Lins", // vira o nome gigante: 1ª palavra à esquerda, 2ª à direita
     etiqueta: "jornalista,<br>estrategista<br>e redatora", // texto do post-it azul
     descricao: "jornalista, estrategista e redatora",

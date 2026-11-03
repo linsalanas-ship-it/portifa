@@ -7,44 +7,28 @@
   <meta name="description" content="Alana Lins: jornalista, estrategista e redatora. Estratégia de marca, identidade verbal, conteúdo e copywriting.">
   <meta name="theme-color" content="#F1EBE1">
   <link rel="preload" href="assets/fonts/Switzer-400.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="css/style.css?v=2026110303">
+  <link rel="stylesheet" href="css/style.css?v=2026110304">
   <script>
-    // Decide antes de pintar a página se a abertura (headers 1 e 2) deve rodar.
+    // Decide antes de pintar a página se a abertura com o lápis vai rodar:
+    // só na primeira visita da sessão e sem #âncora na URL.
     try {
       if (!location.hash && !sessionStorage.getItem("introVista")) {
-        document.documentElement.classList.add("com-intro");
+        document.documentElement.classList.add("com-abertura");
       }
     } catch (e) {}
   </script>
 </head>
 <body>
   <div class="grao" aria-hidden="true"></div>
-  <!-- Headers 1 e 2: abertura em sequência -->
-  <div class="intro" id="intro" aria-hidden="true">
-    <div class="intro__tela intro__tela--1">
-      <p class="titulo" data-campo="abertura.frase"></p>
-    </div>
-    <div class="intro__tela intro__tela--2">
-      <span class="rosto-animado"><span class="rosto"></span></span>
-    </div>
-  </div>
-
-  <!-- Filtro que faz o traço do rosto "tremer" como desenho à mão -->
-  <svg class="sr" aria-hidden="true" focusable="false">
-    <filter id="rabisco" x="-10%" y="-10%" width="120%" height="120%">
-      <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="1">
-        <animate attributeName="seed" values="1;4;7;10" dur="0.5s" calcMode="discrete" repeatCount="indefinite"/>
-      </feTurbulence>
-      <feDisplacementMap in="SourceGraphic" scale="5" xChannelSelector="R" yChannelSelector="G"/>
-    </filter>
-  </svg>
-
-  <nav class="menu" id="menu" aria-label="Principal">
-    <a href="#projetos">projetos</a>
-    <a href="#sobre">sobre</a>
-    <a href="#contato">contato</a>
-    <a href="#" data-loja target="_blank" rel="noopener">loja</a>
-  </nav>
+  <header class="menu" id="menu">
+    <a class="menu__marca" href="#inicio"><span class="assinatura" aria-hidden="true"></span><span>alana lins</span></a>
+    <nav aria-label="Principal">
+      <a href="#projetos">projetos</a>
+      <a href="#sobre">sobre</a>
+      <a href="#contato">contato</a>
+      <a href="#" data-loja target="_blank" rel="noopener">loja</a>
+    </nav>
+  </header>
 
   <main>
     <!-- Header 3 -->
@@ -106,8 +90,18 @@
     </section>
   </main>
 
-  <script src="js/conteudo.js?v=2026110303"></script>
-  <script src="js/main.js?v=2026110303"></script>
-  <script src="js/lapis.js?v=2026110303"></script>
+  <!-- Abertura: uma folha do mesmo papel em que o lápis desenha a bonequinha -->
+  <div class="abertura" id="abertura">
+    <div class="abertura__folha" id="abertura-folha">
+      <canvas id="abertura-riscos" aria-hidden="true"></canvas>
+      <canvas id="abertura-rosto" aria-hidden="true"></canvas>
+    </div>
+    <canvas id="abertura-lapis" aria-hidden="true"></canvas>
+  </div>
+
+  <script src="js/conteudo.js?v=2026110304"></script>
+  <script src="js/main.js?v=2026110304"></script>
+  <script src="js/abertura.js?v=2026110304"></script>
+  <script src="js/lapis.js?v=2026110304"></script>
 </body>
 </html>

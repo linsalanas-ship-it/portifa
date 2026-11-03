@@ -152,17 +152,37 @@ p { margin: 0; }
   z-index: 10;
   height: var(--menu-h);
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  gap: clamp(1.25rem, 4.4vw, 3.5rem);
-  padding: 0 1rem;
+  gap: 1rem;
+  padding: 0 var(--lateral);
   font-size: var(--t-menu);
   font-weight: 500;
   background: var(--cru);
   color: var(--azul);
 }
-.menu a { text-decoration: none; }
+.menu nav { display: flex; gap: clamp(0.9rem, 3vw, 2.2rem); }
+.menu a { text-decoration: none; white-space: nowrap; }
 .menu a:hover { text-decoration: underline; text-underline-offset: 0.2em; }
+
+/* assinatura: a bonequinha ao lado de "alana lins", na cor do texto */
+.menu__marca { display: inline-flex; align-items: center; gap: 0.4em; }
+.menu__marca:hover { text-decoration: none !important; }
+.assinatura {
+  flex: none;
+  width: 1.95em;
+  aspect-ratio: 737 / 800;
+  background-color: currentColor;
+  -webkit-mask: url("../assets/img/rosto.png") center / contain no-repeat;
+  mask: url("../assets/img/rosto.png") center / contain no-repeat;
+  transform-origin: 50% 85%;
+}
+.menu__marca:hover .assinatura,
+.menu__marca:focus-visible .assinatura { animation: balanca 1.6s ease-in-out infinite; }
+@keyframes balanca {
+  0%, 100% { transform: rotate(-7deg); }
+  50% { transform: rotate(7deg) translateX(0.12em); }
+}
 
 /* ===================== Seções ===================== */
 .secao {
@@ -307,15 +327,6 @@ p { margin: 0; }
 }
 .sobre .texto p + p { margin-top: 0.85em; }
 
-/* Rosto (header 2). Usa a imagem como máscara para herdar a cor do tema. */
-.rosto {
-  display: block;
-  width: clamp(8.5rem, 12vw, 9.5rem);
-  aspect-ratio: 737 / 800;
-  background-color: currentColor;
-  -webkit-mask: url("../assets/img/rosto.png") center / contain no-repeat;
-  mask: url("../assets/img/rosto.png") center / contain no-repeat;
-}
 
 /* Sopa de letrinhas: serviços flutuando */
 .sopa {
@@ -702,75 +713,29 @@ body { overflow-x: clip; } /* fotos de ponta a ponta não criam rolagem lateral 
 .bloco--botao { text-align: center; }
 .bloco--botao .botao { display: inline-block; margin-left: 0; text-decoration: none; }
 
-/* ===================== Abertura (headers 1, 2 e 3) =====================
-   Cada tela entra em etapas: primeiro a cor, depois o conteúdo.
-   O main.js vai acrescentando as classes na ordem:
-   intro--cor-1 → intro--conteudo-1 → intro--cor-2 → intro--conteudo-2 →
-   intro--fim (revela o header 3) → hero-visivel → menu-visivel           */
-.intro { display: none; }
-.com-intro body { overflow: hidden; }
-.com-intro .intro {
+/* ===================== Abertura com o lápis =====================
+   Uma folha do mesmo papel cobre a tela (a textura .grao fica por cima dela
+   também). O js/abertura.js desenha a bonequinha e o lápis; na saída a folha
+   sobe e o site sobe colado nela. */
+.com-abertura body { overflow: hidden; }
+.abertura { display: none; }
+.com-abertura .abertura {
   display: block;
   position: fixed;
   inset: 0;
   z-index: 20;
-  background: var(--cru);
-  transition: opacity 0.7s ease;
+  overflow: hidden;
+  touch-action: none;
 }
-.intro__tela {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0 var(--lateral);
-  opacity: 0;
-  transition: opacity 0.7s ease;
-}
-.intro__tela > * {
-  opacity: 0;
-  transform: translateY(0.6rem);
-  transition: opacity 0.8s ease, transform 0.8s ease;
-}
-.intro__tela--1 .titulo { line-height: 1.08; }
-
-.intro--cor-1 .intro__tela--1,
-.intro--cor-2 .intro__tela--2 { opacity: 1; }
-.intro--conteudo-1 .intro__tela--1 > *,
-.intro--conteudo-2 .intro__tela--2 > * { opacity: 1; transform: none; }
-.intro--fim { opacity: 0; pointer-events: none; }
-
-/* Rostinho: balança a cabeça e o traço "treme" como desenho à mão */
-.rosto-animado {
-  display: block;
-  filter: url(#rabisco);
-}
-.rosto-animado .rosto {
-  transform-origin: 50% 85%;
-  animation: balanca 1.6s ease-in-out infinite;
-}
-@keyframes balanca {
-  0%, 100% { transform: rotate(-7deg); }
-  50% { transform: rotate(7deg) translateX(0.25rem); }
-}
-
-/* Header 3: o título e depois o menu aparecem quando a abertura termina */
-.com-intro .hero > .nome,
-.com-intro .menu {
-  opacity: 0;
-  transform: translateY(0.6rem);
-  transition: opacity 0.8s ease, transform 0.8s ease;
-}
-/* o post-it só aparece (sem mexer no giro dele) */
-.com-intro .hero > .etiqueta { opacity: 0; transition: opacity 0.8s ease 0.25s; }
-.com-intro.hero-visivel .hero > .nome,
-.com-intro.menu-visivel .menu { opacity: 1; transform: none; }
-.com-intro.hero-visivel .hero > .etiqueta { opacity: 1; }
+.abertura.sem-cursor { cursor: none; }
+.abertura__folha { position: absolute; inset: 0; background: var(--cru); }
+.abertura canvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+#abertura-lapis { z-index: 2; }
 
 /* ===================== Lápis ===================== */
 /* Cursor em forma de lápis; a ponta (canto inferior esquerdo) é o ponto do clique */
 html { cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><g stroke='%230000EC' stroke-width='1.5' stroke-linejoin='round'><path d='M3 29 5.6 21.4 22 5 27 10 10.6 26.4Z' fill='%23F1EBE1'/><path d='M22 5 24.6 2.4Q25.5 1.5 26.4 2.4L29.6 5.6Q30.5 6.5 29.6 7.4L27 10Z' fill='%23F1EBE1'/><path d='M20.4 6.6 25.4 11.6' fill='none'/><path d='M5.6 21.4 10.6 26.4' fill='none'/><path d='M3 29 4.1 25.6 6.4 27.9Z' fill='%230000EC'/></g></svg>") 3 29, auto; }
-a, button, label, .intro, .card a { cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><g stroke='%230000EC' stroke-width='1.5' stroke-linejoin='round'><path d='M3 29 5.6 21.4 22 5 27 10 10.6 26.4Z' fill='%23F1EBE1'/><path d='M22 5 24.6 2.4Q25.5 1.5 26.4 2.4L29.6 5.6Q30.5 6.5 29.6 7.4L27 10Z' fill='%23F1EBE1'/><path d='M20.4 6.6 25.4 11.6' fill='none'/><path d='M5.6 21.4 10.6 26.4' fill='none'/><path d='M3 29 4.1 25.6 6.4 27.9Z' fill='%230000EC'/></g></svg>") 3 29, pointer; }
+a, button, label, .card a { cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><g stroke='%230000EC' stroke-width='1.5' stroke-linejoin='round'><path d='M3 29 5.6 21.4 22 5 27 10 10.6 26.4Z' fill='%23F1EBE1'/><path d='M22 5 24.6 2.4Q25.5 1.5 26.4 2.4L29.6 5.6Q30.5 6.5 29.6 7.4L27 10Z' fill='%23F1EBE1'/><path d='M20.4 6.6 25.4 11.6' fill='none'/><path d='M5.6 21.4 10.6 26.4' fill='none'/><path d='M3 29 4.1 25.6 6.4 27.9Z' fill='%230000EC'/></g></svg>") 3 29, pointer; }
 input, textarea { cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><g stroke='%230000EC' stroke-width='1.5' stroke-linejoin='round'><path d='M3 29 5.6 21.4 22 5 27 10 10.6 26.4Z' fill='%23F1EBE1'/><path d='M22 5 24.6 2.4Q25.5 1.5 26.4 2.4L29.6 5.6Q30.5 6.5 29.6 7.4L27 10Z' fill='%23F1EBE1'/><path d='M20.4 6.6 25.4 11.6' fill='none'/><path d='M5.6 21.4 10.6 26.4' fill='none'/><path d='M3 29 4.1 25.6 6.4 27.9Z' fill='%230000EC'/></g></svg>") 3 29, text; }
 
 /* Rastro de escrita (desenhado pelo js/lapis.js) */
@@ -808,6 +773,9 @@ input, textarea { cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/
 
 /* ===================== Responsivo ===================== */
 @media (max-width: 700px) {
+  .menu { font-size: 0.9375rem; gap: 0.75rem; }
+  .menu nav { gap: 0.85rem; }
+  .assinatura { width: 1.7em; }
   .etiqueta { position: relative; right: auto; top: auto; margin: 2rem 1rem 0 auto; }
   .cab { grid-template-columns: 1fr; }
   .cab .subtitulo { text-align: left; }
@@ -825,6 +793,16 @@ input, textarea { cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/
   .bloco--foto-texto,
   .bloco--foto-direita { grid-template-columns: 1fr; }
   .bloco--foto-direita figure { order: 0; }
+}
+
+@media (max-width: 380px) {
+  .menu { font-size: 0.875rem; }
+  .menu nav { gap: 0.7rem; }
+  .menu__marca { gap: 0.3em; }
+}
+@media (max-width: 340px) {
+  .menu { gap: 0.5rem; }
+  .menu nav { gap: 0.5rem; }
 }
 
 @media (max-width: 600px) {
@@ -861,6 +839,6 @@ input, textarea { cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { transition-duration: 0.01ms !important; }
-  .rosto-animado { filter: none; }
-  .rosto-animado .rosto { animation: none; }
+  .menu__marca:hover .assinatura,
+  .menu__marca:focus-visible .assinatura { animation: none; }
 }
