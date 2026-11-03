@@ -1092,7 +1092,7 @@ input, textarea { cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/
 .corrido--duas { display: block; columns: 2; column-gap: 4cqw; }
 .corrido--duas p { break-inside: avoid-column; }
 .corrido--duas p + p { margin-top: 0.8em; }
-.empurra { margin-top: auto; }
+.folha .empurra { margin-top: auto; }
 
 /* lide */
 .f-lide .lide { font-size: 4.15cqw; line-height: 1.12; letter-spacing: -0.01em; text-wrap: pretty; }
