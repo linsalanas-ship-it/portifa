@@ -51,24 +51,6 @@
     el.href = SITE.lojaUrl || "#";
   });
 
-  // O menu fixo assume a cor da seção que está passando por baixo dele
-  var menu = $("menu");
-  var secoes = Array.prototype.slice.call(document.querySelectorAll(".secao"));
-  function atualizarMenu() {
-    var y = menu.offsetHeight / 2;
-    var tema = "tema-azul";
-    for (var i = 0; i < secoes.length; i++) {
-      var r = secoes[i].getBoundingClientRect();
-      if (r.top <= y && r.bottom > y) {
-        tema = secoes[i].classList.contains("tema-rosa") ? "tema-rosa" : "tema-azul";
-        break;
-      }
-    }
-    menu.classList.toggle("tema-rosa", tema === "tema-rosa");
-    menu.classList.toggle("tema-azul", tema === "tema-azul");
-  }
-  window.addEventListener("scroll", atualizarMenu, { passive: true });
-  window.addEventListener("resize", atualizarMenu);
 
   // ---------- página inicial ----------
   if ($("grade-projetos")) {
@@ -241,7 +223,6 @@
     }
   }
 
-  atualizarMenu();
 
   // ---------- abertura: header 1 → header 2 → header 3 ----------
   function iniciarAbertura() {

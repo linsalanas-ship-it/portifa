@@ -17,7 +17,8 @@
 /* ===================== Tokens ===================== */
 :root {
   --azul: #0000ec;
-  --rosa: #fae7ec;
+  --cru: #f1ebe1;
+  --rosinha: #f7d5de;
 
   --fonte: "Switzer", "Helvetica Neue", Arial, sans-serif;
   --fonte-cap: "Retrogression", var(--fonte);
@@ -48,7 +49,7 @@ body {
   font-family: var(--fonte);
   font-size: var(--t-texto);
   line-height: 1.2;
-  background: var(--rosa);
+  background: var(--cru);
   color: var(--azul);
   -webkit-font-smoothing: antialiased;
 }
@@ -57,12 +58,8 @@ img { display: block; max-width: 100%; height: auto; }
 a { color: inherit; }
 p { margin: 0; }
 
-.tema-azul { background: var(--azul); color: var(--rosa); }
-.tema-rosa { background: var(--rosa); color: var(--azul); }
 
-::selection { background: currentColor; }
-.tema-azul ::selection { background: var(--rosa); color: var(--azul); }
-.tema-rosa ::selection { background: var(--azul); color: var(--rosa); }
+::selection { background: var(--azul); color: var(--cru); }
 
 :focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
 
@@ -111,7 +108,8 @@ p { margin: 0; }
   gap: clamp(1.25rem, 4.4vw, 3.5rem);
   padding: 0 1rem;
   font-size: var(--t-menu);
-  transition: background-color 0.3s, color 0.3s;
+  background: var(--cru);
+  color: var(--azul);
 }
 .menu a { text-decoration: none; }
 .menu a:hover { text-decoration: underline; text-underline-offset: 0.2em; }
@@ -246,7 +244,7 @@ p { margin: 0; }
   text-underline-offset: 0.18em;
   text-decoration-thickness: 1px;
 }
-.sopa__letra.sopa__letra--ativa { color: var(--azul); background: var(--rosa); text-decoration: none; }
+.sopa__letra.sopa__letra--ativa { color: var(--azul); background: var(--rosinha); text-decoration: none; }
 /* balão com a descrição, logo abaixo (ou acima) da palavra clicada */
 .sopa__descricao {
   position: absolute;
@@ -260,7 +258,7 @@ p { margin: 0; }
   line-height: 1.35;
   text-align: left;
   color: var(--azul);
-  background: var(--rosa);
+  background: var(--cru);
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
@@ -291,9 +289,8 @@ p { margin: 0; }
   font-size: var(--t-texto);
   color: inherit;
   background: transparent;
-  border: 2px solid currentColor;
+  border: 1px solid var(--azul);
   border-radius: 0;
-  opacity: 0.92;
   -webkit-appearance: none;
   appearance: none;
 }
@@ -301,7 +298,7 @@ p { margin: 0; }
 .form textarea { height: 11.6rem; resize: vertical; }
 .form ::placeholder { color: inherit; opacity: 0.55; }
 .form input:focus,
-.form textarea:focus { outline: none; opacity: 1; box-shadow: inset 0 0 0 1px currentColor; }
+.form textarea:focus { outline: none; box-shadow: inset 0 0 0 1px var(--azul); }
 .form__rodape {
   display: flex;
   justify-content: space-between;
@@ -315,13 +312,13 @@ p { margin: 0; }
   padding: 0.45rem 1.4rem;
   font: inherit;
   font-size: var(--t-sub);
-  color: var(--azul);
-  background: var(--rosa);
-  border: 2px solid var(--rosa);
+  color: var(--cru);
+  background: var(--azul);
+  border: 1px solid var(--azul);
   border-radius: 0;
   transition: background-color 0.2s, color 0.2s;
 }
-.botao:hover { background: transparent; color: var(--rosa); }
+.botao:hover { background: transparent; color: var(--azul); }
 .contato__links {
   margin-top: 2.5rem;
   font-size: var(--t-sub);
@@ -578,7 +575,7 @@ body { overflow-x: clip; } /* fotos de ponta a ponta não criam rolagem lateral 
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--rosa);
+  color: var(--cru);
   font-size: var(--t-sub);
   text-decoration: none;
 }
@@ -600,16 +597,9 @@ body { overflow-x: clip; } /* fotos de ponta a ponta não criam rolagem lateral 
 .bloco--destaque p::before { content: "“"; }
 .bloco--destaque p::after { content: "”"; }
 
-/* botão (sobre o rosa: azul com letra clara) */
+/* botão com link nas páginas de projeto */
 .bloco--botao { text-align: center; }
-.tema-rosa .botao {
-  display: inline-block;
-  color: var(--rosa);
-  background: var(--azul);
-  border-color: var(--azul);
-  text-decoration: none;
-}
-.tema-rosa .botao:hover { color: var(--azul); background: transparent; }
+.bloco--botao .botao { display: inline-block; margin-left: 0; text-decoration: none; }
 
 /* ===================== Abertura (headers 1, 2 e 3) =====================
    Cada tela entra em etapas: primeiro a cor, depois o conteúdo.
@@ -623,7 +613,7 @@ body { overflow-x: clip; } /* fotos de ponta a ponta não criam rolagem lateral 
   position: fixed;
   inset: 0;
   z-index: 20;
-  background: var(--rosa);
+  background: var(--cru);
   transition: opacity 0.7s ease;
 }
 .intro__tela {
@@ -676,9 +666,9 @@ body { overflow-x: clip; } /* fotos de ponta a ponta não criam rolagem lateral 
 
 /* ===================== Lápis ===================== */
 /* Cursor em forma de lápis; a ponta (canto inferior esquerdo) é o ponto do clique */
-html { cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><g stroke='%230000EC' stroke-width='1.5' stroke-linejoin='round'><path d='M3 29 5.6 21.4 22 5 27 10 10.6 26.4Z' fill='%23FAE7EC'/><path d='M22 5 24.6 2.4Q25.5 1.5 26.4 2.4L29.6 5.6Q30.5 6.5 29.6 7.4L27 10Z' fill='%23FAE7EC'/><path d='M20.4 6.6 25.4 11.6' fill='none'/><path d='M5.6 21.4 10.6 26.4' fill='none'/><path d='M3 29 4.1 25.6 6.4 27.9Z' fill='%230000EC'/></g></svg>") 3 29, auto; }
-a, button, label, .intro, .card a { cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><g stroke='%230000EC' stroke-width='1.5' stroke-linejoin='round'><path d='M3 29 5.6 21.4 22 5 27 10 10.6 26.4Z' fill='%23FAE7EC'/><path d='M22 5 24.6 2.4Q25.5 1.5 26.4 2.4L29.6 5.6Q30.5 6.5 29.6 7.4L27 10Z' fill='%23FAE7EC'/><path d='M20.4 6.6 25.4 11.6' fill='none'/><path d='M5.6 21.4 10.6 26.4' fill='none'/><path d='M3 29 4.1 25.6 6.4 27.9Z' fill='%230000EC'/></g></svg>") 3 29, pointer; }
-input, textarea { cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><g stroke='%230000EC' stroke-width='1.5' stroke-linejoin='round'><path d='M3 29 5.6 21.4 22 5 27 10 10.6 26.4Z' fill='%23FAE7EC'/><path d='M22 5 24.6 2.4Q25.5 1.5 26.4 2.4L29.6 5.6Q30.5 6.5 29.6 7.4L27 10Z' fill='%23FAE7EC'/><path d='M20.4 6.6 25.4 11.6' fill='none'/><path d='M5.6 21.4 10.6 26.4' fill='none'/><path d='M3 29 4.1 25.6 6.4 27.9Z' fill='%230000EC'/></g></svg>") 3 29, text; }
+html { cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><g stroke='%230000EC' stroke-width='1.5' stroke-linejoin='round'><path d='M3 29 5.6 21.4 22 5 27 10 10.6 26.4Z' fill='%23F1EBE1'/><path d='M22 5 24.6 2.4Q25.5 1.5 26.4 2.4L29.6 5.6Q30.5 6.5 29.6 7.4L27 10Z' fill='%23F1EBE1'/><path d='M20.4 6.6 25.4 11.6' fill='none'/><path d='M5.6 21.4 10.6 26.4' fill='none'/><path d='M3 29 4.1 25.6 6.4 27.9Z' fill='%230000EC'/></g></svg>") 3 29, auto; }
+a, button, label, .intro, .card a { cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><g stroke='%230000EC' stroke-width='1.5' stroke-linejoin='round'><path d='M3 29 5.6 21.4 22 5 27 10 10.6 26.4Z' fill='%23F1EBE1'/><path d='M22 5 24.6 2.4Q25.5 1.5 26.4 2.4L29.6 5.6Q30.5 6.5 29.6 7.4L27 10Z' fill='%23F1EBE1'/><path d='M20.4 6.6 25.4 11.6' fill='none'/><path d='M5.6 21.4 10.6 26.4' fill='none'/><path d='M3 29 4.1 25.6 6.4 27.9Z' fill='%230000EC'/></g></svg>") 3 29, pointer; }
+input, textarea { cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><g stroke='%230000EC' stroke-width='1.5' stroke-linejoin='round'><path d='M3 29 5.6 21.4 22 5 27 10 10.6 26.4Z' fill='%23F1EBE1'/><path d='M22 5 24.6 2.4Q25.5 1.5 26.4 2.4L29.6 5.6Q30.5 6.5 29.6 7.4L27 10Z' fill='%23F1EBE1'/><path d='M20.4 6.6 25.4 11.6' fill='none'/><path d='M5.6 21.4 10.6 26.4' fill='none'/><path d='M3 29 4.1 25.6 6.4 27.9Z' fill='%230000EC'/></g></svg>") 3 29, text; }
 
 /* Rastro de escrita (desenhado pelo js/lapis.js) */
 .rastro {
@@ -688,6 +678,20 @@ input, textarea { cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/
   height: 100%;
   z-index: 30;
   pointer-events: none;
+}
+
+/* ===================== Textura de papel =====================
+   Fica por cima de tudo (conteúdo, menu e abertura), abaixo só do
+   canvas do lápis. Quase imperceptível. */
+.grao {
+  position: fixed;
+  inset: 0;
+  z-index: 25;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.2  0 0 0 0 0.15  0 0 0 0 0.1  0 0 0 0.9 -0.2'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23g)'/%3E%3C/svg%3E");
+  background-size: 220px 220px;
+  mix-blend-mode: multiply;
+  opacity: 0.35;
 }
 
 /* ===================== Responsivo ===================== */

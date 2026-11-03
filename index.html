@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Alana Lins — jornalista, estrategista e redatora</title>
   <meta name="description" content="Alana Lins: jornalista, estrategista e redatora. Estratégia de marca, identidade verbal, conteúdo e copywriting.">
-  <meta name="theme-color" content="#0000EC">
+  <meta name="theme-color" content="#F1EBE1">
   <link rel="preload" href="assets/fonts/Switzer-Regular.otf" as="font" type="font/otf" crossorigin>
   <link rel="preload" href="assets/fonts/Retrogression-Regular.otf" as="font" type="font/otf" crossorigin>
-  <link rel="stylesheet" href="css/style.css?v=2026102825">
+  <link rel="stylesheet" href="css/style.css?v=2026110301">
   <script>
     // Decide antes de pintar a página se a abertura (headers 1 e 2) deve rodar.
     try {
@@ -19,12 +19,13 @@
   </script>
 </head>
 <body>
+  <div class="grao" aria-hidden="true"></div>
   <!-- Headers 1 e 2: abertura em sequência -->
   <div class="intro" id="intro" aria-hidden="true">
-    <div class="intro__tela intro__tela--1 tema-azul">
+    <div class="intro__tela intro__tela--1">
       <p class="titulo" data-campo="abertura.frase"></p>
     </div>
-    <div class="intro__tela intro__tela--2 tema-rosa">
+    <div class="intro__tela intro__tela--2">
       <span class="rosto-animado"><span class="rosto"></span></span>
     </div>
   </div>
@@ -48,18 +49,18 @@
 
   <main>
     <!-- Header 3 -->
-    <header class="secao hero tema-azul" id="inicio">
+    <header class="secao hero" id="inicio">
       <h1 class="titulo" data-campo="abertura.nome"></h1>
       <p class="subtitulo" data-campo="abertura.descricao"></p>
     </header>
 
-    <section class="secao projetos tema-rosa" id="projetos">
+    <section class="secao projetos" id="projetos">
       <h2 class="titulo" data-campo="secaoProjetos.titulo"></h2>
       <p class="subtitulo" data-campo="secaoProjetos.descricao"></p>
       <ul class="grade" id="grade-projetos"></ul>
     </section>
 
-    <section class="secao sobre tema-rosa" id="sobre">
+    <section class="secao sobre" id="sobre">
       <h2 class="titulo" data-campo="sobre.titulo"></h2>
       <div class="sobre__conteudo">
         <img class="sobre__foto" id="sobre-foto" alt="" loading="lazy">
@@ -67,14 +68,14 @@
       </div>
     </section>
 
-    <section class="secao servicos tema-azul" id="servicos">
+    <section class="secao servicos" id="servicos">
       <h2 class="titulo" data-campo="servicos.titulo"></h2>
       <div class="sopa" id="sopa">
         <p class="sopa__descricao" id="sopa-descricao" aria-live="polite"></p>
       </div>
     </section>
 
-    <section class="secao contato tema-azul" id="contato">
+    <section class="secao contato" id="contato">
       <h2 class="titulo" data-campo="contato.titulo"></h2>
       <form class="form" id="form-contato">
         <label class="campo">
@@ -98,8 +99,8 @@
     </section>
   </main>
 
-  <script src="js/conteudo.js?v=2026102825"></script>
-  <script src="js/main.js?v=2026102825"></script>
-  <script src="js/lapis.js?v=2026102825"></script>
+  <script src="js/conteudo.js?v=2026110301"></script>
+  <script src="js/main.js?v=2026110301"></script>
+  <script src="js/lapis.js?v=2026110301"></script>
 </body>
 </html>
