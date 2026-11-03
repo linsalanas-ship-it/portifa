@@ -49,6 +49,11 @@
       ' muted loop autoplay playsinline preload="metadata" aria-label="' + esc(rotulo) + '"></video>';
   }
 
+  function figura(src, alt, nome, classe) {
+    return '<figure class="midia' + (classe ? " " + classe : "") + '" data-nome="' + esc(puro(nome)) + '"><img src="' + esc(src) +
+      '" alt="' + esc(alt || "") + '" draggable="false"></figure>';
+  }
+
   // ---------- cada tipo de folha ----------
   var proximo = SITE.projetos[(indice + 1) % SITE.projetos.length];
   var TIPOS = {
@@ -66,7 +71,7 @@
         (f.itens || []).map(function (t) { return '<li><span class="cheio"></span>' + fmt(t) + "</li>"; }).join("") + "</ul></div>";
     },
     tagline: function (f) {
-      return '<div class="pad">' + meta(f.meta) + '<p class="tag-grande">' + fmt(f.texto) + "</p>" +
+      return '<div class="pad">' + meta(f.meta) + '<p class="tag-grande' + (f.legenda ? "" : " empurra") + '">' + fmt(f.texto) + "</p>" +
         (f.legenda ? '<p class="leg empurra">' + fmt(f.legenda) + "</p>" : "") + "</div>";
     },
     manifesto: function (f) {
@@ -85,9 +90,22 @@
         "</div></div>";
     },
     texto: function (f) {
-      return '<div class="pad">' + meta(f.meta) + (f.titulo ? '<h2 class="inter">' + fmt(f.titulo) + "</h2>" : "") +
-        '<div class="corrido' + (f.colunas === 2 ? " corrido--duas" : "") + '">' +
-        (f.texto || []).map(function (t) { return "<p>" + fmt(t) + "</p>"; }).join("") + "</div></div>";
+      var corpo;
+      if (Array.isArray(f.colunas)) {
+        // duas colunas montadas à mão: cada item é um parágrafo, { forte }, { destaque } ou { lista }
+        corpo = '<div class="corrido duas">' + f.colunas.map(function (c) {
+          return "<div>" + c.map(function (it) {
+            if (typeof it === "string") return "<p>" + fmt(it) + "</p>";
+            if (it.lista) return '<ul class="historias">' + it.lista.map(function (t) { return "<li>" + fmt(t) + "</li>"; }).join("") + "</ul>";
+            if (it.destaque) return '<p class="destaque-in">' + fmt(it.destaque) + "</p>";
+            return '<p class="forte">' + fmt(it.forte || it.texto) + "</p>";
+          }).join("") + "</div>";
+        }).join("") + "</div>";
+      } else {
+        corpo = '<div class="corrido' + (f.colunas === 2 ? " corrido--duas" : "") + '">' +
+          (f.texto || []).map(function (t) { return "<p>" + fmt(t) + "</p>"; }).join("") + "</div>";
+      }
+      return '<div class="pad">' + meta(f.meta) + (f.titulo ? '<h2 class="inter">' + fmt(f.titulo) + "</h2>" : "") + corpo + "</div>";
     },
     formulario: function (f) {
       var c = f.colunas || ["", ""];
@@ -109,7 +127,16 @@
         '<span class="passo__marca" aria-hidden="true"></span>' +
         '<p class="passo__texto">' + fmt(f.texto) + "</p>" +
         (f.url ? link(f.link || "ver a página no site", f.url) : "") + "</div>" +
-        '<figure class="midia" data-nome="' + esc(f.nome || f.titulo) + '"><img src="' + esc(f.foto) + '" alt="' + esc(puro(f.titulo)) + '" draggable="false"></figure>';
+        figura(f.foto, f.alt || puro(f.titulo), f.nome || f.titulo);
+    },
+    "foto-texto": function (f) {
+      return figura(f.foto, f.alt, f.nome) +
+        '<div class="pad">' + meta(f.meta) + '<p class="frase">' + fmt(f.texto) + "</p></div>";
+    },
+    personalidade: function (f) {
+      return '<div class="pad">' + meta(f.meta) + '<p class="tag-grande">' + fmt(f.texto) + "</p>" +
+        (f.legenda ? '<p class="leg empurra">' + fmt(f.legenda) + "</p>" : "") + "</div>" +
+        figura(f.foto, f.alt, f.nome);
     },
     lista: function (f) {
       return '<div class="pad"><h3>' + fmt(f.titulo) + "</h3><ul>" +
@@ -122,21 +149,23 @@
           esc(puro(proximo.titulo)) + '</span><span aria-hidden="true">→</span></a>' : "") + "</div>";
     },
     foto: function (f) {
-      return '<figure class="midia midia--cheia" data-nome="' + esc(f.nome) + '"><img src="' + esc(f.src) + '" alt="' + esc(f.alt || f.nome) + '" draggable="false"></figure>';
+      return figura(f.src, f.alt || f.nome, f.nome, "midia--cheia");
     }
   };
   var CLASSES = {
     lide: "f-lide", frase: "f-frase", bilhete: "f-achados", tagline: "f-tag", manifesto: "f-manifesto",
     "video-youtube": "f-video", texto: "f-texto", formulario: "f-pilares", tela: "f-tela", passo: "f-passo",
-    lista: "f-pratica f-entrega", creditos: "f-creditos", foto: "f-foto"
+    lista: "f-pratica f-entrega", creditos: "f-creditos", foto: "f-foto",
+    "foto-texto": "f-fototexto", personalidade: "f-tag f-perso-foto"
   };
   var FUNDOS = { pagina: 1, azul: 1, rosinha: 1, rosa: 1, lilas: 1, amarelo: 1, salvia: 1 };
 
   function folhaHTML(f) {
     var fundo = FUNDOS[f.fundo] ? f.fundo : "pagina";
-    var estilo = "--ar:" + (f.proporcao || 1.3) + ";--fundo:var(--f-" + fundo + ")" +
-      (fundo === "azul" ? ";--tinta:var(--f-pagina)" : "") + (f.tamanho ? ";--fs:" + f.tamanho + "cqw" : "");
-    var classe = "folha " + (CLASSES[f.tipo] || "") + (f.quadrada ? " f-quadrada" : "");
+    var estilo = "--ar:" + (f.proporcao || f.espaco || 1.3) + ";--fundo:var(--f-" + fundo + ")" +
+      (fundo === "azul" ? ";--tinta:var(--f-pagina)" : "") + (f.tamanho ? ";--fs:" + f.tamanho + "cqw" : "") +
+      (f.corpo ? ";--corpo:" + f.corpo + "cqw" : "");
+    var classe = "folha " + (CLASSES[f.tipo] || "") + (f.quadrada ? " f-quadrada" : "") + (f.retrato ? " f-retrato" : "");
     var corpo = (TIPOS[f.tipo] || TIPOS.texto)(f);
     return '<article class="' + classe + '" data-f="' + esc(f.id) + '" style="' + estilo + '">' + corpo + "</article>";
   }
@@ -178,7 +207,7 @@
   // ---------- arranjo e arrasto ----------
   var mesa = $("#mesa"), els = {}, pos = {}, ar = {}, INICIO = {}, NOMES = {}, W = 0, topo = 0, alturaMin = 0;
   (M.folhas || []).forEach(function (f) {
-    INICIO[f.id] = { x: f.x || 0, y: f.y || 0, w: f.largura || 0.3, r: f.giro || 0, z: f.camada || 1 };
+    INICIO[f.id] = { x: f.x || 0, y: f.y || 0, w: f.largura || 0.3, r: f.giro || 0, z: f.camada || 1, ar0: f.tipo === "foto" ? f.espaco : 0 };
     NOMES[f.id] = puro(f.nome || f.titulo || f.id);
   });
   $$(".folha", mesa).forEach(function (el) {
@@ -198,15 +227,28 @@
     });
   }
   function modoPilha() { return reduzido || window.innerWidth < 760; }
-  function larg(k) { return INICIO[k].w; }
+  // fotos: a área é a do espaço reservado (largura × proporção indicadas); a foto
+  // mantém a proporção original e fica centrada nesse espaço
+  function larg(k) {
+    var i = INICIO[k];
+    if (!i.ar0) return i.w;
+    return Math.sqrt(i.w * i.w / i.ar0 * ar[k]);
+  }
   function alt(k) { return larg(k) / ar[k]; }
+  function desvio(k) {
+    var i = INICIO[k];
+    if (!i.ar0) return { x: 0, y: 0 };
+    var dx = (i.w - larg(k)) / 2;
+    dx = Math.min(Math.max(dx, -i.x), 1 - i.x - larg(k));
+    return { x: dx, y: Math.max((i.w / i.ar0 - alt(k)) / 2, -i.y) };
+  }
   function aplicar(k) {
-    var p = pos[k];
-    els[k].style.transform = "translate(" + (p.x * W).toFixed(1) + "px," + (p.y * W).toFixed(1) + "px) rotate(" + p.r + "deg)";
+    var p = pos[k], d = desvio(k);
+    els[k].style.transform = "translate(" + ((p.x + d.x) * W).toFixed(1) + "px," + ((p.y + d.y) * W).toFixed(1) + "px) rotate(" + p.r + "deg)";
   }
   function altura() {
     var max = 0;
-    Object.keys(pos).forEach(function (k) { max = Math.max(max, pos[k].y + alt(k)); });
+    Object.keys(pos).forEach(function (k) { max = Math.max(max, pos[k].y + desvio(k).y + alt(k)); });
     return Math.max(alturaMin, max + 0.03);
   }
   function medir() {

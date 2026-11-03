@@ -1136,7 +1136,8 @@ input, textarea { cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/
 
 /* tagline */
 .f-tag { --tinta: #fbf7ef; }
-.f-tag .tag-grande { font-size: 11cqw; line-height: 0.9; letter-spacing: -0.035em; text-wrap: balance; }
+.f-perso-foto { --tinta: var(--azul); }
+.f-tag .tag-grande { font-size: var(--fs, 11cqw); line-height: 0.9; letter-spacing: -0.035em; text-wrap: balance; }
 .f-tag .leg { font-size: 2.35cqw; line-height: 1.38; max-width: 82%; }
 
 /* manifesto */
@@ -1154,7 +1155,24 @@ input, textarea { cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/
 
 /* texto (título + texto corrido) */
 .f-texto .inter { font-size: 5.6cqw; }
-.f-texto .corrido { font-size: 2.2cqw; }
+.f-texto .corrido { font-size: var(--corpo, 2.2cqw); }
+.duas { display: grid; grid-template-columns: 1fr 1fr; gap: 0 4cqw; align-items: start; }
+.duas > div { display: flex; flex-direction: column; gap: 0.8em; min-width: 0; }
+.forte { font-weight: 600; }
+.historias { list-style: none; margin: 0; padding: 0; }
+.historias li { padding: 0.45em 0; border-top: 1px dashed currentColor; }
+.destaque-in { font-size: 3.9cqw; line-height: 1.08; letter-spacing: -0.015em; margin-bottom: 0.4em !important; text-wrap: balance; }
+
+/* foto + texto embaixo */
+.f-fototexto { display: flex; flex-direction: column; }
+.f-fototexto .midia { flex: none; width: 100%; aspect-ratio: 16 / 9; }
+.f-fototexto .pad { flex: 1 1 auto; height: auto; min-height: 0; padding: 3cqw 4cqw 4cqw; justify-content: space-between; }
+
+/* personalidade com foto */
+.f-perso-foto { display: grid; grid-template-columns: 1.2fr 0.8fr; }
+.f-perso-foto .pad { min-width: 0; }
+.f-perso-foto .tag-grande { font-size: 6.4cqw; }
+.f-perso-foto .leg { font-size: 1.95cqw; line-height: 1.34; max-width: none; }
 
 /* passo: página de destino, texto à esquerda + foto */
 .f-passo { display: grid; grid-template-columns: 1fr 1fr; }
@@ -1291,7 +1309,7 @@ html.visor-aberto { overflow: hidden; }
 .pilha .selos { grid-template-columns: repeat(2, 2rem); gap: 3px; }
 .pilha .selos span { width: 2rem; font-size: 0.95rem; }
 .pilha .inter, .pilha .f-texto .inter { font-size: 2rem; }
-.pilha .f-achados .pad { padding: 1.75rem 1.25rem 1.25rem; }
+.pilha .f-achados .pad { padding: 1.75rem 1.25rem 2.25rem; }
 .pilha .f-achados h3 { font-size: 1.5rem; }
 .pilha .f-achados li { font-size: 1.05rem; grid-template-columns: 1.4rem 1fr; gap: 0.6rem; padding-top: 0.6rem; }
 .pilha .f-achados li + li { margin-top: 0.6rem; }
@@ -1327,6 +1345,13 @@ html.visor-aberto { overflow: hidden; }
 .pilha .proximo { font-size: 1.1rem; padding-top: 0.7rem; }
 .pilha .ampliar { top: 0.75rem; bottom: auto; }
 .pilha .heroi { transform: rotate(-0.8deg); }
+.pilha .duas { grid-template-columns: 1fr; gap: 0.8em; }
+.pilha .destaque-in { font-size: 1.5rem; }
+.pilha .f-fototexto .pad { padding: 1.25rem 1.25rem 2.25rem; gap: 1rem; }
+.pilha .f-perso-foto { grid-template-columns: 1fr; }
+.pilha .f-perso-foto .tag-grande { font-size: 2.4rem; }
+.pilha .f-perso-foto .leg { font-size: 1rem; }
+.pilha .f-perso-foto .midia, .pilha .f-retrato .midia { aspect-ratio: 4 / 5; }
 .pilha .midia, .pilha .heroi { cursor: zoom-in; }
 
 @media (prefers-reduced-motion: reduce) {

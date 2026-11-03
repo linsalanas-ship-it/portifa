@@ -74,13 +74,21 @@
          manifesto   titulo, colunas: [[estrofes], [estrofes]], assinatura
                      (use <br> para quebrar linha e <em>...</em> para itálico)
          video-youtube  url do YouTube, titulo
-         texto       titulo, texto: [parágrafos], colunas: 2 (opcional)
+         texto       titulo, texto: [parágrafos], colunas: 2 (opcional; o texto corre
+                     nas duas colunas), corpo (tamanho do texto, em cqw)
+                     ou colunas: [[...], [...]] montadas à mão, com parágrafos e
+                     { forte: "..." } (em 600), { destaque: "..." } (letra grande),
+                     { lista: ["...", "..."] } (com fio pontilhado)
          formulario  titulo, subtitulo, colunas: ["a", "b"], linhas: [["...", "..."]], rodape
          tela        video, capa (1º quadro .jpg), link: { texto, url }
-         passo       titulo (lugar), texto, foto, url (olho: "página de destino")
+         passo       titulo (lugar), texto, foto, url (olho: "página de destino");
+                     retrato: true deixa a foto 4:5 no celular
+         foto-texto  foto (16:9 em cima), texto (frase no pé), tamanho
+         personalidade  texto (destaque), legenda, foto (à direita)
          lista       titulo, itens
          creditos    pares: [["rótulo", "valor"]] (o link do próximo projeto é automático)
-         foto        src, alt
+         foto        src, alt, espaco (proporção do espaço reservado: largura ×
+                     espaco define a área; a foto fica na proporção original)
        As fotos e vídeos entram no visor na ordem da lista, depois da abertura.
 
    Projetos sem "blocos" nem "mesa" usam o modelo simples: banner + "texto".
@@ -236,132 +244,132 @@ const SITE = {
       titulo: "Purpose Paper",
       resumo: "estratégia de marca e identidade verbal para papelaria e editora",
       capa: "assets/img/purpose-paper/capa-grade.jpg",
-      subtitulo: "estratégia de marca e identidade verbal",
-      blocos: [
-        { tipo: "foto", src: "assets/img/purpose-paper/abertura.jpg", animacao: "assets/img/purpose-paper/abertura.mp4" },
-        {
-          tipo: "lide",
-          texto: [
-            "A Purpose Paper é uma papelaria e editora brasileira que ajuda mulheres a cultivar bons hábitos. Seus produtos — planners, journals, livros, cadernos e acessórios — são ferramentas úteis e belas que simplificam práticas essenciais para uma vida significativa integralmente, considerando relacionamentos, família, espiritualidade, vocação, trabalho e outras esferas.",
-          ],
-        },
-        { tipo: "intertitulo", texto: "ESCUTA & DIAGNÓSTICO" },
-        {
-          tipo: "texto",
-          texto: [
-            "A primeira etapa foi de escuta ativa: conversas com a fundadora, equipe e clientes revelaram percepções, desejos e contradições sobre a marca. Essas trocas ajudaram a enriquecer o briefing e a delimitar o escopo real da entrega.",
-            "A Purpose Paper vivia um momento de crescimento — de catálogo, presença digital, parcerias e equipe. A comunicação, no entanto, ainda refletia o estágio inicial da marca. Era hora de evoluir: deixar de parecer uma “lojinha fofa” e assumir sua posição como uma editora sólida, com autoridade e autenticidade.",
-          ],
-        },
-        { tipo: "foto", largura: "wide", src: "assets/img/purpose-paper/diagnostico.jpg" },
-        {
-          tipo: "itens",
-          titulo: "Principais achados desse momento",
-          itens: [
-            { titulo: "Inconsistência de discurso", texto: "Embora existisse uma narrativa-base, ela se perdia nas comunicações do dia a dia. A marca se posicionava de formas diferentes a cada campanha, dificultando o reconhecimento e a construção de confiança." },
-            { titulo: "Personalidade verbal em construção", texto: "Foi nesse momento que definimos, junto à cliente, qual seria o tom ideal — mantendo a delicadeza da marca, mas com mais clareza, maturidade e firmeza." },
-            { titulo: "Mapeamento competitivo e diferencial", texto: "Identificamos concorrentes diretos e mapeamos como a Purpose Paper poderia ocupar um espaço próprio, valorizando seu caráter discipulador e seu cuidado estético." },
-            { titulo: "Barreiras de uso e percepção de valor", texto: "Muitas clientes tinham “pena” de usar os produtos por serem bonitos demais. A nova identidade verbal precisava incentivar o uso intencional e cotidiano, mostrando que papel bonito também é ferramenta — e que papel guardado não transforma hábitos." },
-          ],
-        },
-        { tipo: "intertitulo", texto: "NARRATIVA DA MARCA" },
-        {
-          tipo: "texto",
-          texto: [
-            "Ao mergulhar na essência da Purpose Paper, entendemos que sua origem era mais do que uma história para a aba “Quem somos” — era o coração da marca.",
-            "Maeli, fundadora da empresa, criou a empresa antes de casar. O que começou como uma forma de financiar essa nova etapa da vida acabou se tornando um negócio: uma marca que ajudaria outras mulheres a também realizarem seus objetivos.",
-            "Escolhemos trazer isso para o centro da marca: não apenas sonhar, desejar ou planejar, mas ir até o fim, realizar. O lugar onde isso acontece é o papel. É com papel (e no papel) que essas mulheres constroem a própria vida, página a página.",
-          ],
-        },
-        {
-          tipo: "texto",
-          texto: [
-            "A força dessa percepção orientou também os ajustes no logo (e nas demais expressões visuais). A estrela, que antes representava o Propósito, passou a simbolizar também uma folha de papel. O encontro entre ferramenta e Propósito, presente e futuro.",
-          ],
-        },
-        { tipo: "foto", largura: "wide", src: "assets/img/purpose-paper/simbolo.jpg" },
-        { tipo: "destaque", texto: "É com papel (e no papel) que essas mulheres constroem a própria vida, página a página." },
-        { tipo: "intertitulo", texto: "ESTRATÉGIA DE VOZ" },
-        {
-          tipo: "texto",
-          texto: [
-            "A Purpose Paper já era percebida como uma marca amiga: próxima, acolhedora e empática. Nosso trabalho foi aproveitar uma oportunidade na paisagem competitiva e reposicioná-la como uma amiga conselheira: alguém que dialoga com leveza, mas que também tem autoridade no assunto. Esse ajuste trouxe mais firmeza à comunicação, alinhando-se à história de pioneirismo e à robustez das entregas da marca.",
-            "A nova identidade verbal oficializa essa postura já intuitiva: a de uma marca que orienta sem impor, que ensina com beleza e que inspira ação prática no dia a dia.",
-          ],
-        },
-        { tipo: "foto", largura: "wide", src: "assets/img/purpose-paper/personalidade.jpg" },
-        {
-          tipo: "itens",
-          titulo: "Pilares do tom de voz",
-          itens: [
-            { titulo: "Feminino", texto: "Nossa voz fala de mulher para mulher, no feminino. Valorizamos a escuta, o cuidado nos detalhes e a conexão que nasce da empatia." },
-            { titulo: "Gentil", texto: "Escolhemos palavras que acolhem. Mesmo ao ensinar ou corrigir, nossa fala é respeitosa e amável — como quem fala com uma amiga querida." },
-            { titulo: "Maduro", texto: "Não falamos por impulso. Trazemos reflexões bem pensadas, conselhos sábios e uma fé que é provada no cotidiano. Nossa maturidade dá firmeza à nossa voz." },
-            { titulo: "Prático", texto: "Nos comprometemos a traduzir a teoria para a prática. Por isso, nossa comunicação é fácil de entender, aplicável e voltada para a vida real." },
-          ],
-        },
-        { tipo: "foto", largura: "wide", src: "assets/img/purpose-paper/tom-de-voz.jpg" },
-        { tipo: "intertitulo", texto: "TOM DE VOZ NA PRÁTICA" },
-        {
-          tipo: "texto",
-          texto: [
-            "Esses pilares se desdobram em diferentes tipos de linguagem prática, moldando a presença da marca nos pontos de contato.",
-          ],
-        },
-        {
-          tipo: "itens",
-          itens: [
-            {
-              titulo: "Manifesto",
-              texto: "O que defendemos com firmeza e anunciamos com beleza. Usado para expressar o coração da marca de forma poética e profunda, em apresentações institucionais e campanhas. Texto narrado no vídeo-manifesto pela fundadora da marca.",
-            },
-            {
-              titulo: "Tagline principal",
-              frases: ["Habitar no Propósito & Realizar com papel."],
-              texto: "A síntese da marca. Presente em embalagens, redes sociais, site e abertura de produtos.",
-            },
-            {
-              titulo: "Textos institucionais",
-              texto: "Criados para materiais impressos e páginas institucionais do site, reforçando o posicionamento com mais objetividade.",
-            },
-            {
-              titulo: "Chamadas à ação",
-              frases: ["“Seus hábitos com Propósito começam agora.”", "“É hora de planejar e realizar!”", "“Dia a dia. Página a página.”"],
-              texto: "Frases motivadoras que incentivam o uso intencional dos produtos. Aplicadas em campanhas, embalagens e canais digitais.",
-            },
-            {
-              titulo: "Linguagem de comunidade",
-              frases: ["“A história da Purpose é feita de muitas histórias.”", "“Em nossas mãos, o papel vira ferramenta.”", "“Clube das que planejam e realizam!”"],
-              texto: "Frases que expressam pertencimento, afinidade e visão compartilhada.",
-            },
-            {
-              titulo: "Palavras sagradas",
-              palavras: ["Propósito", "Papel", "Ferramentas", "Hábitos", "Rotina", "Praticar", "Realizar"],
-              texto: "Entre outras, essas são palavras que representam a essência da marca e são repetidas intencionalmente para reforçar posicionamento.",
-            },
-          ],
-        },
-        { tipo: "foto", largura: "wide", src: "assets/img/purpose-paper/manifesto.jpg" },
-        { tipo: "video", url: "https://youtu.be/Rbkx2lQS_wI" },
-        { tipo: "foto", largura: "wide", src: "assets/img/purpose-paper/frase-guia.jpg" },
-        { tipo: "foto", largura: "wide", src: "assets/img/purpose-paper/outdoor.jpg" },
-        { tipo: "foto", largura: "wide", src: "assets/img/purpose-paper/cartao.jpg" },
-        { tipo: "foto", largura: "wide", src: "assets/img/purpose-paper/site.jpg" },
-        { tipo: "foto", largura: "wide", src: "assets/img/purpose-paper/campanha-habitos.jpg" },
-        { tipo: "foto", largura: "wide", src: "assets/img/purpose-paper/campanha-rotina.jpg" },
-        { tipo: "foto", largura: "wide", src: "assets/img/purpose-paper/cartazes.jpg" },
-        { tipo: "foto", largura: "wide", src: "assets/img/purpose-paper/loja-planners.jpg" },
-        {
-          tipo: "texto",
-          texto: [
-            "O projeto foi concluído com a entrega de um brandbook detalhado e treinamentos práticos de expressão verbal e visual para o time interno. O objetivo era mais do que apresentar diretrizes: era garantir que cada pessoa envolvida com a Purpose Paper se sentisse parte da nova fase e soubesse como dar voz e forma ao Propósito da marca.",
-          ],
-        },
-      ],
+      mesa: {
+        ficha: [
+          ["cliente", "papelaria e editora"],
+          ["trabalho", "estratégia, plataforma de marca e identidade verbal"],
+          ["entrega", "brandbook com manual de identidade verbal e treinamento interno"],
+        ],
+        abertura: { video: "assets/video/purpose-paper/abertura.mp4", src: "assets/video/purpose-paper/abertura.jpg", alt: "Ilustração da Purpose Paper sobre fotos da marca" },
+        folhas: [
+          // ---------- apresentação ----------
+          { id: "lide", tipo: "lide", nome: "apresentação", fundo: "pagina", proporcao: 1.32,
+            x: 0.03, y: 0.02, largura: 0.42, giro: 1.5, camada: 2,
+            meta: ["Purpose Paper · papelaria e editora", "folha 01"], selos: "PP02",
+            texto: "A Purpose Paper é uma papelaria e editora brasileira que ajuda mulheres a cultivar bons hábitos. Seus produtos (planners, journals, livros, cadernos e acessórios) são ferramentas que simplificam práticas essenciais para uma vida significativa na sua totalidade, considerando relacionamentos, família, espiritualidade, vocação, trabalho e outras esferas." },
+          { id: "objetivos", tipo: "bilhete", nome: "principais objetivos", fundo: "amarelo", proporcao: 0.82,
+            x: 0.74, y: 0, largura: 0.2, giro: 5, camada: 3,
+            titulo: "Principais objetivos",
+            itens: ["Fortalecer o reconhecimento de marca", "Construir confiança como uma marca pioneira no nicho", "Definir personalidade da marca para ocupar um espaço próprio", "Incentivar o uso intencional dos produtos após a compra (reconhecimento de valor)"] },
+          { id: "tagline", tipo: "tagline", nome: "tagline principal", fundo: "azul", proporcao: 1.45, tamanho: 8.6,
+            x: 0.48, y: 0.2, largura: 0.32, giro: -2, camada: 4,
+            meta: ["tagline principal", "Purpose Paper"], texto: "Habitar no Propósito & Realizar com papel" },
+          // ---------- narrativa ----------
+          { id: "narrativa", tipo: "texto", nome: "narrativa de marca", fundo: "rosinha", proporcao: 1.5, corpo: 2.3,
+            x: 0.03, y: 0.5, largura: 0.52, giro: -1, camada: 5,
+            meta: ["narrativa de marca", "folha 02"], titulo: "Narrativa de marca",
+            colunas: [
+              [
+                { forte: "Nossa história de origem se conecta com muitas outras histórias." },
+                { lista: [
+                  "Para poupar pro casamento, May criou uma empresa do zero.",
+                  "Helô se reconectou com seu hobby da infância e voltou a desenhar.",
+                  "Para realizar o sonho de cursar Medicina, Vitória precisou reorganizar todo o seu calendário.",
+                  "Como um ato de esperança depois de uma depressão pós-parto, Manu criou um livro de memórias da sua família.",
+                ] },
+              ],
+              [
+                { destaque: "A história da Purpose Paper é a história de muitas mulheres que planejam e realizam." },
+                "Na mão delas, o papel vira ferramenta para estar com Deus na rotina, encontrar a beleza no ordinário e persistir em bons hábitos.",
+                { forte: "A Purpose Paper é feita de mulheres que habitam no Propósito e realizam com papel." },
+              ],
+            ] },
+          { id: "escrita", tipo: "foto", nome: "planner em uso", src: "assets/img/purpose-paper/escrita.jpg", alt: "Mãos escrevendo num planner da Purpose Paper",
+            espaco: 1.5, x: 0.59, y: 0.52, largura: 0.36, giro: 1.5, camada: 6 },
+          // ---------- manifesto ----------
+          { id: "manifesto", tipo: "manifesto", nome: "manifesto", fundo: "lilas", proporcao: 0.86,
+            x: 0.03, y: 0.94, largura: 0.44, giro: -1.2, camada: 8,
+            meta: ["manifesto", "folha 03"], titulo: "Já pensou em quanta coisa cabe no papel?",
+            colunas: [
+              [
+                "Cabe o fluxo do pensamento.<br>O lembrete pro dia.<br>A lista de compras — e a de gratidão.<br>Cabe o rascunho e a arte.<br>A oração silenciosa.",
+                "Cabe a própria voz de Deus.",
+                "No papel cabe o Propósito de uma vida inteira.<br>E os hábitos que a constroem a cada dia, um esboço do eterno.",
+                "Nas nossas mãos, o papel vira ferramenta.<br>Nas folhas de diários, livros ou calendários, arquitetamos histórias.<br>Criamos santuários. Guardamos heranças intangíveis.",
+              ],
+              [
+                "Ligamos os pontos entre futuro e presente.<br>Riscamos a lacuna entre o Divino e o comum.<br>Entre o já e o ainda não.",
+                "Em agendas apertadas, nossa mente está no alto.<br>E entre as repetições da rotina, desejamos profundidade.<br>Não esperamos perfeição. Queremos permanecer.",
+              ],
+            ],
+            assinatura: "Dia a dia.<br>Página a página.<br>Habitar no Propósito e realizar com papel." },
+          { id: "video", tipo: "video-youtube", nome: "vídeo-manifesto", fundo: "azul", proporcao: 1.45,
+            x: 0.51, y: 0.88, largura: 0.38, giro: 1.5, camada: 9,
+            meta: ["vídeo-manifesto", "Purpose Paper"], url: "https://youtu.be/Mf1qoBb2ISo", titulo: "Vídeo-manifesto da Purpose Paper" },
+          { id: "simbolo", tipo: "foto", nome: "rebranding do símbolo", src: "assets/img/purpose-paper/simbolo.jpg", alt: "Símbolo da Purpose Paper: a estrela que vira folha de papel, e a mão que segura a folha",
+            espaco: 1.778, x: 0.5, y: 1.18, largura: 0.47, giro: -1.5, camada: 10 },
+          { id: "ps-maos", tipo: "foto-texto", nome: "papel timbrado: em nossas mãos, o papel vira ferramenta", fundo: "pagina", proporcao: 1.12, tamanho: 6.6,
+            x: 0.04, y: 1.5, largura: 0.3, giro: 2, camada: 11,
+            foto: "assets/img/purpose-paper/papel.jpg", alt: "Papel timbrado com a ilustração da Purpose Paper",
+            meta: ["copywriting", "folha 04"], texto: "Em nossas mãos, o papel vira ferramenta." },
+          // ---------- estratégia ----------
+          { id: "personalidade", tipo: "personalidade", nome: "personalidade: amiga conselheira", fundo: "rosa", proporcao: 1.3,
+            x: 0.03, y: 1.84, largura: 0.44, giro: 1.2, camada: 12,
+            meta: ["personalidade", "folha 05"], texto: "Amiga conselheira",
+            legenda: "A Purpose Paper já era percebida como uma marca amiga. Aproveitamos uma oportunidade na paisagem competitiva para reposicioná-la como uma amiga conselheira: alguém que dialoga com leveza, mas que também tem autoridade no assunto. Esse ajuste trouxe mais firmeza à comunicação, alinhando-se à história de pioneirismo e à robustez dos produtos.",
+            foto: "assets/img/purpose-paper/amigas.jpg", alt: "Duas mulheres sorrindo, abraçadas a cadernos da Purpose Paper" },
+          { id: "estrategia", tipo: "texto", nome: "estratégia de marca e identidade verbal", fundo: "salvia", proporcao: 1.6,
+            x: 0.5, y: 1.5, largura: 0.46, giro: -1, camada: 12,
+            meta: ["estratégia de marca e identidade verbal", "folha 06"], titulo: "Estratégia de marca e identidade verbal",
+            colunas: [
+              ["O desafio deste projeto foi identificar e traduzir a voz real da Purpose Paper: uma marca que já falava com seu público há seis anos, mas carecia de identidade verbal sólida, narrativa estratégica e consistência nos pontos de contato."],
+              ["A Purpose Paper vivia um momento de crescimento: de catálogo, presença digital, parcerias e equipe. A comunicação, no entanto, ainda refletia o estágio inicial da marca. Era hora de evoluir e assumir sua posição como uma editora sólida, com autoridade e autenticidade."],
+            ] },
+          { id: "pilares", tipo: "formulario", nome: "pilares do tom de voz", fundo: "pagina", proporcao: 1.12,
+            x: 0.52, y: 1.84, largura: 0.42, giro: -1, camada: 13,
+            titulo: "Pilares do tom de voz", subtitulo: "Purpose Paper · identidade verbal", colunas: ["pilar", "como soa"],
+            linhas: [
+              ["Feminino", "Nossa voz fala de mulher para mulher, no feminino. Valorizamos a escuta, o cuidado nos detalhes e a conexão que nasce da empatia."],
+              ["Gentil", "Escolhemos palavras que acolhem. Mesmo ao ensinar ou corrigir, nossa fala é respeitosa e amável — como quem fala com uma amiga querida."],
+              ["Maduro", "Não falamos por impulso. Trazemos reflexões bem pensadas, conselhos sábios e uma fé que é provada no cotidiano. Nossa maturidade dá firmeza à nossa voz."],
+              ["Prático", "Nos comprometemos a traduzir a teoria para a prática. Por isso, nossa comunicação é fácil de entender, aplicável e voltada para a vida real."],
+            ],
+            rodape: ["folha 07", "uso interno · brandbook"] },
+          { id: "fr-rotina", tipo: "frase", nome: "frase: rotina cheia de sentido", fundo: "amarelo", proporcao: 1.5, tamanho: 5.9,
+            x: 0.14, y: 2.22, largura: 0.3, giro: 2, camada: 14,
+            meta: ["copywriting", "folha 08"], texto: "A rotina pode ser cheia de tarefas, mas também pode ser cheia de sentido." },
+          // ---------- aplicações ----------
+          { id: "planner", tipo: "foto", nome: "The Purpose Planner", src: "assets/img/purpose-paper/planner.jpg", alt: "The Purpose Planner: um planner para quem sabe que toda a vida é espiritual",
+            espaco: 1.778, x: 0.5, y: 2.27, largura: 0.46, giro: 1.2, camada: 16 },
+          { id: "fr-agora", tipo: "frase", quadrada: true, nome: "frase: hábitos com Propósito", fundo: "rosinha", proporcao: 1, tamanho: 10,
+            x: 0.47, y: 2.56, largura: 0.17, giro: 4, camada: 17,
+            texto: "Seus hábitos com Propósito começam agora" },
+          { id: "fr-hora", tipo: "frase", nome: "frase: planejar e realizar", fundo: "amarelo", proporcao: 1.3, tamanho: 8.4,
+            x: 0.68, y: 2.58, largura: 0.22, giro: -3, camada: 17,
+            meta: ["copywriting", "folha 09"], texto: "É hora de planejar e realizar!" },
+          { id: "ps-dia", tipo: "passo", retrato: true, nome: "dia a dia, página a página", fundo: "salvia", proporcao: 1.3,
+            x: 0.03, y: 2.48, largura: 0.42, giro: -1.2, camada: 18,
+            olho: "copywriting", titulo: "assinatura", texto: "Dia a dia.<br>Página a página.",
+            foto: "assets/img/purpose-paper/perfil.jpg", alt: "Mulher segurando um caderno lilás da Purpose Paper" },
+          { id: "cartazes", tipo: "foto", nome: "cartazes", src: "assets/img/purpose-paper/cartazes.jpg", alt: "Cartazes da campanha da Purpose Paper na rua",
+            espaco: 1.778, x: 0.5, y: 2.82, largura: 0.47, giro: -1.2, camada: 19 },
+          { id: "loja", tipo: "foto", nome: "site: página Como tudo começou", src: "assets/img/purpose-paper/site.jpg", alt: "Página Como tudo começou do site da Purpose Paper",
+            espaco: 1.778, x: 0.04, y: 2.88, largura: 0.43, giro: 1, camada: 20 },
+          // ---------- fechamento ----------
+          { id: "entrega", tipo: "lista", nome: "entrega", fundo: "rosa", proporcao: 1,
+            x: 0.56, y: 3.14, largura: 0.26, giro: -2.5, camada: 21,
+            titulo: "Entrega",
+            itens: ["Estratégia e plataforma de marca", "Manifesto", "Tagline principal", "Redação para embalagens", "Redação para canais da marca", "Redação para comunidade", "Diretrizes de redação", "Manual de marca", "Treinamento com equipe"] },
+          { id: "creditos", tipo: "creditos", nome: "créditos", fundo: "pagina", proporcao: 2.2,
+            x: 0.1, y: 3.2, largura: 0.3, giro: 1, camada: 22,
+            meta: ["créditos", "folha 10"],
+            pares: [["Projeto desenvolvido por", "SALN Studio"]] },
+        ],
+      },
     },
     {
       id: "fifi",
-      titulo: "FIFI",
+      titulo: "Fifi",
       resumo: "naming e identidade verbal para marca de underwear",
       capa: "assets/img/fifi/capa-grade.jpg",
       subtitulo: "naming e identidade verbal",

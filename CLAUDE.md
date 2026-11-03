@@ -38,7 +38,7 @@ Escreva para a Alana em português do Brasil, em linguagem simples.
 
 ## Página de projeto em mesa de folhas (referência: Cieli)
 
-Formato novo, que vai substituir a revista projeto a projeto (próxima: Purpose Paper). O projeto tem
+Formato novo, que vai substituir a revista projeto a projeto (já na mesa: Cieli e Purpose Paper). O projeto tem
 `mesa: { ficha, abertura, folhas }` no `conteudo.js` (tipos de folha documentados no topo do arquivo).
 
 - **Imagem de destaque** (vale para todos os projetos): `abertura` fica fora da mesa, logo abaixo do
@@ -50,6 +50,8 @@ Formato novo, que vai substituir a revista projeto a projeto (próxima: Purpose 
   `proporcao` e `fundo`. A mesa é lida de cima para baixo em blocos; no arranjo inicial nenhuma
   folha cobre o texto de outra. Arrastáveis (mouse e teclado), botão "reorganizar", visor com setas
   (fotos e vídeos na ordem da lista). Abaixo de 760px ou com menos movimento, viram pilha.
+- Fotos soltas (`tipo: "foto"`) têm área fixa: `largura` com a proporção `espaco` define a área, e a
+  foto ocupa essa área na proporção original, centrada no espaço reservado.
 - Links dentro das folhas abrem num clique, mas não depois de arrastar a folha.
 - Vídeos de tela: `assets/video/<id>/`, .mp4 H.264, 1600px, 30 fps, CRF 21, sem áudio, faststart,
   com um .jpg do primeiro quadro como `capa`.
@@ -91,9 +93,8 @@ Princípios que valem para todo projeto:
 9. **Texto da Alana**: não reescrever o conteúdo dela. Só corrigir erros evidentes e avisar. Textos
    que não vieram dela (resumo da grade, texto do botão) devem ser apontados para ela revisar.
 
-Preferências já dadas pela Alana por projeto:
-- **Purpose Paper**: nenhuma imagem dentro de colunas (sem `foto-texto`/`fotos`); todas em `foto`
-  (full) ou `foto` com `largura: "wide"`. Peças verticais seguem em `galeria`.
+Projetos já na mesa de folhas: Cieli e Purpose Paper (a preferência antiga da Purpose Paper sobre
+imagens em colunas valia só para a revista).
 
 Variações bem-vindas conforme o material: começar por `foto-texto` em vez de `foto`, usar
 `foto-solta` em vez de pares, omitir o `destaque`, inverter o `lado`, etc.

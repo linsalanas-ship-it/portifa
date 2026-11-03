@@ -38,11 +38,11 @@ Em vez de `banner` + `texto`, um projeto pode ter uma lista `blocos`, montada na
 que você quiser: `lide` (abertura em letra maior), `texto` (uma coluna alinhada à esquerda,
 na largura toda; `colunas: 2` só para listas), `foto` (de ponta a ponta, ou na largura do texto com `largura: "wide"`; com `animacao: "....mp4"` vira um "gif" em vídeo, bem mais leve que um .gif), `fotos` (duas lado a lado), `foto-solta` (menor, deslocada para um lado), `foto-texto`,
 `destaque` (frase grande, como olho de revista), `intertitulo` (título de seção), `itens` (lista em grade com título e texto), `topico` (subtópico com frases ou palavras em destaque), `video` (YouTube), `galeria` (peças verticais lado a lado, carrossel no celular) e `botao` (link). Os exemplos de cada
-tipo estão no topo de `js/conteudo.js`, e os projetos "Oito vidas de um vestido" e "Purpose Paper" servem de exemplo.
+tipo estão no topo de `js/conteudo.js`, e o projeto "Oito vidas de um vestido" serve de exemplo.
 
 ### Página do projeto em mesa de folhas
 
-Um projeto pode ter `mesa` em vez de `blocos` (veja a Cieli): as folhas ficam espalhadas sobre o
+Um projeto pode ter `mesa` em vez de `blocos` (veja a Cieli e a Purpose Paper): as folhas ficam espalhadas sobre o
 papel, podem ser arrastadas, e o botão "reorganizar" volta ao arranjo inicial. Fotos e vídeos abrem
 num visor com setas. No celular, as folhas viram uma pilha. A primeira imagem (`abertura`) aparece
 em destaque no topo, levemente inclinada. Os tipos de folha estão explicados no topo de
@@ -78,7 +78,7 @@ crie um formulário grátis em [formspree.io](https://formspree.io) e cole o lin
 
 ## Depois de mudar CSS ou JavaScript
 
-Os arquivos são carregados com um número de versão (`style.css?v=2026110307`) em
+Os arquivos são carregados com um número de versão (`style.css?v=2026110308`) em
 `index.html` e `projeto.html`. Ao alterar `css/` ou `js/`, troque esse número nos dois
 arquivos (por exemplo, pela data do dia) para os visitantes não verem a versão antiga
 guardada no navegador. Para editar só o `conteudo.js` não é preciso.
