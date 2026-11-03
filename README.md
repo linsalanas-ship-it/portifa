@@ -70,16 +70,15 @@ de 200 a 700) e `descricao` (o texto do balão rosinha). Para acrescentar um ser
 O "sobre" abre como uma folha azul por cima da página (pelo menu ou pelo endereço `#sobre`).
 O texto, a foto e os links das redes ficam no bloco `sobre` do `conteudo.js`.
 
-### Formulário de contato
+### Contato
 
-O formulário envia as mensagens direto para o e-mail de `contato.email`, pelo
-[FormSubmit](https://formsubmit.co) (grátis, sem cadastro). Na primeira mensagem enviada pelo
-site, o FormSubmit manda um e-mail pedindo para **ativar o formulário**: é só clicar no link.
-Para desligar, deixe o campo `envio` vazio — aí o botão abre o programa de e-mail da pessoa.
+A seção "Vamos colaborar?" tem um botão "fale comigo" que abre o programa de e-mail da pessoa,
+já endereçado para `contato.email` e com o assunto de `contato.assunto`. O texto do botão fica em
+`contato.botao`.
 
 ## Depois de mudar CSS ou JavaScript
 
-Os arquivos são carregados com um número de versão (`style.css?v=2026110312`) em
+Os arquivos são carregados com um número de versão (`style.css?v=2026110313`) em
 `index.html` e `projeto.html`. Ao alterar `css/` ou `js/`, troque esse número nos dois
 arquivos (por exemplo, pela data do dia) para os visitantes não verem a versão antiga
 guardada no navegador. Para editar só o `conteudo.js` não é preciso.

@@ -31,14 +31,16 @@ Escreva para a Alana em português do Brasil, em linguagem simples.
 - Sopa de letrinhas: cada serviço tem um `peso` de fonte (200–700) e vai a 800 no hover/seleção;
   a descrição abre num balão rosinha. Cards da grade: no hover a capa sobe 4px e um risco de lápis
   (SVG + filtro `#grafite`) se desenha sob o título. Cada seção sobe 70px→0 ao entrar na tela.
-- Contato: o formulário envia pelo FormSubmit (grátis, sem cadastro; `contato.envio`), que pede
-  ativação por e-mail na primeira mensagem. Depois de enviar, os campos se dobram, um aviãozinho
-  voa e aparece "Mensagem enviada!". Se o envio falhar, aparece o e-mail para escrever direto.
+- Contato: sem formulário. Subtítulo com o e-mail e um botão "fale comigo" (link mailto, com
+  assunto); ao clicar, o botão se dobra e vira um aviãozinho que voa até o canto da tela.
 - Páginas de projeto: mesmo papel cru. Nas páginas em revista não há rastro de lápis (o cursor de
   lápis continua); na mesa de folhas o rastro liga, mas não risca sobre folhas, fotos e textos nem
   durante o arrasto.
 - Rastro de lápis (`js/lapis.js`): no computador segue o mouse (pontos na página); no celular segue
-  o dedo (pontos na tela, porque arrastar rola a página). Não mudar o comportamento do computador.
+  o dedo (pontos na tela). No celular, o primeiro movimento decide: na horizontal é rabisco (a
+  página trava e o lápis risca); na vertical é rolagem (a página rola e não risca). Não mudar o
+  comportamento do computador.
+- Pilha (celular): cards com espaço entre eles (sem sobreposição) e o "↗" das fotos pequeno e discreto.
 
 ## Página de projeto em mesa de folhas (referência: Cieli)
 

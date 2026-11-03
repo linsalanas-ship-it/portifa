@@ -642,11 +642,9 @@ const SITE = {
     titulo: "Vamos colaborar?",
     descricao: "Envie seu alô para contatosalnstudio@gmail.com.", // o e-mail vira link
     email: "contatosalnstudio@gmail.com", // as mensagens do formulário vão para este e-mail
-    // O formulário envia pelo FormSubmit (grátis, sem cadastro): as mensagens chegam
-    // no e-mail acima. Na primeira mensagem, o FormSubmit manda um e-mail pedindo
-    // para ativar o formulário: é só clicar no link. Para desligar, deixe "" — aí o
-    // botão abre o programa de e-mail da pessoa.
-    envio: "https://formsubmit.co/ajax/contatosalnstudio@gmail.com",
+    // o botão abre o programa de e-mail da pessoa, já com o assunto preenchido
+    botao: "fale comigo",
+    assunto: "Contato pelo site",
     redes: [
       // { nome: "instagram", url: "https://instagram.com/seuperfil" },
       // { nome: "linkedin", url: "https://linkedin.com/in/seuperfil" },

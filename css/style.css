@@ -567,6 +567,8 @@ html.travado { overflow: hidden; }
 .tema-azul .botao:hover { color: var(--cru); background: transparent; }
 .tema-azul :focus-visible { outline-color: var(--cru); }
 .contato .subtitulo a { text-underline-offset: 0.2em; }
+.contato__acao { width: 100%; max-width: var(--largura); margin-top: clamp(2.5rem, 6vw, 4rem); }
+.contato__acao .botao { display: inline-block; margin-left: 0; padding: 0.55rem 1.8rem; text-decoration: none; }
 
 /* Contato */
 .contato .titulo { margin-bottom: 2.25rem; }
@@ -1384,12 +1386,12 @@ html.visor-aberto { overflow: hidden; }
 .pilha .projeto--mesa .cab { grid-template-columns: 1fr; }
 .pilha .mesa { height: auto !important; display: flex; flex-direction: column; align-items: center; padding: 1rem 0 2rem; }
 .pilha .acoes { display: none; }
-.pilha .folha { position: relative; width: 100% !important; max-width: 34rem; aspect-ratio: auto !important; transform: none !important; margin-top: -1.25rem; cursor: auto; user-select: text; -webkit-user-select: text; touch-action: auto; z-index: auto !important; transition: none; }
+.pilha .folha { position: relative; width: 100% !important; max-width: 34rem; aspect-ratio: auto !important; transform: none !important; margin-top: 1.25rem; cursor: auto; user-select: text; -webkit-user-select: text; touch-action: auto; z-index: auto !important; transition: none; }
 .pilha .folha:nth-child(odd) { rotate: -1.2deg; }
 .pilha .folha:nth-child(even) { rotate: 1deg; }
 .pilha .f-foto { aspect-ratio: var(--ar) !important; }
 .pilha .f-achados { width: 82% !important; align-self: flex-end; margin-top: 0.75rem; }
-.pilha .pad { padding: 1.25rem 1.25rem 2.25rem; gap: 1rem; }
+.pilha .pad { padding: 1.25rem 1.25rem 1.5rem; gap: 1rem; }
 .pilha .meta { font-size: 0.75rem; }
 .pilha .corrido { font-size: 1rem !important; }
 .pilha .corrido--duas { columns: 1; }
@@ -1431,7 +1433,8 @@ html.visor-aberto { overflow: hidden; }
 .pilha .creditos { font-size: 1rem; gap: 0.4rem 1rem; }
 .pilha .creditos dt { font-size: 0.6875rem; }
 .pilha .proximo { font-size: 1.1rem; padding-top: 0.7rem; }
-.pilha .ampliar { top: 0.75rem; bottom: auto; }
+.pilha .ampliar { top: 0.6rem; bottom: auto; right: 0.6rem; width: 1.55rem; height: 1.55rem; font-size: 0.8rem; border-color: rgba(0, 0, 236, 0.35); background: rgba(251, 247, 239, 0.75); }
+.pilha .folha:hover .ampliar, .pilha .heroi .ampliar, .pilha .folha .ampliar { opacity: 0.85; }
 .pilha .heroi { transform: rotate(-0.8deg); }
 .pilha .duas { grid-template-columns: 1fr; gap: 0.8em; }
 .pilha .destaque-in { font-size: 1.5rem; }
