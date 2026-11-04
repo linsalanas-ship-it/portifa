@@ -24,25 +24,41 @@
   window.addEventListener("keydown", sair);
 
   /* ---------- a bonequinha aparece inteira e balança ---------- */
+  // desenhada em azul num canvas (sem máscara: no iPhone a máscara pode travar a animação)
+  // e só começa a balançar depois que a imagem carregou
   window.scrollTo(0, 0);
-  var duracao;
-  if (reduzido) {
-    duracao = 1600;
-  } else {
+  var comecou = false;
+  function comecar() {
+    if (comecou || fase !== "abertura") return;
+    comecou = true;
+    boneca.style.opacity = "1";
+    if (reduzido) { setTimeout(sair, 1600); return; }
     boneca.animate([{ opacity: 0, transform: "scale(.96)" }, { opacity: 1, transform: "none" }],
       { duration: 400, easing: "ease-out" });
     // de um lado para o outro, como no balanço da assinatura do menu
     boneca.animate([
       { transform: "rotate(0deg)" },
       { transform: "rotate(-8deg)", offset: 0.16 },
-      { transform: "rotate(8deg) translateX(0.12em)", offset: 0.38 },
+      { transform: "rotate(8deg) translateX(3px)", offset: 0.38 },
       { transform: "rotate(-6deg)", offset: 0.6 },
-      { transform: "rotate(5deg) translateX(0.08em)", offset: 0.8 },
+      { transform: "rotate(5deg) translateX(2px)", offset: 0.8 },
       { transform: "rotate(0deg)" }
-    ], { duration: 2400, delay: 350, easing: "ease-in-out" });
-    duracao = 3000;
+    ], { duration: 2400, delay: 400, easing: "ease-in-out" });
+    setTimeout(sair, 3000);
   }
-  setTimeout(sair, duracao);
+  var img = new Image();
+  img.onload = function () {
+    var g = boneca.getContext("2d");
+    g.drawImage(img, 0, 0, boneca.width, boneca.height);
+    g.globalCompositeOperation = "source-in";
+    g.fillStyle = "#0000ec";
+    g.fillRect(0, 0, boneca.width, boneca.height);
+    comecar();
+  };
+  img.onerror = function () { sair(); };
+  img.src = "assets/img/rosto.png";
+  // se a imagem demorar demais, o site abre assim mesmo
+  setTimeout(function () { if (!comecou) sair(); }, 4000);
 
   /* ---------- saída: o papel é empurrado para cima ---------- */
   function sair() {

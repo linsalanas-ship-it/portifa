@@ -955,19 +955,23 @@ body { overflow-x: clip; } /* fotos de ponta a ponta não criam rolagem lateral 
   overflow: hidden;
   touch-action: none;
 }
-.abertura__folha { position: absolute; inset: 0; background: var(--cru); }
-.abertura__boneca {
+.abertura__folha {
   position: absolute;
-  left: 50%;
-  top: 47%;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 6vh; /* a bonequinha fica um pouco acima do meio */
+  background: var(--cru);
+}
+.abertura__boneca {
+  display: block;
   height: min(36vh, 280px, 45.6vw);
+  width: auto;
   aspect-ratio: 737 / 800;
-  margin: 0;
-  translate: -50% -50%;
-  background-color: var(--azul);
-  -webkit-mask: url("../assets/img/rosto.png") center / contain no-repeat;
-  mask: url("../assets/img/rosto.png") center / contain no-repeat;
+  opacity: 0; /* aparece quando a imagem estiver pronta (js/abertura.js) */
   transform-origin: 50% 85%;
+  will-change: transform;
 }
 
 /* ===================== Lápis ===================== */
