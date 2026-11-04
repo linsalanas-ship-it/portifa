@@ -18,7 +18,8 @@ Escreva para a Alana em português do Brasil, em linguagem simples.
   animação.
   Menus, subtítulos e textos em caixa baixa.
 - Abertura (`js/abertura.js`, só na 1ª visita da sessão e sem #âncora): folha cru com a
-  bonequinha inteira (máscara do `rosto.png` em azul) balançando de um lado para o outro por ~2,4 s;
+  bonequinha inteira (o `rosto.png` pintado de azul num canvas, sem máscara, que trava no iPhone;
+  só balança depois que a imagem carrega) balançando de um lado para o outro por ~2,4 s;
   depois a folha sobe e o site sobe colado nela. Clique, toque, rolagem ou tecla pulam. Durante a
   abertura o rastro do `lapis.js` fica pausado.
 - Menu: "alana lins" à esquerda com a assinatura (a bonequinha como máscara do `rosto.png`, balança
